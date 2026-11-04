@@ -1,4 +1,5 @@
-streamlit
+streamlit==1.38.0
+pyarrow
 yfinance
 pandas
 numpy

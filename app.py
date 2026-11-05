@@ -25,16 +25,8 @@ st.set_page_config(
     layout="wide",
 )
 
-PRESET_TICKERS = {
-    "日本個別株（代表例）": [
-        "7203.T", "6758.T", "8306.T", "6501.T", "9984.T",
-        "8035.T", "6861.T", "7974.T", "8058.T", "9432.T",
-    ],
-    "国内ETF（代表例）": [
-        "1306.T", "1308.T", "1321.T", "1475.T", "1655.T",
-        "2558.T", "2559.T", "2621.T",
-    ],
-}
+from stock_screener.universe import MAX_TICKERS, PRESET_TICKERS
+
 
 STRATEGY_LABELS = {
     "lbr_anti_310_adaptation_v1": "3/10適応版（SMA 3/10/16）",
@@ -362,9 +354,9 @@ def main() -> None:
 
     if invalid_tickers:
         st.error(f"無効な東証ティッカー: {', '.join(invalid_tickers)}")
-    if len(tickers) > 100:
-        st.error("一度に指定できる銘柄は100件までです。")
-    can_run = bool(tickers) and not invalid_tickers and len(tickers) <= 100
+    if len(tickers) > MAX_TICKERS:
+        st.error(f"一度に指定できる銘柄は{MAX_TICKERS}件までです。")
+    can_run = bool(tickers) and not invalid_tickers and len(tickers) <= MAX_TICKERS
 
     if st.button("スクリーニング実行", type="primary", disabled=not can_run):
         summaries, errors, chart_data = run_screening(

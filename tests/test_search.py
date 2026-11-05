@@ -73,3 +73,21 @@ class SearchTests(unittest.TestCase):
             at.button[0].click().run()
             self.assertEqual(len(at.exception),0)
             self.assertIn('rsi',at.dataframe[1].value.columns)
+
+    def test_expanded_universe_selection_and_limit_without_network(self):
+        page=Path(__file__).resolve().parents[1]/'pages'/'1_銘柄検索.py'
+        with patch('app.fetch_daily_prices') as fetch:
+            at=AppTest.from_file(str(page)).run()
+            at.selectbox[1].select('日本個別株＋国内ETF（代表例）').run()
+            from app import normalize_tickers
+            tickers, invalid = normalize_tickers(at.text_area[0].value)
+            self.assertEqual(len(tickers),70)
+            self.assertEqual(invalid,[])
+            at.selectbox[1].select('国内ETF（代表例）').run()
+            self.assertEqual(len(normalize_tickers(at.text_area[0].value)[0]),20)
+            fetch.assert_not_called()
+            at.text_area[0].set_value(','.join(str(code) for code in range(1000,1101)))
+            at.button[0].click().run()
+            self.assertEqual(len(at.exception),0)
+            self.assertIn('100',at.error[0].value)
+            fetch.assert_not_called()

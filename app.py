@@ -19,11 +19,6 @@ import yfinance as yf
 from stock_screener.anti import evaluate_anti_310, evaluate_anti_stochastic
 
 
-st.set_page_config(
-    page_title="LBR Anti ロジック検証",
-    page_icon="📈",
-    layout="wide",
-)
 
 from stock_screener.universe import MAX_TICKERS, PRESET_TICKERS
 
@@ -309,6 +304,11 @@ def run_screening(
 
 
 def main() -> None:
+    st.set_page_config(
+        page_title="LBR Anti ロジック検証",
+        page_icon="📈",
+        layout="wide",
+    )
     st.title("LBR Anti ロジック検証")
     st.caption(
         "セットアップとフックの成立過程を確認するための画面です。"

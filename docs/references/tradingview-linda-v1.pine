@@ -1,0 +1,61 @@
+//@version=6
+indicator("Linda Raschke MACD + Stochastic", overlay=false)
+
+// === MACD 3-10-16 ===
+fastLen   = input.int(3,  "MACD Fast EMA")
+slowLen   = input.int(10, "MACD Slow EMA")
+signalLen = input.int(16, "MACD Signal EMA")
+
+macdLine   = ta.ema(close, fastLen) - ta.ema(close, slowLen)
+signalLine = ta.ema(macdLine, signalLen)
+hist       = macdLine - signalLine
+
+// === Stochastic 7-10-3 ===
+kLen     = input.int(7,  "Stoch %K Length")
+dLen     = input.int(10, "Stoch %D Length")
+smoothK  = input.int(3,  "Stoch %K Smoothing")
+
+rawK = ta.stoch(close, high, low, kLen)
+k    = ta.sma(rawK, smoothK)
+d    = ta.sma(k, dLen)
+
+// === MACD Signals ===
+macdBuy  = ta.crossover(macdLine, signalLine)
+macdSell = ta.crossunder(macdLine, signalLine)
+
+// === Stochastic Hook Signals ===
+stochBuyHook  = k > k[1] and k[1] < k[2] and d > d[1]
+stochSellHook = k < k[1] and k[1] > k[2] and d < d[1]
+
+// === Combined Signals ===
+buySignal  = macdBuy and stochBuyHook
+sellSignal = macdSell and stochSellHook
+
+// === Plot MACD ===
+plot(macdLine,   title="MACD 3-10", color=color.blue, linewidth=2)
+plot(signalLine, title="Signal 16", color=color.orange, linewidth=2)
+plot(hist, title="MACD Histogram", style=plot.style_columns,
+     color=hist >= 0 ? color.new(color.green, 30) : color.new(color.red, 30))
+
+hline(0, "Zero Line", color=color.gray)
+
+// === Plot Stochastic ===
+plot(k, title="Stoch %K 7/3", color=color.lime, linewidth=2)
+plot(d, title="Stoch %D 10", color=color.red, linewidth=2)
+
+hline(80, "Stoch Overbought", color=color.new(color.gray, 60))
+hline(20, "Stoch Oversold", color=color.new(color.gray, 60))
+
+// === Signal Marks ===
+plotshape(buySignal, title="Buy Signal", style=shape.triangleup,
+     location=location.bottom, color=color.green, size=size.small, text="BUY")
+
+plotshape(sellSignal, title="Sell Signal", style=shape.triangledown,
+     location=location.top, color=color.red, size=size.small, text="SELL")
+
+// === Alerts ===
+alertcondition(buySignal, title="Linda Buy Signal",
+     message="Linda Raschke MACD + Stochastic BUY Signal")
+
+alertcondition(sellSignal, title="Linda Sell Signal",
+     message="Linda Raschke MACD + Stochastic SELL Signal")

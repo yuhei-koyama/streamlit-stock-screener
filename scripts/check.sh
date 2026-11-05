@@ -11,6 +11,6 @@ fi
 
 cd "${project_root}"
 "${python_bin}" -m unittest discover -s tests -t . -v
-"${python_bin}" -m compileall -q app.py stock_screener tests pages
+"${python_bin}" -m compileall -q app.py stock_screener tests pages scripts
 
 echo "Unit tests and Python compilation passed."

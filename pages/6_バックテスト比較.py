@@ -9,7 +9,7 @@ import streamlit as st
 st.set_page_config(page_title='バックテスト比較',layout='wide')
 st.title('バックテスト比較')
 st.caption('検索と同じ判定関数を使った固定7設定×出口A/Bの保存結果を確認します。画面を開いても取得やバックテストは実行しません。')
-st.info('実データ検証には、当時の名目価格・単元・企業行動データの確認が必要です。保存結果には使用データと設定が記録されています。')
+st.info('探索モードは調整済み価格・仮想1株単位、厳密モードは当時の名目価格・単元を使います。保存結果には区分と設定が記録されています。')
 upload=st.file_uploader('保存結果ZIP（run.json・summary.csvと各条件の結果フォルダー）',type=['zip'])
 if upload is not None:
     try:
@@ -26,6 +26,8 @@ if upload is not None:
                 st.warning('合成データによる動作確認です。実際の収益性を示すものではありません。')
             else:
                 st.warning('固定された現在の70銘柄による探索検証です。将来の利益やオルカン超過を確認した結果ではありません。')
+            if manifest.get('execution_mode')=='exploratory':
+                st.warning('調整済み価格・仮想1株単位の探索結果です。配当を現金で別加算せず、実際の単元や配当入金時期を再現していません。')
             for warning in manifest.get('warnings',[]):
                 st.caption(warning)
             st.json(manifest,expanded=False)

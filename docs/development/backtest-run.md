@@ -61,3 +61,7 @@ python scripts/collect_backtest_source.py --output artifacts/backtest/source-001
 - fc.yahoo.comを許可する設定ドラフトを保存済みでユーザーも反映を許可したが、確認時の実適用済み許可リストはquery1/query2のみ。ツールに実適用/Publish機能はない。
 - 名目約定価格・過去単元・企業行動の必要データも未入手。実市場の14条件のバックテストは未実行で、CAGRやランキングは作成していない。
 - 次はネットワーク設定の適用を確認し、保存可能なソースを一度取得して上記の必要データを照合する。不足は推測せず報告する。mainは更新しない。
+
+## 追記: 承認済みのローカル探索モード
+
+調整済み価格・仮想1株単位・配当別加算なしの`--mode exploratory`を追加した。上記の名目価格・実単元に関する厳密要件は既定のstrictモードについての説明であり、探索モードでは別契約を明示して使う。具体的なローカル操作は[ローカル探索手順](local-exploratory-backtest.md)、仕様は[探索モード](../specs/exploratory-backtest-v1.md)を参照。

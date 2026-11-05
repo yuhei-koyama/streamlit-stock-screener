@@ -2,7 +2,7 @@
 set -euo pipefail
 
 project_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
-python_bin="${project_root}/.venv/bin/python"
+python_bin="${VENV_DIR:-${project_root}/.venv}/bin/python"
 
 if [[ ! -x "${python_bin}" ]]; then
   echo "Missing .venv. Run: bash scripts/setup.sh" >&2
@@ -11,6 +11,6 @@ fi
 
 cd "${project_root}"
 "${python_bin}" -m unittest discover -s tests -t . -v
-"${python_bin}" -m compileall -q app.py stock_screener tests
+"${python_bin}" -m compileall -q app.py stock_screener tests pages
 
 echo "Unit tests and Python compilation passed."

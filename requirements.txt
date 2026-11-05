@@ -1,4 +1,4 @@
-# Runtime dependencies. Bounds keep Python 3.11 installs compatible while
+# Runtime dependencies. Bounds keep Python 3.11/3.14 installs compatible while
 # allowing security and bug-fix releases within the tested major versions.
 streamlit>=1.41,<2
 yfinance>=0.2.54,<1

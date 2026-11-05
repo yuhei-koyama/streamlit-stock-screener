@@ -5,7 +5,7 @@
 ## 前提
 
 - GitHub上の作業ブランチをクラウド環境でcloneする。
-- LinuxとPython 3.11を使用する。`.python-version`とdevcontainerも3.11に統一している。
+- Python 3.14を推奨し、3.11も継続対応する。`.python-version`は3.14、devcontainerは既存の3.11を維持する。
 - プロジェクト専用の`.venv`へ依存を導入する。
 - 現在のアプリは公開APIキーを必要としない。ただし株価取得時にYahoo Financeへの外向き通信が必要である。
 - テストは固定データを使い、外部通信を行わない。
@@ -20,7 +20,7 @@ bash scripts/setup.sh
 
 devcontainerまたはGitHub Codespacesでは`postCreateCommand`が同じスクリプトを実行する。OpenAIのクラウド環境でセットアップコマンドを指定できる場合も、リポジトリをcloneした後にこの1コマンドを指定する。
 
-スクリプトはPython 3.11以外を検出すると停止する。既存`.venv`のPython版が異なる場合も、自動削除せず停止するため、作業内容を確認してから環境を作り直す。
+スクリプトはPython 3.11/3.14に対応する。既存`.venv`を優先し、新規作成時は3.14、3.11の順に検出する。`PYTHON_BIN`で明示できる。バージョンの不一致時は自動削除せず停止する。別環境での検証例: `PYTHON_BIN=python3.14 VENV_DIR="$PWD/.venv314" bash scripts/setup.sh`。チェックにも同じ`VENV_DIR`を渡す。
 
 ## 検証
 
@@ -55,7 +55,7 @@ curl --fail http://127.0.0.1:8501/_stcore/health
 
 ## 依存の再現性
 
-`requirements.txt`はPython 3.11互換のメジャー版範囲を制約している。完全な再現が必要な評価段階では、Linux/Python 3.11上で検証した解決済みバージョンを別のlock成果物へ固定する。現段階ではバックテストを行わないため、未検証の環境固有lockを作らない。
+`requirements.txt`はPython 3.11/3.14互換のメジャー版範囲を制約している。完全な再現が必要な評価段階では、Linux/Python 3.11上で検証した解決済みバージョンを別のlock成果物へ固定する。現段階ではバックテストを行わないため、未検証の環境固有lockを作らない。
 
 OpenAI-hosted environments一般では、依存パッケージの版指定と順序付きsetup commandが提供されている。これはCodexの画面設定そのものを断定する根拠ではなく、環境再現方針の参考である。公式資料: [OpenAI-hosted sandboxes](https://developers.openai.com/api/docs/guides/agents-api/environments/openai-hosted)
 

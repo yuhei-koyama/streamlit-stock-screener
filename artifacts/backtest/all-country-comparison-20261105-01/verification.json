@@ -1,0 +1,96 @@
+{
+  "status": "passed",
+  "validated_conditions": 14,
+  "positive_mean_excess_conditions": 0,
+  "original_columns_preserved": true,
+  "benchmark_recalculation": true,
+  "input_hashes_verified": 60,
+  "group_totals_verified": true,
+  "zip_verified": true,
+  "conditions": [
+    {
+      "strategy_id": "tv_ema_stoch_v1",
+      "exit_policy": "A",
+      "trades": 943,
+      "mean_excess_return": -0.0016790011888592141
+    },
+    {
+      "strategy_id": "tv_ema_stoch_v1",
+      "exit_policy": "B",
+      "trades": 957,
+      "mean_excess_return": -0.0019155146421335465
+    },
+    {
+      "strategy_id": "lbr_anti_310_adaptation_v1",
+      "exit_policy": "A",
+      "trades": 1479,
+      "mean_excess_return": -0.004398425902939589
+    },
+    {
+      "strategy_id": "lbr_anti_310_adaptation_v1",
+      "exit_policy": "B",
+      "trades": 1480,
+      "mean_excess_return": -0.004373145617135302
+    },
+    {
+      "strategy_id": "lbr_anti_stochastic_v1",
+      "exit_policy": "A",
+      "trades": 1128,
+      "mean_excess_return": -0.004297812996246767
+    },
+    {
+      "strategy_id": "lbr_anti_stochastic_v1",
+      "exit_policy": "B",
+      "trades": 1129,
+      "mean_excess_return": -0.004427866802516631
+    },
+    {
+      "strategy_id": "legacy_ema_sma16_v1",
+      "exit_policy": "A",
+      "trades": 8648,
+      "mean_excess_return": -0.0024632888538341433
+    },
+    {
+      "strategy_id": "legacy_ema_sma16_v1",
+      "exit_policy": "B",
+      "trades": 8703,
+      "mean_excess_return": -0.0017795202708512422
+    },
+    {
+      "strategy_id": "minervini_screen_v1",
+      "exit_policy": "A",
+      "trades": 1052,
+      "mean_excess_return": -0.004230708723768932
+    },
+    {
+      "strategy_id": "minervini_screen_v1",
+      "exit_policy": "B",
+      "trades": 1058,
+      "mean_excess_return": -0.001863198671927843
+    },
+    {
+      "strategy_id": "rsi2_screen_v1",
+      "exit_policy": "A",
+      "trades": 5248,
+      "mean_excess_return": -0.005536636584630245
+    },
+    {
+      "strategy_id": "rsi2_screen_v1",
+      "exit_policy": "B",
+      "trades": 5293,
+      "mean_excess_return": -0.003599781451734673
+    },
+    {
+      "strategy_id": "rsi14_screen_v1",
+      "exit_policy": "A",
+      "trades": 214,
+      "mean_excess_return": -0.014715531930229626
+    },
+    {
+      "strategy_id": "rsi14_screen_v1",
+      "exit_policy": "B",
+      "trades": 214,
+      "mean_excess_return": -8.61802070768988e-05
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "status": "passed",
+  "verified_conditions": 14,
+  "no_limit_positive_mean_excess_conditions": 7,
+  "original_input_hashes_unchanged": true,
+  "exact_entries_match": true,
+  "terminal_valuation_verified": true,
+  "archive_checks_passed": true,
+  "conditions": [
+    {
+      "strategy_id": "tv_ema_stoch_v1",
+      "exit_policy": "A",
+      "entries_verified": 974,
+      "no_time_exits": true,
+      "exact_entry_match": true,
+      "terminal_valuation_verified": true
+    },
+    {
+      "strategy_id": "tv_ema_stoch_v1",
+      "exit_policy": "B",
+      "entries_verified": 974,
+      "no_time_exits": true,
+      "exact_entry_match": true,
+      "terminal_valuation_verified": true
+    },
+    {
+      "strategy_id": "lbr_anti_310_adaptation_v1",
+      "exit_policy": "A",
+      "entries_verified": 1507,
+      "no_time_exits": true,
+      "exact_entry_match": true,
+      "terminal_valuation_verified": true
+    },
+    {
+      "strategy_id": "lbr_anti_310_adaptation_v1",
+      "exit_policy": "B",
+      "entries_verified": 1507,
+      "no_time_exits": true,
+      "exact_entry_match": true,
+      "terminal_valuation_verified": true
+    },
+    {
+      "strategy_id": "lbr_anti_stochastic_v1",
+      "exit_policy": "A",
+      "entries_verified": 1144,
+      "no_time_exits": true,
+      "exact_entry_match": true,
+      "terminal_valuation_verified": true
+    },
+    {
+      "strategy_id": "lbr_anti_stochastic_v1",
+      "exit_policy": "B",
+      "entries_verified": 1144,
+      "no_time_exits": true,
+      "exact_entry_match": true,
+      "terminal_valuation_verified": true
+    },
+    {
+      "strategy_id": "legacy_ema_sma16_v1",
+      "exit_policy": "A",
+      "entries_verified": 8853,
+      "no_time_exits": true,
+      "exact_entry_match": true,
+      "terminal_valuation_verified": true
+    },
+    {
+      "strategy_id": "legacy_ema_sma16_v1",
+      "exit_policy": "B",
+      "entries_verified": 8853,
+      "no_time_exits": true,
+      "exact_entry_match": true,
+      "terminal_valuation_verified": true
+    },
+    {
+      "strategy_id": "minervini_screen_v1",
+      "exit_policy": "A",
+      "entries_verified": 1089,
+      "no_time_exits": true,
+      "exact_entry_match": true,
+      "terminal_valuation_verified": true
+    },
+    {
+      "strategy_id": "minervini_screen_v1",
+      "exit_policy": "B",
+      "entries_verified": 1089,
+      "no_time_exits": true,
+      "exact_entry_match": true,
+      "terminal_valuation_verified": true
+    },
+    {
+      "strategy_id": "rsi2_screen_v1",
+      "exit_policy": "A",
+      "entries_verified": 5295,
+      "no_time_exits": true,
+      "exact_entry_match": true,
+      "terminal_valuation_verified": true
+    },
+    {
+      "strategy_id": "rsi2_screen_v1",
+      "exit_policy": "B",
+      "entries_verified": 5295,
+      "no_time_exits": true,
+      "exact_entry_match": true,
+      "terminal_valuation_verified": true
+    },
+    {
+      "strategy_id": "rsi14_screen_v1",
+      "exit_policy": "A",
+      "entries_verified": 214,
+      "no_time_exits": true,
+      "exact_entry_match": true,
+      "terminal_valuation_verified": true
+    },
+    {
+      "strategy_id": "rsi14_screen_v1",
+      "exit_policy": "B",
+      "entries_verified": 214,
+      "no_time_exits": true,
+      "exact_entry_match": true,
+      "terminal_valuation_verified": true
+    }
+  ]
+}

@@ -1,0 +1,524 @@
+{
+  "kind": "market",
+  "provider": "yfinance/Yahoo Finance",
+  "retrieved_at": "2026-11-05T10:33:45.312042+00:00",
+  "execution_price_basis": "adjusted_virtual_shares",
+  "actions_verified": false,
+  "lot_sizes_verified": false,
+  "dividend_mode": "embedded_in_adjusted_prices",
+  "lot_size_model": "virtual_one_share",
+  "source_hashes": {
+    "signals_7203.T.csv": "43f4e7923c208e5cffa04846ab72dceb1ab53fea0f3c86c4c672d4250e58f4fb",
+    "signals_6758.T.csv": "1ff05d44ecdeb5f39e726bacde1270c70a03c38d31c5f5a2e495f3d89319355e",
+    "signals_8306.T.csv": "bfdec2236a11c7b21b8a1fd4d77ad5464569ff08a3b728583750a763c8f00a67",
+    "signals_6501.T.csv": "28b2913fd70f490518068b71b7e11fee4602e1b5273566981a425fd53297a29d",
+    "signals_9984.T.csv": "b89c65cc315e3aac0e435e7476f314c7a12b71302b2e79876b359e0dedb2ade5",
+    "signals_8035.T.csv": "ee3eeb8b75802b9558eeec1dd05f9635bf00b85a53bbb98a86edf3f67b6465ce",
+    "signals_6861.T.csv": "02b0f798e8635e5014babdf45614d328bd3d70a776d45f086a30c6b9c543c183",
+    "signals_7974.T.csv": "d4573617c9e2a0c9a0d8ca3b279ef30b83101c0c518a689f5003dabd05104569",
+    "signals_8058.T.csv": "ae718f1b8f57ce14ac08cf1710928578c65b9c7e470a7b01bdc99e84957ce7c0",
+    "signals_9432.T.csv": "bcad2130301b9f5f075d4a5388de13e4ea0c641f515527de92af02a3b5fce970",
+    "signals_8316.T.csv": "184f33b1c0c5a010072973266b27f2485aa41bfb131ce13d3e426de151eae9e1",
+    "signals_8411.T.csv": "630b6e3beddd760b746ff48d4ad8893387225b6ca3f51166c474c844428e0aae",
+    "signals_8766.T.csv": "ee4823a553a0f43a3d2b201a68211d47ef8f14505556f608f412d39a84a96010",
+    "signals_8001.T.csv": "448ff0fca2d795e9458f03fb9b8444f39d06558db1387554693fa40e1b34d271",
+    "signals_8031.T.csv": "182c9e8de681d5001405b33276c37d8f9a7075e52756d79c6f1d0ec3d595fe77",
+    "signals_8002.T.csv": "b83fe828e4c5744afe14af8db12711e83e9f8fa42bdc6d4f85d56ebbc93d529c",
+    "signals_8053.T.csv": "d459e951808b1af76b7e2b611687732ef56c55111a380f76d1f6cc5ab0f2606e",
+    "signals_9433.T.csv": "e312c681524fc8e347f1e57bdecbc848b6f93ecec6b487980e7d1d50b37e00f9",
+    "signals_9434.T.csv": "bb36ada368373b62b6b314062ee9d600c56b642674bf17939f774b594871215d",
+    "signals_9983.T.csv": "93e1359cb982fdd828683b53824d56328068739a103318528c8880e51b6bc001",
+    "signals_4063.T.csv": "fa5c9b96a374571fb447e9319007523f69fdeaa419c9f17385bf268a7b55e7c5",
+    "signals_6098.T.csv": "c4b50124a1f98c22c4e86db010e522a3c94c8ffac93f9a1156e596972a55e4f0",
+    "signals_6367.T.csv": "1b367327f0f2bd01a15782724118b10c8e011bbe99ea5291bda5c4c78bd1a637",
+    "signals_6954.T.csv": "777a5b0648e19ad295d39abc5dc6860f7f4c416a0d1286acb985dea743cf498f",
+    "signals_6902.T.csv": "a93972340f5d3d3dac3836036c58be95a05f4ea24df9fa828a40f86a82df89fd",
+    "signals_4502.T.csv": "e1ee1738c7a568056a81dec1820d6bf4ca747dc2b771ea43369d703fd81591c8",
+    "signals_4503.T.csv": "9179bf9e3049887eb647d3027b05df43bef94d051a1ab43aa765619d4ae90258",
+    "signals_4568.T.csv": "d68116c6e37a27e552f05f4bea31a66d8f9c714c25f78204abd3243ece7cad9d",
+    "signals_4519.T.csv": "4d005059cedcf0d00903e20754470a53a9e170c280d2da2a716e1f0af26f2a7a",
+    "signals_4661.T.csv": "c8f7f542a576bca31fa5c6e0978f7225802086e132f9e052569f380d77f8ce6c",
+    "signals_3382.T.csv": "b1b5f14392b7b1fbd69e681cc59bab558ae0fffcf5858c21208a19dd338fa3f6",
+    "signals_8267.T.csv": "5c0ac486f746703dd8f8fb395c9a230a08a7de7c211fdd8659dc6fb957308694",
+    "signals_9843.T.csv": "cc5a10750d2138f02eb287b049759709c67f06fbe9272ff3d65b0ae5136df757",
+    "signals_2802.T.csv": "21face3e1ce3af9196af51d3d5c17246f5b8a62b6935e8bfd3e9f0d055e0bf1e",
+    "signals_2914.T.csv": "bf9392e9cabcb5ee3c2f9c2e8b1116b73f21bdd761964eafd2e1fc81ffd849f7",
+    "signals_2502.T.csv": "6af3518c75fc2885345d1a7c917ef9248490a875ba84c576c5c921a63e4aa262",
+    "signals_2503.T.csv": "ff2ad8d028c3225f0f1c42ca077127bce5f8a52c9da5875a37564aa614b5cbdd",
+    "signals_8801.T.csv": "bd551aefb5dfc04384ae9fee11bf1a341643d57215e9d456a292f70cf7b91136",
+    "signals_8802.T.csv": "28f6ad6b6e78b9a2a659c08f10a9963b5fdd5b3cb38027fe83363f528167adb1",
+    "signals_9020.T.csv": "ef8fa5569da300181eabad8a910b35da01bb4c91d99d53bcd0724a8270112fca",
+    "signals_9022.T.csv": "345e60f2441c27be8b0bf75d1cc81fbb92203dc875a0ec0d929e2025513dc770",
+    "signals_9101.T.csv": "b8937afb961943e3b1c966385f4b0d6ab87000ff2e889a60106c30ecc7bf7acb",
+    "signals_9104.T.csv": "11719a3d17c6ac00fe5fe5e81f8ba485b727dccdcf4fcba74c34a20b37d285a3",
+    "signals_5401.T.csv": "fb86bcddd8845882ef753167acde94f44d51d1979cae697ef2a9e3194634e346",
+    "signals_6301.T.csv": "43ca8b6027173007224d996e08595d8657c1aba2cc6c5589699b8e3652009658",
+    "signals_7011.T.csv": "e87ccf1a991debfe294cf16736ee3927d4a5b2e84bb7874b4c4b5318b45403f4",
+    "signals_7012.T.csv": "8d78025b1ae7f1fc8ff45135461f52c7e958ce11416b9fab1561f02ca1b0b8ad",
+    "signals_7267.T.csv": "837477392532f37df9d5ce8e2847f5e5e69e87f66c3c8c71eaaa00b184c7fd5f",
+    "signals_7269.T.csv": "f6c6e3698d383b9a2e9c3f1531438093520614e2222a668380991590fe0eb98f",
+    "signals_7751.T.csv": "3c141c084db7d863b5347dde026ce1595b8f2b31aab0e8d37cd27bf1e128f69d",
+    "signals_1306.T.csv": "b714046b9e6748dbceebae7969f988c69b02a6260fc322c133fb1632e2ec1a23",
+    "signals_1308.T.csv": "ec651dc3dc91a9049ff3ae09063e4efa4d079e1a6ba0a79e544958fe2e527af8",
+    "signals_1321.T.csv": "0d145768d1aee371a08c5ba7cd3b4080297d9950794476fd00f6421642e96459",
+    "signals_1475.T.csv": "2521ecabd67d692d33e846bd787a1e46cb7b6902f9e0e5c0abf83779f503b58e",
+    "signals_1655.T.csv": "a810ebca7915230e3d60e76875f02d0047ef89c047b0920db06d17d4ca82ced8",
+    "signals_2558.T.csv": "f391e7d1c5e4778716cb5d7cc5c29fa595abb12deaf430a8398ef7886b21da16",
+    "signals_2559.T.csv": "b0f1a85823dd8fc0943375330eda377140b64a1be2334d427f9a6149d6f14bc7",
+    "signals_2621.T.csv": "6159938a28b85a608c53352ab299f2dc22e14f2ca53e5baaffcdd75b5993934e",
+    "signals_1348.T.csv": "423f1a3de21519ea3b4b15f7533e0949c1ecc1cb4015f75e224f2004a72836bc",
+    "signals_1305.T.csv": "cd5c76c99bb4950a5a7b41995ddcef9d529a356028a638f5ebc0e0ba5423d0f7",
+    "signals_1320.T.csv": "8b3cab0d75dba854103bd9c27f262e010087f7a1754d6be7f9e14aa37533b11b",
+    "signals_1330.T.csv": "e7b47d1d8c9cdbc66c399aa3dcf9c87488cf1e3251b89492a1df305c68157559",
+    "signals_1346.T.csv": "bb5c3c4d1e3bc787544a02a839294d50808d8894fee93191ef948cfcbd9df3e3",
+    "signals_1478.T.csv": "25d0ce7155e04887fb19777ab44589f63c94e8deeef61d89d41708057cce0975",
+    "signals_1489.T.csv": "c371c3fda871462bbfdc1adb3a935bb9eebeb9c37820358a0a6b9af7ace88d9b",
+    "signals_1577.T.csv": "0d46c25294ba3bbcf6643dc5e29d4606b9b890c7994f3292be935d9257c73089",
+    "signals_1540.T.csv": "e0da00190e0e8dc646f58ce3a420e24b255e129f880e21008dd1a679d1865626",
+    "signals_1541.T.csv": "47b591d6ed7f164ad89eb8b7f9790be3f825c2a9499d9a22fad23cbdd0980e31",
+    "signals_1542.T.csv": "d71ed33a2f45824228ce0a6adccb6f273c1693d248e423deabc40c9c00d47891",
+    "signals_1543.T.csv": "e043a98225964211d347c9c0ad8f351d760714a6af688c3e86eca22834d75bfd"
+  },
+  "source_collection_hash": "d545f7b8ee462340023bf5912f1b91bb8edb2d4357c4795430bb531fb8937fb0",
+  "calendar_model": "union_of_observed_sessions",
+  "warnings": [
+    "Adjusted OHLC and virtual integer shares, not historical nominal prices or actual trading lots.",
+    "Splits/dividends are embedded in adjusted prices; no separate dividend cash or split share changes.",
+    "Stops and position sizes are simulated on the adjusted price scale.",
+    "Calendar is the union of observed Yahoo sessions; market-wide missing sessions are not detectable.",
+    "承認された高値・安値の範囲補正を適用した探索入力です。"
+  ],
+  "assets": [
+    {
+      "ticker": "7203.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "6758.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8306.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "6501.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9984.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8035.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "6861.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "7974.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8058.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9432.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8316.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8411.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8766.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8001.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8031.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8002.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8053.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9433.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9434.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9983.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "4063.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "6098.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "6367.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "6954.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "6902.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "4502.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "4503.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "4568.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "4519.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "4661.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "3382.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8267.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9843.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "2802.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "2914.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "2502.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "2503.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8801.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8802.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9020.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9022.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9101.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9104.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "5401.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "6301.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "7011.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "7012.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "7267.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "7269.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "7751.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "1306.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1308.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1321.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1475.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1655.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "2558.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "2559.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "2621.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1348.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1305.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1320.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1330.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1346.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1478.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1489.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1577.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1540.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1541.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1542.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1543.T",
+      "asset_class": "etf"
+    }
+  ],
+  "data_quality_policy": "ohlc_envelope_v1_1.0-approved",
+  "csv_float_precision": "round_trip",
+  "corrected_rows": 63,
+  "parent_input_hashes": {
+    "execution_7203.T.csv": "124c2617e316d9f5c86bcdc86a93eeb9c08fc0439e885948f60b94fcc09d3870",
+    "signals_7203.T.csv": "311ee41a8caf8f70afe52c037965860679924e4abca8ff9f0cbe6e3325ff236d",
+    "execution_6758.T.csv": "28062d58b8e5c8d431dbf7f814021285e09d5951089f369e91b9416cfb211636",
+    "signals_6758.T.csv": "3d177d0843a07ff903b8486d8a2935818ec35cea71ddb2ec6bcad76cdba8d71e",
+    "execution_8306.T.csv": "8973d554eb1d6edd07a5e565aa9be101c70e0e1a797985dbebc5a4774e0f0f33",
+    "signals_8306.T.csv": "b5413dc7508a8101a26c3c9115c7da5727867ff9e3992d9bca0c93c8c79f1c4a",
+    "execution_6501.T.csv": "20a557ef9ef99a47a4f45f590cdb4df5f5075c36ae3406131c4b7e7da2b57e24",
+    "signals_6501.T.csv": "464e720525d0c0777963f0bc829d989fc6e750bf54117327767e47e8a0ea259d",
+    "execution_9984.T.csv": "43c1af1a867ef27cb61efa36ac19264f5607121c3580fdb1cf3a5584f4099756",
+    "signals_9984.T.csv": "b42a1da64a6df69dc0e0e76ace4823cf2b25052c09872ba2dccfad20221ecd94",
+    "execution_8035.T.csv": "c5cb1693102865aee193573ac7805da596d6c8d2460778c2dc2ba3b303012131",
+    "signals_8035.T.csv": "0ef85317edcc78250a6b034d96fec75b456e78674b6da862afd4ee1b75cbecaf",
+    "execution_6861.T.csv": "adeb863fb3041156a19ed7fecaeb6c1751bfdb1d94031f18c468ca14975935fb",
+    "signals_6861.T.csv": "1dfd97f4e52121975e3bc756abea8e18e8fed9297b04fa6670b8d8b0eb482b42",
+    "execution_7974.T.csv": "08ee37dea9fbe7321616aa7e48f854432160faccd4621c1e4851fa90dba0e7d1",
+    "signals_7974.T.csv": "1aa49d5c1d357cbab26219050acb06d817593988fb4b61cf97a8e75dd76b45b3",
+    "execution_8058.T.csv": "16b8c42f77a74570f11a79fb938774922a6b47f1711b4af9ef03a9cdc20dc4ce",
+    "signals_8058.T.csv": "b9b3bc2b45d5866197c36bd5d825988ba4847aa4e8e5a230fc896cfaea74bee5",
+    "execution_9432.T.csv": "a263bc722ad8c643bb6c32083f63ce1a70ffa2eba7a3b151f3b7912b46b9b0a1",
+    "signals_9432.T.csv": "3b3eeb4b5bd1b1cd69a0c34614ca41f133a8b6c8af134b1f729b8e1c6ee8bb12",
+    "execution_8316.T.csv": "8301678444a53d6b9d604bd7b1b0322b96ea1d3822b4b6c3595ad5d840f7bef0",
+    "signals_8316.T.csv": "f3146827541dceb6033a7e2da69460b84b9659d73c66d029eaa5da1c89a5d7ff",
+    "execution_8411.T.csv": "b0b0221a20d1642815ecf0e68cdbe88abeb0b1c5d3ee08e541ef0130d319f680",
+    "signals_8411.T.csv": "15957d709711100ce073e0a7223b1eafda3c786b15a0cddac8fb6d9699fd5863",
+    "execution_8766.T.csv": "25c9d084e888ab05585631d9eebc71e6bd73049c8647d55a3cd7a7ab32d0bc4e",
+    "signals_8766.T.csv": "91c0bb51b628a1fc89de4d2c2483135ce18e3a2258be30b505a0d650214f7c26",
+    "execution_8001.T.csv": "019daf796bdd7af38301ec9fb36b340ca80609e06a4f6b8e3006f1885682bddb",
+    "signals_8001.T.csv": "095757c9e957b4e56d9c1ca68e117016bcf6a2268c44288f13f93230043c71e8",
+    "execution_8031.T.csv": "adaeaf883b73cec1bcfce37be274daca7caf8480861d7aaee64ab4608a547bba",
+    "signals_8031.T.csv": "73c53234efc6ea165d54e04fd7b37cb603a4683a6b0a0d8971e63e9156f03274",
+    "execution_8002.T.csv": "7a0f2bbf05de4aa685d0f95db7189a00a3323ab8e80726cfa80327a64259257c",
+    "signals_8002.T.csv": "8909a2e052e7e7081a666054f90ae6a596b812d1429f08c578ac283f31f9637c",
+    "execution_8053.T.csv": "6efbd312b06e6117a7a151d5c44043f2776f65e9d445c026d453d317bfa5a259",
+    "signals_8053.T.csv": "450a4cc8670a36489fd90ef9e52eaa3ce039ce0512fef7c5ddbeb7efee41ffa8",
+    "execution_9433.T.csv": "f44a09f3cdbda21eb2681250248a0c25a8c8278cbdd3cac2c01bcecafc2f97e4",
+    "signals_9433.T.csv": "b252891a3e2da4fb9afca7db82880f942fde0e7645a67feb58dd5598b7c3c907",
+    "execution_9434.T.csv": "1f9a61f83cf5cd137560354a4b1faaf057c515b0b471654ed8e38e127063b21c",
+    "signals_9434.T.csv": "b4bbc1d43a373272c6f079fa92f7ffd015bdbbc7543c2fa65f2f5d916bc00476",
+    "execution_9983.T.csv": "54b09416c222ab8bbc4b8e9d9ffedf21b3d28c0d8ea3859de8eda2f55d8fc2c6",
+    "signals_9983.T.csv": "b142bc5131f8decfd6d79fff217b6a73de4afae1c3b1a77aee38ab75a33d9fef",
+    "execution_4063.T.csv": "387d94ec8fbbb7750ac0fe67be22e16196f6e57dcae750615f971f31a0c9610a",
+    "signals_4063.T.csv": "dea045d598f08ea689454d6b39feccaa3e89cfbe0cb5e4667706343ce0a81dc6",
+    "execution_6098.T.csv": "60e5a272a186bacaced3c7a02a217b4ce370aa1b86c8a9303f6d3c4dee2ab197",
+    "signals_6098.T.csv": "6c99ded8c6b4c180b0ec870fd6011a39b47a7baf09b966e96cc511b620dd7f99",
+    "execution_6367.T.csv": "e08cd47f5a347cb82a796ae76b8b8b77ec811c7064db8e15e9023ffbf5af58e2",
+    "signals_6367.T.csv": "058978b9d7dc6f5d4e995bb865effda4250b32e73b58fe4aa3b6ad0cb1755af6",
+    "execution_6954.T.csv": "f93e359fb5b00611ca79354021b2e0ca38b84709847560a88a0aee70eb1c1a0b",
+    "signals_6954.T.csv": "7851c4c3007cf4378ac345a9eb2ff6b5df9650d6a4eb9d676ed37b005064aded",
+    "execution_6902.T.csv": "873043d7b0717a4513dc7667be13bb4b323ac6204956ec834904919c4bd6330f",
+    "signals_6902.T.csv": "3df0348a7fe3b7da9c71b14960b6470dacdec1bb8a9cfbb6d058647a9ca463d6",
+    "execution_4502.T.csv": "d49c2ed6f4303e31151695dcd9701130153b45deb872171ca8cf6ec198d0c356",
+    "signals_4502.T.csv": "a4ccdd299bb56570b66636f7c44e4a4d760ff8d4dd0229ead9f51f881073a50b",
+    "execution_4503.T.csv": "d396c8cffeb2126bb86982e10cae4655840406187c5242522571c4a3acc24f35",
+    "signals_4503.T.csv": "7642edca8229e43cd48010872de2eb7726d46a6cd40409ab3718dcb51bcd8729",
+    "execution_4568.T.csv": "6132b9943fdb4c8fb4461218fa3c5f95d7cabf1a65b838b01e1ec1bfbcda4888",
+    "signals_4568.T.csv": "aa1715b4edcd19fa74f760c17ee2245f01331f4dda5d3a39db255b3b67334936",
+    "execution_4519.T.csv": "849310643fd90f97c6a9d0e729f4fdeca654030c935e3c90cff92224324f229d",
+    "signals_4519.T.csv": "43c3c48fe23637fbebd27eb4f1b76396b2969992744ceae52c9999bd384063a1",
+    "execution_4661.T.csv": "46f423c73fb6b12d655c0f2f66923adbad96befd4393ebf45b671225d33f3703",
+    "signals_4661.T.csv": "3673f483c4f7f892480c7bea9e9e6cfecf7f5e790e965e950ca1a5837812cd7f",
+    "execution_3382.T.csv": "30ab2e2151d32f9a9b206fe12542dcf23649a82a15251369b938782529096b5c",
+    "signals_3382.T.csv": "f112a22bd755507203dfa1b665cd908632cf4f77f29752cac1901b6b8869ed03",
+    "execution_8267.T.csv": "919305dc40ad8b8edeff2734b254b462ba9434260b0712d93cf0635614a66637",
+    "signals_8267.T.csv": "89cad266708b6c1d235f4989fc7b523dfc7c31d5030ffce613223a2d1ef1a075",
+    "execution_9843.T.csv": "416f3e05ceb285c6a64e0df00483a3f77cf8b5e67bf96e80274b374f5bb386db",
+    "signals_9843.T.csv": "ef0ee84e32cb62ff0ce5c71f46105854835b2a1c1f0a3276f6642e872200cb19",
+    "execution_2802.T.csv": "40eafd7e4cadd80659f4903228c9101529b97b583506e5e04e96459c9d1a14c2",
+    "signals_2802.T.csv": "9f5312c3544a09090b0f3a784429d8312b8214c233b17aa830d42238ad227cd8",
+    "execution_2914.T.csv": "40b1cd05fd3ee71a421a342643277caf9c9484ce5f9f0f1503e04a4e4b0b3506",
+    "signals_2914.T.csv": "1ae918070b15004fd7b607f97ef240e41b1217eb5a5cb2ec8692da0ea2fc95d2",
+    "execution_2502.T.csv": "39ba1bd3ff6712458e433b5a3c4fc0c033328a2b006609e05fd513f71cc6c28b",
+    "signals_2502.T.csv": "5d4c4fef907e17661235fd42bf892145bfbb2dedb21c0e6e5061de5ee2347ede",
+    "execution_2503.T.csv": "fb2529c7ea01fd37e0cebf734db538819d7a33c067aeb1c6c8f4ed1b83e5e77b",
+    "signals_2503.T.csv": "e67371121a15d230f9c40a45c3b781dc6b430d82ee6d2f3d3e8c3464422ff1ea",
+    "execution_8801.T.csv": "1e1a8b554f0efdcc0020472a6c631ab466f4725d4936e0708abac745029790cc",
+    "signals_8801.T.csv": "10256e689e96b2e5e792434b747ce989e4f500baa1a3ba965b6a446f090739c1",
+    "execution_8802.T.csv": "803e10828b8e17141f3819c9c3ac73b8026bade6466d7e6eebb3933ccdcd735e",
+    "signals_8802.T.csv": "eff5c633d8104936457fdf5ebd3b324043f9efad23c0cbe1600a57ca6a97c9f2",
+    "execution_9020.T.csv": "a4335f2d3bc568821293ef011fade4c884f200b4038939dcc3810e22d8947fb7",
+    "signals_9020.T.csv": "9dbd935369a6fddf8909b1401940b721e7f6dfc6311d2118785e10151fee6906",
+    "execution_9022.T.csv": "90c8da1850a3924b5e29fce1006051e234689506f3944215a433481df2905cbc",
+    "signals_9022.T.csv": "f4adbfde7a4d7f3eb7f3c871099f15fdfd78c66435a3b24868e2c82d37a547ce",
+    "execution_9101.T.csv": "a74721ccac4e1e4b8d626d4137cf3849a81708f3551063894c882373ca6ab817",
+    "signals_9101.T.csv": "701b0c4dd8a1def8c3fe521aaa869fb1de6bd26c3a2c8cdadd120164a1356340",
+    "execution_9104.T.csv": "fe85a12e5bcbb2ac00db36111834921bdb14433e5467548924d45f7348b2e8dc",
+    "signals_9104.T.csv": "bece4f11fc6e60f843632ea1a5f9578222c25428164a616d573748b4e026f25b",
+    "execution_5401.T.csv": "f9146f5d7c00972bf8807cf83d0d7baf74c7fce4a4f1ffbbbe8e0928f2a6a0eb",
+    "signals_5401.T.csv": "9556f5e50ca94a49b976c767c1ea20692bd504638cf8342dfbf23bd3b0322a0c",
+    "execution_6301.T.csv": "92b4332d2abd7eeb2ce50621d7ec6bbaf98231920e40d6a7861088df82378f5a",
+    "signals_6301.T.csv": "588bc22de9cbdcfed74a73bdb4a1ec762c3c8def6642fb9b2cd16039a59cdeac",
+    "execution_7011.T.csv": "db1d86972876c8c87b9b9b050671b7552150729dc2cf0a37828d963fc8e94d67",
+    "signals_7011.T.csv": "9732bfea361caadfb551c14c5f50c649ac8781634ae0bad14dfc6ab98b092b9a",
+    "execution_7012.T.csv": "1b951274b234733fe817d86e503d9bb17f62073e30c9fadac1b9a040f235a5b2",
+    "signals_7012.T.csv": "af3792a6006bb15911a7ef0d45a4379d1c21755c27cbe37386e0c21e97491cc1",
+    "execution_7267.T.csv": "5547a296194526051d806dc7cd3b3ecda1db6e8c4500bc4ed74791074fb31a5d",
+    "signals_7267.T.csv": "f277517854de199e4b7f8423eca8c41f03d4c9dd10a9ab69a54b05e7164c9945",
+    "execution_7269.T.csv": "24d696865bdfac189e281d826dec0e57f76fb640008c3130717ad3e0d0b575ab",
+    "signals_7269.T.csv": "a800ca55cc500a2a42f65dc841047df69143c4aa113c0dc71553bda92f3cc771",
+    "execution_7751.T.csv": "2a6b33432751b71b5ec769acf83eec188e50c59947c577760ad9562a765824dc",
+    "signals_7751.T.csv": "71ecdd05d6f6995ef537200b94cbc71917cf19930faae60647995fe5a74a382c",
+    "execution_1306.T.csv": "d8926ac4f90a80ee3d7edfe31bbdc8f51670a25b414a192afbfc144b58f8daf5",
+    "signals_1306.T.csv": "4d49fad6751b62bda0dcfb8ee07077d96dd191bb44bada4d0c5a08ec64393bc3",
+    "execution_1308.T.csv": "92a8307ca18b0cfc215f540a8be045e1c1ec77004b2f4318c7cecc5a6653297d",
+    "signals_1308.T.csv": "e0937ac1e36595117e1ef08d8806ab92b2fd3d1a8923a0267d8a6cdcadd0fbca",
+    "execution_1321.T.csv": "6376dc5338df03d4f3d24eb45d98151bed2c0692c58674051e30e5c3447abbd0",
+    "signals_1321.T.csv": "f61456a2e60514691b597370758cf65dbcd85c09cba2a0dd6ece33f0c9ae4e27",
+    "execution_1475.T.csv": "b2f78e664760ac47aba7852f3aa27827b9e060c115093407be29b47cf8d01caa",
+    "signals_1475.T.csv": "a4ef011596daf137fb035c838f2ac1c69b4a8f4210c686d4d71c20c1ced1ed10",
+    "execution_1655.T.csv": "346cf781cb6fc1c75744d918b532c00668b2d9041c33b567c3cb78fa656474eb",
+    "signals_1655.T.csv": "8a75da053358a8191f9e7a31c5956e0a735c8ed054891cbe1e174171dd3b107e",
+    "execution_2558.T.csv": "0672ca1f22bb21d667dfc840f74cead08d24416042b109304b206c717a798ba3",
+    "signals_2558.T.csv": "eb15d198990dbf8e7d5173dd60eb1d415ce83551148cb468f55e936bc5bd5478",
+    "execution_2559.T.csv": "2b089e95a96c0ff6146bfbb660a605c54043c303bea6f70d89c921081e083b62",
+    "signals_2559.T.csv": "9ddef601b06f5601a15968fb67fab386a6c801cde808ffa0f6fdd642fb7cb1f0",
+    "execution_2621.T.csv": "971ab13961c861c9372bd6dd0e50628b1405c90e40c053eab2d938a147c621f0",
+    "signals_2621.T.csv": "f280a9d686a82c88c6ccc1e66f7bb8155ba74f17afc3f4222c37f321b292d63b",
+    "execution_1348.T.csv": "4c36e1c03c2914d636d141755b1d0df03b32472606df674e74a2d61d1a97c2e4",
+    "signals_1348.T.csv": "5674bcbed998a6598302145606b2cb18e27044b9e5b4e15cdfe0b7da073a5c80",
+    "execution_1305.T.csv": "75d1c2de9c63c9c0eecab97973c8f410c27c731e530571eff4a6256b3b375a92",
+    "signals_1305.T.csv": "2494d808803077e45c3c97ba56ee3e593a0a67c9a9fc708f2f09f0cb1ccd1d0d",
+    "execution_1320.T.csv": "b3405393b7025d59035c412e195f795bb2b7d5023e9029cede99c9167eb5669c",
+    "signals_1320.T.csv": "78b6319d055f6f4f4fbeaa1e68c4690dd5b159afac89ebc58acadacbc562961f",
+    "execution_1330.T.csv": "0a989c7741a19b6a8c8d0d9c0ae3bac761141b9686926a03cdd70cf0ad084fe8",
+    "signals_1330.T.csv": "8927c34abe3f17aa36904cdeb94f2e8e5dd5860c0583bf8808af7f2c81daf146",
+    "execution_1346.T.csv": "d7c3fbfb2afc53c2c3c0dd3569ac8cb42a7b3716fc23e955c3d06e6f31045f46",
+    "signals_1346.T.csv": "be508f0bde8ecabc45a43ac7617c50fed76dc5b1dfe3762b6d5b37134b871255",
+    "execution_1478.T.csv": "1421367bdf831a8870cf9323bf131a7d84b04af8408e75e30b1028be26159f0c",
+    "signals_1478.T.csv": "9935f9059da34afa95503c875fa2263b867c2d4d2031fc2753367a76e26f500f",
+    "execution_1489.T.csv": "5b961afca38981b8267842d24555cb6e022374caf225a206eb7043d57413cdbe",
+    "signals_1489.T.csv": "8d56b4b2a22281da31c8d7893167f238a20aed1ee48fcbbf5655a6d90db00128",
+    "execution_1577.T.csv": "8af348e2925460f725513d002afe249cc15b07756e1e8652c3a2f5232ff6fa49",
+    "signals_1577.T.csv": "b80eb886b9a47273d57b019d69504f67ce5016657595e2d2e45fb62cd09ca9ef",
+    "execution_1540.T.csv": "4b035e5ae594b0fa9a8399fea85aa32fa3fbd5e646a01985452382690fdd60cc",
+    "signals_1540.T.csv": "636a2ba0213a0915b792ea41409666c134caa316f300c439a72e734cdf8d224c",
+    "execution_1541.T.csv": "9939da84b1406cf8384ee3fe0912f2bb54fcbcacf1c74489c900366d61e87b29",
+    "signals_1541.T.csv": "7eea7a51566ce1162e69469ee58f685ce7027e824242a0e5c6332a4f8227ab70",
+    "execution_1542.T.csv": "50521f8947846de56988db2058ff2763780a4c558c01b21a6448a86c0706be2d",
+    "signals_1542.T.csv": "2a855d9fe9bba77ec93543da554ea792624b490573ed396099dc559df90a64f1",
+    "execution_1543.T.csv": "a96201cf2776feb0883076b5494f7f2e57918442534098a4f8df956b95e2d39e",
+    "signals_1543.T.csv": "7d4285a61672e449f5ced69b5ef419bdfb0928e31674194382309b443bcbbb65",
+    "calendar.csv": "3844af3de3c88c61298f87d5b6725437ba63c093719ba596308246e2b9af0a21",
+    "manifest.json": "8826c4ab191b7bc584cf91ebe3ecfd90e4131d708a1b8a59b79ba335e2170abe"
+  },
+  "rounding_scale_rows": 56,
+  "substantive_rows": 7,
+  "approved_issues_hash": "310b71e3934881a0643348f5ff12e8051a924e5aa548c4657eeeef6a3b2fa2bc",
+  "corrections_hash": "0829741d4ed6557f27adcfe6c0045ae2df9066543d217ea7bbc129aacd532ee1"
+}

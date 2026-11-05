@@ -1,0 +1,2 @@
+﻿trade_id,ticker,asset_class,signal_date,entry_date,entry_price,quantity,entry_cost,mark,mark_date,unrealized_return,holding_sessions,pending_exit,overlaps_existing
+2802.T:2025-11-07,2802.T,stock,2025-11-07,2025-11-10,3588.5908479777099,0.00027838252989024071,1,3282.948974609375,2025-12-30,-0.086084358947670525,36,,False

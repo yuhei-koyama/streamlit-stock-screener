@@ -1,0 +1,15 @@
+{
+  "trade_count": 1058,
+  "mean_net_return": 0.01638277221092473,
+  "median_net_return": 0.002451253565927236,
+  "win_rate": 0.5094517958412098,
+  "average_win_return": 0.09035479135761848,
+  "average_loss_return": -0.06043980644045856,
+  "profit_factor": 1.552564064819097,
+  "average_holding_sessions": 26.946124763705104,
+  "overlapping_trades": 609,
+  "open_positions": 31,
+  "rejected_orders": 0,
+  "normalized_entry_cost": 1.0,
+  "open_mean_unrealized_return": 0.027237014589274598
+}

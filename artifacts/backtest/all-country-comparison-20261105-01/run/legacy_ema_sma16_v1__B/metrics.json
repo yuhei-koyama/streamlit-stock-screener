@@ -1,0 +1,11 @@
+{
+  "trade_count": 8703,
+  "mean_net_return": 0.004248463308800209,
+  "mean_all_country_return": 0.006027983579651451,
+  "mean_excess_return": -0.0017795202708512422,
+  "median_excess_return": -0.00870791886794442,
+  "outperform_rate": 0.38032862231414455,
+  "same_day_trades": 7,
+  "average_calendar_days": 18.471216821785593,
+  "open_positions": 150
+}

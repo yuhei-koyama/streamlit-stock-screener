@@ -1,0 +1,10 @@
+{
+  "provider": "Mitsubishi UFJ Asset Management",
+  "fund_code": "253425",
+  "fund_name": "eMAXIS Slim All Country",
+  "source_url": "https://www.am.mufg.jp/fund_file/setteirai/253425.csv",
+  "retrieved_at": "2026-11-05T12:03:36.072773+00:00",
+  "sha256": "390732e97614b2977c97fe9a61f535484dbde0e0c783cd787286dd31c0868518",
+  "bytes": 64565,
+  "content_type": "text/csv"
+}

@@ -1,0 +1,17 @@
+{
+  "trade_count": 4995,
+  "mean_net_return": 0.05491100015660522,
+  "median_net_return": -0.0024970029970028396,
+  "win_rate": 0.3871871871871872,
+  "average_win_return": 0.24020189779885778,
+  "average_loss_return": -0.06215943304826784,
+  "profit_factor": 2.4415326135340516,
+  "average_holding_sessions": 83.91071071071072,
+  "overlapping_trades": 4623,
+  "open_positions": 300,
+  "rejected_orders": 7,
+  "normalized_entry_cost": 1.0,
+  "open_mean_unrealized_return": 0.12703088526515846,
+  "ambiguous_oco_trades": 0,
+  "order_update_count": 9336
+}

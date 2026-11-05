@@ -1,0 +1,15 @@
+strategy_id,exit_policy,trade_count,mean_net_return,median_net_return,win_rate,average_win_return,average_loss_return,profit_factor,average_holding_sessions,overlapping_trades,open_positions,rejected_orders,normalized_entry_cost,open_mean_unrealized_return
+tv_ema_stoch_v1,A,0,,,,,,,,0,0,0,1.0,
+tv_ema_stoch_v1,B,0,,,,,,,,0,0,0,1.0,
+lbr_anti_310_adaptation_v1,A,0,,,,,,,,0,0,0,1.0,
+lbr_anti_310_adaptation_v1,B,0,,,,,,,,0,0,0,1.0,
+lbr_anti_stochastic_v1,A,0,,,,,,,,0,0,0,1.0,
+lbr_anti_stochastic_v1,B,0,,,,,,,,0,0,0,1.0,
+legacy_ema_sma16_v1,A,0,,,,,,,,0,0,0,1.0,
+legacy_ema_sma16_v1,B,0,,,,,,,,0,0,0,1.0,
+minervini_screen_v1,A,0,,,,,,,,0,0,0,1.0,
+minervini_screen_v1,B,0,,,,,,,,0,0,0,1.0,
+rsi2_screen_v1,A,27516,-0.0036853216516530294,-0.004614901283095052,0.44025294374182294,0.016347460541285518,-0.019441530162577426,0.6613483959997986,20.0,25460,459,24,1.0,-0.010115776223919093
+rsi2_screen_v1,B,27847,-0.013394932404875898,-0.01454543739677594,0.0,,-0.013394932404875898,0.0,5.0,25762,128,24,1.0,-0.004880298700181005
+rsi14_screen_v1,A,7308,0.022633774842113638,0.022751699872813003,1.0,0.022633774842113638,,,20.0,5266,114,8,1.0,0.0010763906654465616
+rsi14_screen_v1,B,7386,-0.00879304811561607,-0.008849272677066866,0.0,,-0.00879304811561607,0.0,5.0,5322,36,8,1.0,-0.0034790285841492887

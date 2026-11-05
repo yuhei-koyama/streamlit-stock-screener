@@ -1,0 +1,18 @@
+{
+  "start": "2021-01-04",
+  "end": "2025-12-30",
+  "commission": 0.001,
+  "slippage": 0.0005,
+  "initial_stop": 0.08,
+  "time_exit_enabled": false,
+  "normalized_entry_cost": 1.0,
+  "initial_profit_r": 3,
+  "ratchet_step_r": 1,
+  "oco_same_bar": "stop_first",
+  "limit_fill": "at_target",
+  "strategy_id": "tv_ema_stoch_v1",
+  "exit_policy": "D",
+  "evaluation_method": "independent",
+  "execution_mode": "exploratory",
+  "execution_price_basis": "adjusted_virtual_shares"
+}

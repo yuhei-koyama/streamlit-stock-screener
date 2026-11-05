@@ -1,0 +1,3 @@
+asset_class,trade_count,mean_net_return,median_net_return,win_rate,average_win_return,average_loss_return,profit_factor,average_holding_sessions,overlapping_trades
+etf,157,-0.21086687410968066,-0.0830225255485404,0.0,,-0.21086687410968066,0.0,122.63694267515923,124
+stock,476,-0.08811068786632943,-0.0822972427572427,0.0,,-0.08811068786632943,0.0,67.57352941176471,390

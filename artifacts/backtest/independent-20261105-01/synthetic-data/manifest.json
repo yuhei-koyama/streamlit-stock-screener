@@ -1,0 +1,372 @@
+{
+  "kind": "synthetic",
+  "provider": "deterministic_sine_fixture",
+  "retrieved_at": "synthetic",
+  "execution_price_basis": "adjusted_virtual_shares",
+  "actions_verified": false,
+  "lot_sizes_verified": false,
+  "dividend_mode": "embedded_in_adjusted_prices",
+  "lot_size_model": "virtual_one_share",
+  "source_hashes": {
+    "signals_7203.T.csv": "c01576d2de20cb920c05a9a457b5a6d78bb544141824d461dff00abb8fab1dc1",
+    "signals_6758.T.csv": "9ca56a83dd0a1916f837ec7ea7ebd13a93669f7471eba6865133d8003fc848a8",
+    "signals_8306.T.csv": "2e72db3e629aaa09fc9c5eacdcb1fee0b0a79b8fa4922920685db4d28adbb6cc",
+    "signals_6501.T.csv": "67f57b1e6638bd6f54bb69fd0570b992dfe2e5389a62c18a0730c1467b77588d",
+    "signals_9984.T.csv": "362c8d44d38d1e7544523ba28c33c1c2416b5d3912c440a17af039efa20199ae",
+    "signals_8035.T.csv": "85d4c4e59edb6cb3e99b4525d68eacf8a7770414c4f2dcc37fac1ce180b9abe2",
+    "signals_6861.T.csv": "261878a7583487c63755844921361a2e77dc1c6f3a7fd52a5332791d5b4a9e98",
+    "signals_7974.T.csv": "2de0b08c08dfbc2aa8459b2062bb97027b449cbf857083d0905f304af0d120c2",
+    "signals_8058.T.csv": "2e6b29588aea43d56461f5e29f69875df13492c032e9850457b055874976bfa3",
+    "signals_9432.T.csv": "900ca55e7c18940bb36e760887e5cb35a03ea55aa2f2cd10652ce72637c54f90",
+    "signals_8316.T.csv": "49fcbe6a7a32fc88ee95863180b7792350433052a312b0a97691e415713b369f",
+    "signals_8411.T.csv": "353fcc332459d90794b442c2585be7cdf048cc025bc91cde0f039879794d54fd",
+    "signals_8766.T.csv": "4a38ad044f5a044bba5703db686276464eba79c317c4644e581732257a8ce646",
+    "signals_8001.T.csv": "a59e57dfc9f6df8167a65ce10b66ada54a94e26fb2a3fc65db250543182c9f62",
+    "signals_8031.T.csv": "8ab35c9ff8370aebcf61c590ec1e4f22aca2701de3f13b1dc318e61e8dc3b4e3",
+    "signals_8002.T.csv": "ffb03ec6de6b20c27551eb56fbb60e1c87da84a5694e2ccc6c02d9a9bb67ec00",
+    "signals_8053.T.csv": "2fd91e25444a40c7aba25667ed635f505dab8e781741d63bbee61057e3877697",
+    "signals_9433.T.csv": "52d71388e26981d8f2a15a27ea16f2472539ad993c7d13ed162525a8525b528b",
+    "signals_9434.T.csv": "ba349ff1de90a37bb8320b64096d3db6ff1927eafa3b802cbee8c159f30a1ad4",
+    "signals_9983.T.csv": "e129401870b698c188d43cea7f48ece19cc4252420229749247fdb6436911e5c",
+    "signals_4063.T.csv": "f79efb466e138db8573d11924b0915e2ee8beb3138fa5a7436dccc2dd34c543d",
+    "signals_6098.T.csv": "2810125a26c89e31bdd77812e79cf9ef452e1f3e3b49331c1372dabe7a258477",
+    "signals_6367.T.csv": "8175009ea39f2d590964f7d7c9902bd6d53e14096a5e22bda18c53bcfb8597f7",
+    "signals_6954.T.csv": "42724a005b72bf86ec48d4f1007b0724b4a86382c26b756d7f5d966af7ce833b",
+    "signals_6902.T.csv": "d470c56ae1c32a859a14aa0ea75e0d54a049453a251d2639035afcc1b1b88a79",
+    "signals_4502.T.csv": "fa7486a9aba21698eaddde6a1ce660c97ad877545297f5d083f2a5c2c9573d0f",
+    "signals_4503.T.csv": "405d0d8d6c25517590e37b62502acc2b347a634704f51efc3e6bf10ded609a42",
+    "signals_4568.T.csv": "d0f2235a1dbf5cb92e5d1c42f1996aa51c47126ead7eaffd48c24e7d2019f169",
+    "signals_4519.T.csv": "939b6635bf4f82ee453595eaab8bff1e1f8f79877784a36973d0f55d78a54c17",
+    "signals_4661.T.csv": "51fa356c70bfcf9c40a0f2e919196908129715f9c873e359cf52ba3f49366efc",
+    "signals_3382.T.csv": "949499c5fadda539f2880ab45e5c6eac4036e198ac89ca4a725ba6a2273bfb86",
+    "signals_8267.T.csv": "4df3ac8d1c56949621a5d52fac0a0eceb4e53669735998290dd3bcc1e53ca85d",
+    "signals_9843.T.csv": "3ebdf4223a033c05ec4279077b62dcc18249a8d348fff0145bc6220f4badf66c",
+    "signals_2802.T.csv": "073b27d4a06e3e7766103a8e4a937f32e7e183f942a9d7a699cdc544a5625481",
+    "signals_2914.T.csv": "af0b3dbb127d45cb84115619962080ea49a1d1f5320615b58e452c903ee24592",
+    "signals_2502.T.csv": "66b622bfd057758f596fb3917e1e9b5708543143c8f1acd67cd0003b5202b00b",
+    "signals_2503.T.csv": "f5dfc8c07fc96bb26836aa810224a595356320a984912535706187cd01845b29",
+    "signals_8801.T.csv": "7be6fe84d752ccf534336076c80d5dec31728e83fdc8be36b70b54c7a3bc0fdb",
+    "signals_8802.T.csv": "7f4016788d26a40aadc9f58a7750da9f3a0e4095ac8c34c6e5f80c897c64a2df",
+    "signals_9020.T.csv": "baf739338d330547fdaeabdf372f8ca2c74e60a35d7042ca30e23d4233cbc439",
+    "signals_9022.T.csv": "acb194975ca6c7f7fa495347d2e8707e02a970c78eaabf900b2e443111fb00b8",
+    "signals_9101.T.csv": "e7459eebccbd3ece5ffcf5ceb25452da93659269f05274b479c0c6485e874edc",
+    "signals_9104.T.csv": "7214402c472276247279e6430c18dd8bbec3689b447c0b48e601934cbb330314",
+    "signals_5401.T.csv": "d559313c29282347ef17f35d74770caf2f7c7ebca72c5dc30d95896e48e19182",
+    "signals_6301.T.csv": "168cee7041fb48f7e08b5357512a5e35fd05321bf6c5e43d6bb8ef685cb50a64",
+    "signals_7011.T.csv": "a6560437975858ca0e489f23f5507ab802ff48da43fd47c1ccf08ae1830bf496",
+    "signals_7012.T.csv": "4b3a4e65a072b00aa4964e5c85e1c7278c9b2e5a4f43cb8b35275b07ca7aaddd",
+    "signals_7267.T.csv": "1c02ee36f1269db1312faf459c4809c56a162fea43eb5b3fd7c27222506fbe42",
+    "signals_7269.T.csv": "55b8d7e7b93be371a1883603c6ac6ebb08462ed61a4d5fcb6d5b69492a628a27",
+    "signals_7751.T.csv": "d05daf51116a0d62098d543d43e964ce018f04c07db49c9a85e1f534f390ccd9",
+    "signals_1306.T.csv": "1470db92baefee2b5c1c6a4875b60f5f0e14d276f371ef7133b0ac54278a3c2a",
+    "signals_1308.T.csv": "27036a02885a42014b34b43b8c1e3c989f448f078a3619c99a872e1817289be7",
+    "signals_1321.T.csv": "c1485364725c9809e35eef043af8ea13d024f478634703dd17df1f6a18a19245",
+    "signals_1475.T.csv": "613a381329c8aea55532cba6f4c0b396c2c3711e1958b6a4fcec961e8d75ea0b",
+    "signals_1655.T.csv": "3b53c31551e4dc5428318d2ff96f21837c06bc58e3425fa5c6cdfa2b4da0af54",
+    "signals_2558.T.csv": "540a53e0a99380b5a84e82e63087435b51c6d764e764753fbb44db794b240b45",
+    "signals_2559.T.csv": "a0c6d317f0d3daa3e7fae3776cdee5cc568ca7611b778906099760f7aa948ac2",
+    "signals_2621.T.csv": "abe236b3c7441d85fa92866603a178ae0783fd1d3a4c185e07eba76b7997591a",
+    "signals_1348.T.csv": "7c862a3dacc1cff2ecd539e818da392441a1684183cd1ae3e9dd98d3899e55f3",
+    "signals_1305.T.csv": "a0a7db44a43fec12da8bc1b0ffe5ce29291a28db9328add72c2692e122b120d2",
+    "signals_1320.T.csv": "1f7ea217e0db3038298a883c0d10e47121586db0d23bbfef480a547cabed72be",
+    "signals_1330.T.csv": "98f02359e45e25075c02d2393b37d486714e8f0da1a7fbe691325db55c363411",
+    "signals_1346.T.csv": "fb4b92bbf9cff6be1be67a53069c2df75f44a5b1299e1256d6a268c6fdf7811b",
+    "signals_1478.T.csv": "6b6a551972ebc1bf5f34a63dea70993e028bb48227f5d2ab67f2caa43f28adb6",
+    "signals_1489.T.csv": "c767b96c9e50d26c2ecda3da0eb53b47ed0d6dd8ebfcd7c5c8dae21856fa30d7",
+    "signals_1577.T.csv": "a6092330c45172948c7b6db252545b74aa6e458d46298483af0bfb9126c5df12",
+    "signals_1540.T.csv": "5fa361c88e159b6462df5eec6fbfe95ed3128f5f5f61ba2dd436e85f6c7b1706",
+    "signals_1541.T.csv": "d9cd72d1ceb321bf6309c5d85f6efb5fb3c7ccfb9bdef46122ac9e7d6cad4b58",
+    "signals_1542.T.csv": "b64347b0084dc781cdf0e348ae86cbfaece3ab82c66737bd5dd298edbd859e66",
+    "signals_1543.T.csv": "7e42fe0e98b2b1e98b55f6f6a6c2b52deecd7b75faffb673c9129eb8ae3cc3f3"
+  },
+  "source_collection_hash": "7f114c27c8f5855aa850f1288386c450875adee4810c28f563b091ffeeec48da",
+  "calendar_model": "union_of_observed_sessions",
+  "warnings": [
+    "Adjusted OHLC and virtual integer shares, not historical nominal prices or actual trading lots.",
+    "Splits/dividends are embedded in adjusted prices; no separate dividend cash or split share changes.",
+    "Stops and position sizes are simulated on the adjusted price scale.",
+    "Calendar is the union of observed Yahoo sessions; market-wide missing sessions are not detectable."
+  ],
+  "assets": [
+    {
+      "ticker": "7203.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "6758.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8306.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "6501.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9984.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8035.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "6861.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "7974.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8058.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9432.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8316.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8411.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8766.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8001.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8031.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8002.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8053.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9433.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9434.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9983.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "4063.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "6098.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "6367.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "6954.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "6902.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "4502.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "4503.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "4568.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "4519.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "4661.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "3382.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8267.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9843.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "2802.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "2914.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "2502.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "2503.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8801.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "8802.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9020.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9022.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9101.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "9104.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "5401.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "6301.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "7011.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "7012.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "7267.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "7269.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "7751.T",
+      "asset_class": "stock"
+    },
+    {
+      "ticker": "1306.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1308.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1321.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1475.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1655.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "2558.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "2559.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "2621.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1348.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1305.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1320.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1330.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1346.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1478.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1489.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1577.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1540.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1541.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1542.T",
+      "asset_class": "etf"
+    },
+    {
+      "ticker": "1543.T",
+      "asset_class": "etf"
+    }
+  ]
+}

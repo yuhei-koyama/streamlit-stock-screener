@@ -1,0 +1,8 @@
+﻿ticker,signal_date,date,reason
+6501.T,2025-12-30,2025-12-30,outside_test_period
+6098.T,2025-12-30,2025-12-30,outside_test_period
+7012.T,2025-12-30,2025-12-30,outside_test_period
+1540.T,2025-10-23,2025-10-24,not_tradable
+1540.T,2025-12-30,2025-12-30,outside_test_period
+1541.T,2025-10-23,2025-10-24,not_tradable
+1542.T,2025-10-23,2025-10-24,not_tradable

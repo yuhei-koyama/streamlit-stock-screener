@@ -1,0 +1,148 @@
+{
+  "status": "passed",
+  "verified_conditions": 14,
+  "positive_mean_excess_conditions": 2,
+  "input_hashes_unchanged": true,
+  "conditions": [
+    {
+      "strategy_id": "tv_ema_stoch_v1",
+      "exit_policy": "C",
+      "entries": 974,
+      "update_count": 995,
+      "ambiguous_oco_trades": 0,
+      "exact_entries": true,
+      "order_prices_verified": true,
+      "terminal_and_benchmark_verified": true
+    },
+    {
+      "strategy_id": "tv_ema_stoch_v1",
+      "exit_policy": "D",
+      "entries": 974,
+      "update_count": 1697,
+      "ambiguous_oco_trades": 0,
+      "exact_entries": true,
+      "order_prices_verified": true,
+      "terminal_and_benchmark_verified": true
+    },
+    {
+      "strategy_id": "lbr_anti_310_adaptation_v1",
+      "exit_policy": "C",
+      "entries": 1507,
+      "update_count": 1442,
+      "ambiguous_oco_trades": 0,
+      "exact_entries": true,
+      "order_prices_verified": true,
+      "terminal_and_benchmark_verified": true
+    },
+    {
+      "strategy_id": "lbr_anti_310_adaptation_v1",
+      "exit_policy": "D",
+      "entries": 1507,
+      "update_count": 2514,
+      "ambiguous_oco_trades": 0,
+      "exact_entries": true,
+      "order_prices_verified": true,
+      "terminal_and_benchmark_verified": true
+    },
+    {
+      "strategy_id": "lbr_anti_stochastic_v1",
+      "exit_policy": "C",
+      "entries": 1144,
+      "update_count": 1178,
+      "ambiguous_oco_trades": 0,
+      "exact_entries": true,
+      "order_prices_verified": true,
+      "terminal_and_benchmark_verified": true
+    },
+    {
+      "strategy_id": "lbr_anti_stochastic_v1",
+      "exit_policy": "D",
+      "entries": 1144,
+      "update_count": 2061,
+      "ambiguous_oco_trades": 0,
+      "exact_entries": true,
+      "order_prices_verified": true,
+      "terminal_and_benchmark_verified": true
+    },
+    {
+      "strategy_id": "legacy_ema_sma16_v1",
+      "exit_policy": "C",
+      "entries": 8853,
+      "update_count": 8790,
+      "ambiguous_oco_trades": 0,
+      "exact_entries": true,
+      "order_prices_verified": true,
+      "terminal_and_benchmark_verified": true
+    },
+    {
+      "strategy_id": "legacy_ema_sma16_v1",
+      "exit_policy": "D",
+      "entries": 8853,
+      "update_count": 15052,
+      "ambiguous_oco_trades": 0,
+      "exact_entries": true,
+      "order_prices_verified": true,
+      "terminal_and_benchmark_verified": true
+    },
+    {
+      "strategy_id": "minervini_screen_v1",
+      "exit_policy": "C",
+      "entries": 1089,
+      "update_count": 1026,
+      "ambiguous_oco_trades": 0,
+      "exact_entries": true,
+      "order_prices_verified": true,
+      "terminal_and_benchmark_verified": true
+    },
+    {
+      "strategy_id": "minervini_screen_v1",
+      "exit_policy": "D",
+      "entries": 1089,
+      "update_count": 1597,
+      "ambiguous_oco_trades": 0,
+      "exact_entries": true,
+      "order_prices_verified": true,
+      "terminal_and_benchmark_verified": true
+    },
+    {
+      "strategy_id": "rsi2_screen_v1",
+      "exit_policy": "C",
+      "entries": 5295,
+      "update_count": 5293,
+      "ambiguous_oco_trades": 0,
+      "exact_entries": true,
+      "order_prices_verified": true,
+      "terminal_and_benchmark_verified": true
+    },
+    {
+      "strategy_id": "rsi2_screen_v1",
+      "exit_policy": "D",
+      "entries": 5295,
+      "update_count": 9336,
+      "ambiguous_oco_trades": 0,
+      "exact_entries": true,
+      "order_prices_verified": true,
+      "terminal_and_benchmark_verified": true
+    },
+    {
+      "strategy_id": "rsi14_screen_v1",
+      "exit_policy": "C",
+      "entries": 214,
+      "update_count": 235,
+      "ambiguous_oco_trades": 0,
+      "exact_entries": true,
+      "order_prices_verified": true,
+      "terminal_and_benchmark_verified": true
+    },
+    {
+      "strategy_id": "rsi14_screen_v1",
+      "exit_policy": "D",
+      "entries": 214,
+      "update_count": 404,
+      "ambiguous_oco_trades": 0,
+      "exact_entries": true,
+      "order_prices_verified": true,
+      "terminal_and_benchmark_verified": true
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "status": "passed",
+  "validated_conditions": 14,
+  "source_files_hash_verified": 140,
+  "corrected_rows": 63,
+  "checks": [
+    "全買いシグナルの過不足と重複",
+    "翌営業日寄付",
+    "同額元本",
+    "費用控除後損益率",
+    "保有日数",
+    "銘柄・年・資産別集計",
+    "原本・入力・コードのハッシュ",
+    "補正履歴",
+    "ZIP整合性"
+  ],
+  "conditions": [
+    {
+      "strategy_id": "tv_ema_stoch_v1",
+      "exit_policy": "A",
+      "signal_count": 974,
+      "closed_trades": 943,
+      "open_positions": 31,
+      "rejected_orders": 0
+    },
+    {
+      "strategy_id": "tv_ema_stoch_v1",
+      "exit_policy": "B",
+      "signal_count": 974,
+      "closed_trades": 957,
+      "open_positions": 17,
+      "rejected_orders": 0
+    },
+    {
+      "strategy_id": "lbr_anti_310_adaptation_v1",
+      "exit_policy": "A",
+      "signal_count": 1508,
+      "closed_trades": 1479,
+      "open_positions": 28,
+      "rejected_orders": 1
+    },
+    {
+      "strategy_id": "lbr_anti_310_adaptation_v1",
+      "exit_policy": "B",
+      "signal_count": 1508,
+      "closed_trades": 1480,
+      "open_positions": 27,
+      "rejected_orders": 1
+    },
+    {
+      "strategy_id": "lbr_anti_stochastic_v1",
+      "exit_policy": "A",
+      "signal_count": 1144,
+      "closed_trades": 1128,
+      "open_positions": 16,
+      "rejected_orders": 0
+    },
+    {
+      "strategy_id": "lbr_anti_stochastic_v1",
+      "exit_policy": "B",
+      "signal_count": 1144,
+      "closed_trades": 1129,
+      "open_positions": 15,
+      "rejected_orders": 0
+    },
+    {
+      "strategy_id": "legacy_ema_sma16_v1",
+      "exit_policy": "A",
+      "signal_count": 8856,
+      "closed_trades": 8648,
+      "open_positions": 205,
+      "rejected_orders": 3
+    },
+    {
+      "strategy_id": "legacy_ema_sma16_v1",
+      "exit_policy": "B",
+      "signal_count": 8856,
+      "closed_trades": 8703,
+      "open_positions": 150,
+      "rejected_orders": 3
+    },
+    {
+      "strategy_id": "minervini_screen_v1",
+      "exit_policy": "A",
+      "signal_count": 1089,
+      "closed_trades": 1052,
+      "open_positions": 37,
+      "rejected_orders": 0
+    },
+    {
+      "strategy_id": "minervini_screen_v1",
+      "exit_policy": "B",
+      "signal_count": 1089,
+      "closed_trades": 1058,
+      "open_positions": 31,
+      "rejected_orders": 0
+    },
+    {
+      "strategy_id": "rsi2_screen_v1",
+      "exit_policy": "A",
+      "signal_count": 5302,
+      "closed_trades": 5248,
+      "open_positions": 47,
+      "rejected_orders": 7
+    },
+    {
+      "strategy_id": "rsi2_screen_v1",
+      "exit_policy": "B",
+      "signal_count": 5302,
+      "closed_trades": 5293,
+      "open_positions": 2,
+      "rejected_orders": 7
+    },
+    {
+      "strategy_id": "rsi14_screen_v1",
+      "exit_policy": "A",
+      "signal_count": 214,
+      "closed_trades": 214,
+      "open_positions": 0,
+      "rejected_orders": 0
+    },
+    {
+      "strategy_id": "rsi14_screen_v1",
+      "exit_policy": "B",
+      "signal_count": 214,
+      "closed_trades": 214,
+      "open_positions": 0,
+      "rejected_orders": 0
+    }
+  ]
+}

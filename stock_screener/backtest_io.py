@@ -7,10 +7,12 @@ import subprocess
 
 import pandas as pd
 
-from .backtest import Config, run_backtest
+from .backtest import Config, run_backtest, _validate_execution
+from .independent_backtest import run_independent_backtest, grouped_statistics, write_report
 from .backtest_signals import STRATEGIES, screening_signals
 from .universe import STOCK_TICKERS, ETF_TICKERS
 from .exploratory_data import BASIS, PRICE_COLUMNS, WARNINGS
+from .ratchet import EXIT_SETS, PROFIT_R
 
 
 def load_dataset(directory, require_approved_universe=True, mode="strict"):
@@ -47,7 +49,8 @@ def load_dataset(directory, require_approved_universe=True, mode="strict"):
         for prefix,destination in [('execution',execution),('signals',inputs)]:
             path=root/f'{prefix}_{ticker}.csv'
             hashes[path.name]=sha256(path.read_bytes()).hexdigest()
-            frame=pd.read_csv(path,index_col='Date',parse_dates=['Date'])
+            frame=pd.read_csv(path,index_col='Date',parse_dates=['Date'],
+                              float_precision=manifest.get('csv_float_precision'))
             # Normalize session labels consistently without filling any missing rows.
             if frame.index.tz is not None:
                 frame.index=frame.index.tz_convert('Asia/Tokyo').tz_localize(None)
@@ -67,11 +70,26 @@ def load_dataset(directory, require_approved_universe=True, mode="strict"):
     path=root/'calendar.csv'
     hashes[path.name]=sha256(path.read_bytes()).hexdigest()
     calendar=pd.DatetimeIndex(pd.read_csv(path,parse_dates=['Date']).Date)
+    if manifest.get('data_quality_policy'):
+        correction_path = root / 'corrections.csv'
+        actual_hash = sha256(correction_path.read_bytes()).hexdigest()
+        if actual_hash != manifest.get('corrections_hash'):
+            raise ValueError('Correction audit hash mismatch')
+        hashes['corrections.csv'] = actual_hash
     hashes['manifest.json']=sha256((root/'manifest.json').read_bytes()).hexdigest()
     return manifest,execution,inputs,classes,calendar,hashes
 
 
-def run_suite(directory, output, config=None, mode="strict", progress=None):
+def run_suite(directory, output, config=None, mode="strict", progress=None, evaluation="portfolio", exit_set="ab"):
+    if exit_set not in EXIT_SETS:
+        raise ValueError('Unknown exit set')
+    policies = EXIT_SETS[exit_set]
+    if exit_set == 'cd' and evaluation != 'independent':
+        raise ValueError('Exits C/D require independent evaluation')
+    if evaluation not in ("portfolio", "independent"):
+        raise ValueError("Unknown evaluation method")
+    if evaluation == "independent" and mode != "exploratory":
+        raise ValueError("Independent evaluation requires exploratory adjusted prices")
     manifest,execution,inputs,classes,calendar,hashes=load_dataset(directory, mode=mode)
     cfg=config or Config()
     if '1306.T' not in inputs:
@@ -86,9 +104,19 @@ def run_suite(directory, output, config=None, mode="strict", progress=None):
     except subprocess.CalledProcessError:
         revision,dirty='unknown',True
     code_hashes={p.name:sha256(p.read_bytes()).hexdigest() for p in Path(__file__).parent.glob('*.py')}
+    settings = asdict(cfg)
+    if evaluation == 'independent':
+        for field in ('initial_cash', 'max_positions', 'allocation'):
+            settings.pop(field)
+        settings['normalized_entry_cost'] = 1.0
+    if exit_set == 'cd':
+        settings.update(initial_profit_r=PROFIT_R, ratchet_step_r=1,
+                        oco_same_bar='stop_first', limit_fill='at_target')
     status=dict(status='running',kind=manifest['kind'],execution_mode=mode,
+                exit_set=exit_set,exit_policies=list(policies),
+                evaluation_method=evaluation,
                 execution_price_basis=manifest['execution_price_basis'],code_commit=revision,code_dirty=dirty,code_hashes=code_hashes,
-                settings=asdict(cfg),input_hashes=hashes,provider=manifest['provider'],
+                settings=settings,input_hashes=hashes,provider=manifest['provider'],
                 retrieved_at=manifest['retrieved_at'],started_at=pd.Timestamp.now(tz='UTC').isoformat(),
                 warnings=['Exploratory; current 70-ticker universe has survivorship/selection bias.',
                           'Limit-locks and liquidity are modeled only if CanBuy/CanSell are supplied.',
@@ -96,36 +124,76 @@ def run_suite(directory, output, config=None, mode="strict", progress=None):
                           'No authentic All Country benchmark supplied; no outperformance claim.'])
     if mode == 'exploratory':
         status['warnings'].extend(WARNINGS)
+    if manifest.get('data_quality_policy'):
+        status['data_quality_policy'] = manifest['data_quality_policy']
+        status['corrected_rows'] = manifest['corrected_rows']
+        status['corrections_hash'] = manifest['corrections_hash']
+        status['rounding_scale_rows'] = manifest['rounding_scale_rows']
+        status['substantive_rows'] = manifest['substantive_rows']
+        status['warnings'].extend(manifest.get('warnings', []))
+    if evaluation == 'independent':
+        status['warnings'] = [
+            warning.replace('virtual integer shares', 'equal-notional virtual fractional shares')
+            for warning in status['warnings']]
     status_path=output/'run.json'
     status_path.write_text(json.dumps(status,ensure_ascii=False,indent=2),encoding='utf-8')
     summary=[]
     try:
+        if manifest.get('data_quality_policy'):
+            for name in ('corrections.csv', 'correction.json'):
+                (output / name).write_bytes((Path(directory) / name).read_bytes())
+        if evaluation == 'independent':
+            for ticker, frame in execution.items():
+                try:
+                    _validate_execution(frame)
+                except ValueError as exc:
+                    raise ValueError(f'{ticker}: {exc}') from exc
+            snapshot = output / 'code'
+            snapshot.mkdir()
+            for source in Path(__file__).parent.glob('*.py'):
+                (snapshot / source.name).write_bytes(source.read_bytes())
         for strategy in STRATEGIES:
             if progress:
                 progress(f'Computing screener signals: {strategy}')
             # Exactly one call to the screener function for each asset/strategy.
             flags={t:screening_signals(f,strategy,inputs['1306.T'].Close) for t,f in inputs.items()}
-            for policy in ('A','B'):
+            for policy in policies:
                 if progress:
                     progress(f'Running {len(summary)+1}/14: {strategy} / exit {policy}')
-                result=run_backtest(execution,flags,strategy,policy,calendar,classes,cfg)
-                result.config.update(execution_mode=mode, execution_price_basis=manifest['execution_price_basis'])
                 name=f'{strategy}__{policy}'
                 target=output/name
                 target.mkdir()
-                for field in ('daily','trades','rejections','positions','asset_groups'):
-                    getattr(result,field).to_csv(target/f'{field}.csv',index=field=='daily')
-                result.annual_returns.to_csv(target/'annual_returns.csv')
-                result.monthly_returns.to_csv(target/'monthly_returns.csv')
+                if evaluation == 'independent':
+                    result=run_independent_backtest(execution,flags,strategy,policy,calendar,classes,cfg)
+                    for field in ('trades','rejections','positions'):
+                        getattr(result,field).to_csv(target/f'{field}.csv',index=False)
+                    if exit_set == 'cd':
+                        result.order_updates.to_csv(target/'order_updates.csv',index=False)
+                    grouped=result.trades.assign(entry_year=pd.to_datetime(result.trades.entry_date).dt.year)
+                    for field in ('ticker','entry_year','asset_class'):
+                        grouped_statistics(grouped,field).to_csv(target/f'by_{field}.csv',index=False)
+                    result_config=dict(**settings,strategy_id=strategy,exit_policy=policy,
+                                       evaluation_method=evaluation,execution_mode=mode,
+                                       execution_price_basis=manifest['execution_price_basis'])
+                else:
+                    result=run_backtest(execution,flags,strategy,policy,calendar,classes,cfg)
+                    result.config.update(execution_mode=mode, execution_price_basis=manifest['execution_price_basis'])
+                    for field in ('daily','trades','rejections','positions','asset_groups'):
+                        getattr(result,field).to_csv(target/f'{field}.csv',index=field=='daily')
+                    result.annual_returns.to_csv(target/'annual_returns.csv')
+                    result.monthly_returns.to_csv(target/'monthly_returns.csv')
+                    result_config=result.config
                 (target/'metrics.json').write_text(json.dumps(result.metrics,indent=2,allow_nan=False),encoding='utf-8')
-                (target/'config.json').write_text(json.dumps(result.config,indent=2),encoding='utf-8')
-                summary.append(dict(strategy_id=strategy,exit_policy=policy,**result.metrics,
-                                    rejected_orders=len(result.rejections)))
+                (target/'config.json').write_text(json.dumps(result_config,indent=2),encoding='utf-8')
+                summary.append(dict(strategy_id=strategy,exit_policy=policy,
+                                    **{**result.metrics,'rejected_orders':len(result.rejections)}))
                 status['completed_conditions']=len(summary)
                 status_path.write_text(json.dumps(status,ensure_ascii=False,indent=2),encoding='utf-8')
         pd.DataFrame(summary).to_csv(output/'summary.csv',index=False)
         status.update(status='completed',completed_conditions=len(summary),
                       completed_at=pd.Timestamp.now(tz='UTC').isoformat())
+        if evaluation == 'independent':
+            write_report(output,pd.DataFrame(summary),status)
     except Exception as exc:
         status.update(status='failed',failure=f'{type(exc).__name__}: {exc}',completed_conditions=len(summary))
         raise

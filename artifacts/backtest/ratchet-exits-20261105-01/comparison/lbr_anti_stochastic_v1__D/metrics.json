@@ -1,0 +1,19 @@
+{
+  "trade_count": 1026,
+  "mean_net_return": 0.05294822148541006,
+  "mean_all_country_return": 0.05274757989097308,
+  "mean_excess_return": 0.00020064159443697528,
+  "median_excess_return": -0.027231291571160332,
+  "outperform_rate": 0.3898635477582846,
+  "same_day_trades": 2,
+  "average_calendar_days": 126.91812865497076,
+  "open_positions": 118,
+  "ambiguous_oco_trades": 0,
+  "all_trade_count": 1144,
+  "all_mean_strategy_return": 0.06633881084471427,
+  "all_mean_benchmark_return": 0.06289973553549735,
+  "all_mean_excess_return": 0.003439075309216921,
+  "all_median_excess_return": -0.020571031986801658,
+  "all_outperform_rate": 0.4090909090909091,
+  "stale_open_positions": 0
+}

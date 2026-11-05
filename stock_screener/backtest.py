@@ -20,8 +20,11 @@ class Config:
     commission: float = .001
     slippage: float = .0005
     initial_stop: float = .08
+    time_exit_enabled: bool = True
 
     def __post_init__(self):
+        if not isinstance(self.time_exit_enabled, bool):
+            raise ValueError('time_exit_enabled must be boolean')
         if pd.Timestamp(self.start) >= pd.Timestamp(self.end):
             raise ValueError('start must precede end')
         if not math.isfinite(self.initial_cash) or self.initial_cash <= 0:
@@ -125,15 +128,9 @@ def performance(daily, trades, initial_cash):
                 open_positions=int(daily.positions.iloc[-1]))
 
 
-def run_backtest(execution, signals, strategy_id, exit_policy, calendar, asset_classes, config=None):
-    """Signals at today's close can only execute at the next calendar session.
-
-    execution: nominal OHLCV and explicit corporate actions/lot sizes, not auto-adjusted.
-    signals: output of backtest_signals.screening_signals using the screener price series.
-    """
-    cfg = config or Config()
-    if exit_policy not in ('A','B'):
-        raise ValueError('exit_policy must be A or B')
+def _prepare_backtest(execution, signals, strategy_id, exit_policy, calendar, asset_classes, cfg):
+    if exit_policy not in ('A','B','C','D'):
+        raise ValueError('exit_policy must be A, B, C or D')
     if not execution or set(execution) != set(signals) or set(execution) != set(asset_classes):
         raise ValueError('execution/signals/asset_classes must cover the same nonempty universe')
     market = {t:_normalized(f) for t,f in execution.items()}
@@ -164,6 +161,37 @@ def run_backtest(execution, signals, strategy_id, exit_policy, calendar, asset_c
     days = all_days[(all_days >= pd.Timestamp(cfg.start)) & (all_days <= pd.Timestamp(cfg.end))]
     if len(days) < 2:
         raise ValueError('at least two evaluation sessions required')
+    return market, decisions, days
+
+
+def _exit_at_close(pos, row, signal, session, strategy_id, exit_policy, time_exit_enabled=True):
+    if row is not None and pd.notna(row.High):
+        pos['peak']=max(pos['peak'],float(row.High))
+        if exit_policy=='B' and strategy_id==MINERVINI:
+            pos['stop']=max(pos['stop'],pos['peak']*.9)
+    holding=session-pos['entry_session']+1
+    max_days=20 if exit_policy in ('A','C','D') else (5 if strategy_id in (RSI2,RSI14) else 40 if strategy_id==MINERVINI else 20)
+    reason = 'time' if time_exit_enabled and holding >= max_days else None
+    if exit_policy=='B' and signal is not None and signal.ready:
+        if strategy_id in (RSI2,RSI14):
+            if signal.rsi >= 50:
+                reason='rsi_recovery'
+        elif strategy_id!=MINERVINI and signal.sell_signal:
+            reason='opposite_signal'
+    return reason
+
+
+def run_backtest(execution, signals, strategy_id, exit_policy, calendar, asset_classes, config=None):
+    """Signals at today's close can only execute at the next calendar session.
+
+    execution: nominal OHLCV and explicit corporate actions/lot sizes, not auto-adjusted.
+    signals: output of backtest_signals.screening_signals using the screener price series.
+    """
+    cfg = config or Config()
+    if exit_policy not in ('A','B'):
+        raise ValueError('Portfolio evaluation supports exits A/B; use independent evaluation for C/D')
+    market, decisions, days = _prepare_backtest(
+        execution, signals, strategy_id, exit_policy, calendar, asset_classes, cfg)
     cash = float(cfg.initial_cash)
     positions, last_marks = {}, {}
     receivables, trades, rejected, daily = [], [], [], []
@@ -278,20 +306,9 @@ def run_backtest(execution, signals, strategy_id, exit_policy, calendar, asset_c
             row=row_at(ticker,date)
             if row is not None and pd.notna(row.Close):
                 last_marks[ticker]=float(row.Close)
-            if row is not None and pd.notna(row.High):
-                pos['peak']=max(pos['peak'],float(row.High))
-                if exit_policy=='B' and strategy_id==MINERVINI:
-                    pos['stop']=max(pos['stop'],pos['peak']*.9)
-            holding=session-pos['entry_session']+1
-            max_days=20 if exit_policy=='A' else (5 if strategy_id in (RSI2,RSI14) else 40 if strategy_id==MINERVINI else 20)
             signal=flags[ticker].get(date)
-            reason = 'time' if holding >= max_days else None
-            if exit_policy=='B' and signal is not None and signal.ready:
-                if strategy_id in (RSI2,RSI14):
-                    if signal.rsi >= 50:
-                        reason='rsi_recovery'
-                elif strategy_id!=MINERVINI and signal.sell_signal:
-                    reason='opposite_signal'
+            reason = _exit_at_close(pos, row, signal, session, strategy_id, exit_policy,
+                                    time_exit_enabled=cfg.time_exit_enabled)
             if reason:
                 sells[ticker]=reason
         for ticker in sorted(market):

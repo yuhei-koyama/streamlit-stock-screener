@@ -1,0 +1,16 @@
+{
+  "status": "blocked_invalid_ohlc",
+  "retrieved_assets": 70,
+  "expected_assets": 70,
+  "invalid_rows": 63,
+  "substantive_rows": 7,
+  "rounding_scale_rows": 56,
+  "diagnostic_threshold_only": 1e-08,
+  "threshold_applied_to_engine": false,
+  "completed_conditions": 0,
+  "python": "3.14.10",
+  "code_commit": "b8f1cb745e66ad8fb7fb094d02f06e4adfba4c00",
+  "user_authorization": "2026-11-05: Run the Yahoo Finance backtest locally and save reusable results.",
+  "source_modified": false,
+  "engine_modified": false
+}

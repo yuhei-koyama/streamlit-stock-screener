@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "exit_conditions": 140,
+  "fixed_window_samples": 1050,
+  "baseline_8pct_matches": 28,
+  "recovery_files": 700,
+  "input_hashes_unchanged": true,
+  "entry_prices_quantities_identical": true,
+  "nav_and_cost_recalculation": true,
+  "fixed_unit_order_levels_and_next_day_effect": true
+}

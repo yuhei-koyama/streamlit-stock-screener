@@ -29,3 +29,19 @@ htmlcov/
 # Generated local results (source fixtures may live under tests/fixtures)
 outputs/
 artifacts/
+
+# 承認済みの共有バックテスト記録
+!artifacts/
+artifacts/*
+!artifacts/backtest/
+artifacts/backtest/*
+!artifacts/backtest/all-country-comparison-20261105-01/
+!artifacts/backtest/entry-exit-diagnosis-20261105-01/
+!artifacts/backtest/holding-period-comparison-20261105-01/
+!artifacts/backtest/independent-20261105-01/
+!artifacts/backtest/independent-yahoo-20261105-02/
+!artifacts/backtest/ratchet-exits-20261105-01/
+!artifacts/backtest/yahoo-20261105-01/
+artifacts/backtest/**/*.zip
+artifacts/backtest/**/__pycache__/
+artifacts/backtest/**/*.pyc

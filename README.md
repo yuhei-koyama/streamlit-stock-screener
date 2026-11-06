@@ -83,3 +83,7 @@ yfinanceの調整済み価格と仮想1株単位で実行する`--mode explorato
 ## 保存済みバックテストの引き継ぎ
 
 日本株の入口・出口診断175条件と入力・比較原票を作業ブランチで共有しています。[日本語報告書](artifacts/backtest/entry-exit-diagnosis-20261105-01/REPORT.md)と[別端末での継続手順](docs/development/backtest-handoff-v1.md)を参照してください。
+
+### 東証全銘柄への拡張（ローカル検証用）
+
+公式JPX一覧とETF一覧を固定し、全対象を小バッチで取得・入口/出口を再検証するCLIを追加しました。手順は[東証全銘柄のローカル探索検証](docs/development/full-market-local.md)を参照してください。実際の全銘柄一覧の取得と全市場の検証は未実行です。現在の70銘柄の検索画面・判定式は変更していません。

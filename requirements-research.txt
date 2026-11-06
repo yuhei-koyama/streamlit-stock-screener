@@ -1,0 +1,4 @@
+-r requirements-dev.txt
+# JPX公式の旧Excel形式（data_j.xls）をローカルで読むため。
+xlrd>=2.0.1,<3
+requests>=2.32,<3

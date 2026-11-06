@@ -85,3 +85,17 @@ class DiagnosisTests(unittest.TestCase):
                                (means.loc['UP']+3*means.loc['DOWN'])/4)
         rejected=excluded[(excluded.ticker=='DOWN')&(excluded.signal_date==down.index[4])]
         self.assertEqual(rejected.reason.iloc[0],'entry_not_tradable')
+
+
+class AdditionalPeriodTests(unittest.TestCase):
+    def test_absent_fund_does_not_invent_returns_or_change_entry_diagnosis(self):
+        frame=market(12)
+        signal=flags(frame)
+        signal.loc[frame.index[:2],'buy_signal']=True
+        no_fund,baseline,_=fixed_horizon({'X':frame},{'X':signal},frame.index,None,5,config(frame))
+        reference,_,_=fixed_horizon({'X':frame},{'X':signal},frame.index,pd.Series(100.,index=frame.index),5,config(frame))
+        self.assertTrue(no_fund.all_country_return.isna().all())
+        self.assertTrue(no_fund.excess_return.isna().all())
+        self.assertTrue(baseline.baseline_excess.isna().all())
+        for column in ('net_return','timing_advantage','mae','mfe','trade_id'):
+            pd.testing.assert_series_equal(no_fund[column],reference[column])

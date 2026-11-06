@@ -35,8 +35,9 @@ def fixed_horizon(execution, signals, calendar, nav, horizon, config=None):
         excluded = pd.DataFrame(dict(ticker=ticker,signal_date=days,is_signal=signal.to_numpy(),reason=reason.to_numpy()))
         exclusions.append(excluded.loc[(ready & ~valid).to_numpy()])
         returned = exit_open * (1-cfg.slippage) * (1-cfg.commission) / (price*(1+cfg.commission)) - 1
-        benchmark = nav.reindex(days).shift(-horizon-1) / nav.reindex(days).shift(-1) - 1
-        if benchmark.loc[valid].isna().any():
+        benchmark = (pd.Series(np.nan,index=days) if nav is None else
+                     nav.reindex(days).shift(-horizon-1) / nav.reindex(days).shift(-1) - 1)
+        if nav is not None and benchmark.loc[valid].isna().any():
             raise ValueError('Missing exact-date benchmark NAV')
         entry_dates = pd.Series(days,index=days).shift(-1)
         exit_dates = pd.Series(days,index=days).shift(-horizon-1)

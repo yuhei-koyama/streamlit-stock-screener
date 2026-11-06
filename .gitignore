@@ -45,3 +45,6 @@ artifacts/backtest/*
 artifacts/backtest/**/*.zip
 artifacts/backtest/**/__pycache__/
 artifacts/backtest/**/*.pyc
+
+# 追加期間の取得原本と承認待ち監査
+!artifacts/backtest/period-2016-2020-20261106-01/

@@ -1,0 +1,542 @@
+2026-11-06 07:11:21.326 WARNING streamlit.runtime.caching.cache_data_api: No runtime found, using MemoryCacheStorageManager
+test_closed_and_open_returns_are_explicitly_separated (tests.test_additional_period.AdditionalDataTests.test_closed_and_open_returns_are_explicitly_separated) ... ok
+test_rounding_requires_explicit_approval_and_preserves_source (tests.test_additional_period.AdditionalDataTests.test_rounding_requires_explicit_approval_and_preserves_source) ... ok
+test_distance_must_shrink (tests.test_anti.AntiStateMachineTests.test_distance_must_shrink) ... ok
+test_flat_fast_slow_reversal_and_missing_value_reset_state (tests.test_anti.AntiStateMachineTests.test_flat_fast_slow_reversal_and_missing_value_reset_state) ... ok
+test_future_append_does_not_change_past_state (tests.test_anti.AntiStateMachineTests.test_future_append_does_not_change_past_state) ... ok
+test_long_setup_then_single_hook (tests.test_anti.AntiStateMachineTests.test_long_setup_then_single_hook) ... ok
+test_short_is_exact_sign_mirror (tests.test_anti.AntiStateMachineTests.test_short_is_exact_sign_mirror) ... ok
+test_touch_is_allowed_but_cross_can_be_forbidden (tests.test_anti.AntiStateMachineTests.test_touch_is_allowed_but_cross_can_be_forbidden) ... ok
+test_two_bar_mode_boundary (tests.test_anti.AntiStateMachineTests.test_two_bar_mode_boundary) ... ok
+test_public_310_is_causal_and_sign_symmetric (tests.test_anti.PublicContractTests.test_public_310_is_causal_and_sign_symmetric) ... ok
+test_public_parameter_contract (tests.test_anti.PublicContractTests.test_public_parameter_contract) ... ok
+test_public_stochastic_is_causal_and_price_symmetric (tests.test_anti.PublicContractTests.test_public_stochastic_is_causal_and_price_symmetric) ... ok
+test_stochastic_uses_fixed_three_bar_parameter (tests.test_anti.PublicContractTests.test_stochastic_uses_fixed_three_bar_parameter) ... ok
+test_strategy_output_has_audit_fields_and_no_trading_fields (tests.test_anti.PublicContractTests.test_strategy_output_has_audit_fields_and_no_trading_fields) ... ok
+test_current_day_bar_is_removed_only_when_enabled (tests.test_app.AppContractTests.test_current_day_bar_is_removed_only_when_enabled) ... ok
+test_default_page_starts_without_network_access (tests.test_app.AppContractTests.test_default_page_starts_without_network_access) ... 2026-11-06 07:11:22.190 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_ticker_normalization_is_tse_only_and_deduplicated (tests.test_app.AppContractTests.test_ticker_normalization_is_tse_only_and_deduplicated) ... ok
+test_viewer_does_not_run_or_fetch_on_open (tests.test_backtest.BacktestPageTests.test_viewer_does_not_run_or_fetch_on_open) ... 2026-11-06 07:11:22.490 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_every_entry_is_actual_screener_output_not_another_formula (tests.test_backtest.EntryIdentityTests.test_every_entry_is_actual_screener_output_not_another_formula) ... ok
+test_cagr_uses_total_nav_and_actual_days (tests.test_backtest.ExecutionTests.test_cagr_uses_total_nav_and_actual_days) ... ok
+test_costs_lot_rounding_and_no_duplicate_positions (tests.test_backtest.ExecutionTests.test_costs_lot_rounding_and_no_duplicate_positions) ... /workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+ok
+test_deferred_exit_and_no_future_cash_for_morning_buys (tests.test_backtest.ExecutionTests.test_deferred_exit_and_no_future_cash_for_morning_buys) ... /workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+ok
+test_future_changes_cannot_change_past_execution (tests.test_backtest.ExecutionTests.test_future_changes_cannot_change_past_execution) ... /workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+ok
+test_gap_stop_cash_precedes_other_open_entries (tests.test_backtest.ExecutionTests.test_gap_stop_cash_precedes_other_open_entries) ... /workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+ok
+test_gap_stop_is_not_filled_at_stop_price (tests.test_backtest.ExecutionTests.test_gap_stop_is_not_filled_at_stop_price) ... /workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+ok
+test_next_open_and_exact_common_holding_period (tests.test_backtest.ExecutionTests.test_next_open_and_exact_common_holding_period) ... /workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+ok
+test_opposite_signal_and_rsi_recovery_use_next_open (tests.test_backtest.ExecutionTests.test_opposite_signal_and_rsi_recovery_use_next_open) ... /workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+ok
+test_position_limit_and_deterministic_order (tests.test_backtest.ExecutionTests.test_position_limit_and_deterministic_order) ... /workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+ok
+test_reject_unknown_corporate_actions_or_short_calendar (tests.test_backtest.ExecutionTests.test_reject_unknown_corporate_actions_or_short_calendar) ... ok
+test_split_and_dividend_entitlement_cash_and_nav (tests.test_backtest.ExecutionTests.test_split_and_dividend_entitlement_cash_and_nav) ... /workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+ok
+test_tradeability_flags_and_partial_invalid_prices_are_rejected (tests.test_backtest.ExecutionTests.test_tradeability_flags_and_partial_invalid_prices_are_rejected) ... ok
+test_trailing_high_is_effective_only_next_session (tests.test_backtest.ExecutionTests.test_trailing_high_is_effective_only_next_session) ... /workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+ok
+test_unaffordable_lot_and_halt_do_not_create_fills (tests.test_backtest.ExecutionTests.test_unaffordable_lot_and_halt_do_not_create_fills) ... /workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+ok
+test_fixed_fourteen_conditions_and_manifest_fail_closed (tests.test_backtest.SuiteTests.test_fixed_fourteen_conditions_and_manifest_fail_closed) ... /workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+ok
+test_equal_weight_aggregation_and_groups (tests.test_benchmark_comparison.BenchmarkComparisonTests.test_equal_weight_aggregation_and_groups) ... ok
+test_exact_equal_notional_reference_and_percentage_point_difference (tests.test_benchmark_comparison.BenchmarkComparisonTests.test_exact_equal_notional_reference_and_percentage_point_difference) ... ok
+test_fourteen_saved_conditions_zip_and_original_preservation (tests.test_benchmark_comparison.BenchmarkComparisonTests.test_fourteen_saved_conditions_zip_and_original_preservation) ... Compared 1/14: tv_ema_stoch_v1__A
+Compared 2/14: tv_ema_stoch_v1__B
+Compared 3/14: lbr_anti_310_adaptation_v1__A
+Compared 4/14: lbr_anti_310_adaptation_v1__B
+Compared 5/14: lbr_anti_stochastic_v1__A
+Compared 6/14: lbr_anti_stochastic_v1__B
+Compared 7/14: legacy_ema_sma16_v1__A
+Compared 8/14: legacy_ema_sma16_v1__B
+Compared 9/14: minervini_screen_v1__A
+Compared 10/14: minervini_screen_v1__B
+Compared 11/14: rsi2_screen_v1__A
+Compared 12/14: rsi2_screen_v1__B
+Compared 13/14: rsi14_screen_v1__A
+Compared 14/14: rsi14_screen_v1__B
+2026-11-06 07:11:31.320 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+Compared 1/14: tv_ema_stoch_v1__A
+Compared 2/14: tv_ema_stoch_v1__B
+Compared 3/14: lbr_anti_310_adaptation_v1__A
+Compared 4/14: lbr_anti_310_adaptation_v1__B
+Compared 5/14: lbr_anti_stochastic_v1__A
+Compared 6/14: lbr_anti_stochastic_v1__B
+Compared 7/14: legacy_ema_sma16_v1__A
+Compared 8/14: legacy_ema_sma16_v1__B
+Compared 9/14: minervini_screen_v1__A
+Compared 10/14: minervini_screen_v1__B
+Compared 11/14: rsi2_screen_v1__A
+Compared 12/14: rsi2_screen_v1__B
+Compared 13/14: rsi14_screen_v1__A
+Compared 14/14: rsi14_screen_v1__B
+2026-11-06 07:11:31.850 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_invalid_trade_inputs_and_empty_group_columns (tests.test_benchmark_comparison.BenchmarkComparisonTests.test_invalid_trade_inputs_and_empty_group_columns) ... ok
+test_official_csv_validation (tests.test_benchmark_comparison.BenchmarkComparisonTests.test_official_csv_validation) ... ok
+test_same_day_trade_and_missing_date_without_fill (tests.test_benchmark_comparison.BenchmarkComparisonTests.test_same_day_trade_and_missing_date_without_fill) ... ok
+test_changed_input_hash_fails_before_writing (tests.test_data_quality.DataQualityTests.test_changed_input_hash_fails_before_writing) ... ok
+test_duplicate_or_missing_approved_rows_fail (tests.test_data_quality.DataQualityTests.test_duplicate_or_missing_approved_rows_fail) ... ok
+test_envelope_roundtrip_and_original_hashes_and_strict_gate (tests.test_data_quality.DataQualityTests.test_envelope_roundtrip_and_original_hashes_and_strict_gate) ... ok
+test_extra_invalid_row_is_not_silently_corrected (tests.test_data_quality.DataQualityTests.test_extra_invalid_row_is_not_silently_corrected) ... ok
+test_nonfinite_and_nonpositive_values_fail (tests.test_data_quality.DataQualityTests.test_nonfinite_and_nonpositive_values_fail) ... ok
+test_absent_fund_does_not_invent_returns_or_change_entry_diagnosis (tests.test_entry_exit_diagnosis.AdditionalPeriodTests.test_absent_fund_does_not_invent_returns_or_change_entry_diagnosis) ... ok
+test_baseline_uses_signal_composition_and_untradable_exclusions (tests.test_entry_exit_diagnosis.DiagnosisTests.test_baseline_uses_signal_composition_and_untradable_exclusions) ... ok
+test_diagnostic_reference_unit_and_default_identity (tests.test_entry_exit_diagnosis.DiagnosisTests.test_diagnostic_reference_unit_and_default_identity) ... ok
+test_fixed_horizon_costs_and_exit_open_excludes_later_extremes (tests.test_entry_exit_diagnosis.DiagnosisTests.test_fixed_horizon_costs_and_exit_open_excludes_later_extremes) ... ok
+test_ready_days_and_matched_weight (tests.test_entry_exit_diagnosis.DiagnosisTests.test_ready_days_and_matched_weight) ... ok
+test_recovery_requires_later_close_before_exit_open (tests.test_entry_exit_diagnosis.DiagnosisTests.test_recovery_requires_later_close_before_exit_open) ... ok
+test_failed_collection_resumes_only_missing_tickers_and_checks_hashes (tests.test_exploratory.CollectionTests.test_failed_collection_resumes_only_missing_tickers_and_checks_hashes) ... Fetching 7203.T (1/70)
+Fetching 6758.T (2/70)
+Cached: 7203.T
+Fetching 6758.T (2/70)
+Fetching 8306.T (3/70)
+Fetching 6501.T (4/70)
+Fetching 9984.T (5/70)
+Fetching 8035.T (6/70)
+Fetching 6861.T (7/70)
+Fetching 7974.T (8/70)
+Fetching 8058.T (9/70)
+Fetching 9432.T (10/70)
+Fetching 8316.T (11/70)
+Fetching 8411.T (12/70)
+Fetching 8766.T (13/70)
+Fetching 8001.T (14/70)
+Fetching 8031.T (15/70)
+Fetching 8002.T (16/70)
+Fetching 8053.T (17/70)
+Fetching 9433.T (18/70)
+Fetching 9434.T (19/70)
+Fetching 9983.T (20/70)
+Fetching 4063.T (21/70)
+Fetching 6098.T (22/70)
+Fetching 6367.T (23/70)
+Fetching 6954.T (24/70)
+Fetching 6902.T (25/70)
+Fetching 4502.T (26/70)
+Fetching 4503.T (27/70)
+Fetching 4568.T (28/70)
+Fetching 4519.T (29/70)
+Fetching 4661.T (30/70)
+Fetching 3382.T (31/70)
+Fetching 8267.T (32/70)
+Fetching 9843.T (33/70)
+Fetching 2802.T (34/70)
+Fetching 2914.T (35/70)
+Fetching 2502.T (36/70)
+Fetching 2503.T (37/70)
+Fetching 8801.T (38/70)
+Fetching 8802.T (39/70)
+Fetching 9020.T (40/70)
+Fetching 9022.T (41/70)
+Fetching 9101.T (42/70)
+Fetching 9104.T (43/70)
+Fetching 5401.T (44/70)
+Fetching 6301.T (45/70)
+Fetching 7011.T (46/70)
+Fetching 7012.T (47/70)
+Fetching 7267.T (48/70)
+Fetching 7269.T (49/70)
+Fetching 7751.T (50/70)
+Fetching 1306.T (51/70)
+Fetching 1308.T (52/70)
+Fetching 1321.T (53/70)
+Fetching 1475.T (54/70)
+Fetching 1655.T (55/70)
+Fetching 2558.T (56/70)
+Fetching 2559.T (57/70)
+Fetching 2621.T (58/70)
+Fetching 1348.T (59/70)
+Fetching 1305.T (60/70)
+Fetching 1320.T (61/70)
+Fetching 1330.T (62/70)
+Fetching 1346.T (63/70)
+Fetching 1478.T (64/70)
+Fetching 1489.T (65/70)
+Fetching 1577.T (66/70)
+Fetching 1540.T (67/70)
+Fetching 1541.T (68/70)
+Fetching 1542.T (69/70)
+Fetching 1543.T (70/70)
+Cached: 7203.T
+Cached: 6758.T
+Cached: 8306.T
+Cached: 6501.T
+Cached: 9984.T
+Cached: 8035.T
+Cached: 6861.T
+Cached: 7974.T
+Cached: 8058.T
+Cached: 9432.T
+Cached: 8316.T
+Cached: 8411.T
+Cached: 8766.T
+Cached: 8001.T
+Cached: 8031.T
+Cached: 8002.T
+Cached: 8053.T
+Cached: 9433.T
+Cached: 9434.T
+Cached: 9983.T
+Cached: 4063.T
+Cached: 6098.T
+Cached: 6367.T
+Cached: 6954.T
+Cached: 6902.T
+Cached: 4502.T
+Cached: 4503.T
+Cached: 4568.T
+Cached: 4519.T
+Cached: 4661.T
+Cached: 3382.T
+Cached: 8267.T
+Cached: 9843.T
+Cached: 2802.T
+Cached: 2914.T
+Cached: 2502.T
+Cached: 2503.T
+Cached: 8801.T
+Cached: 8802.T
+Cached: 9020.T
+Cached: 9022.T
+Cached: 9101.T
+Cached: 9104.T
+Cached: 5401.T
+Cached: 6301.T
+Cached: 7011.T
+Cached: 7012.T
+Cached: 7267.T
+Cached: 7269.T
+Cached: 7751.T
+Cached: 1306.T
+Cached: 1308.T
+Cached: 1321.T
+Cached: 1475.T
+Cached: 1655.T
+Cached: 2558.T
+Cached: 2559.T
+Cached: 2621.T
+Cached: 1348.T
+Cached: 1305.T
+Cached: 1320.T
+Cached: 1330.T
+Cached: 1346.T
+Cached: 1478.T
+Cached: 1489.T
+Cached: 1577.T
+Cached: 1540.T
+Cached: 1541.T
+Cached: 1542.T
+Cached: 1543.T
+ok
+test_changed_cache_and_incomplete_collection_are_rejected (tests.test_exploratory.ExploratoryTests.test_changed_cache_and_incomplete_collection_are_rejected) ... ok
+test_fixed_fourteen_exploratory_runs_and_zip_are_labeled (tests.test_exploratory.ExploratoryTests.test_fixed_fourteen_exploratory_runs_and_zip_are_labeled) ... /workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+ok
+test_offline_conversion_is_explicit_and_does_not_double_count_actions (tests.test_exploratory.ExploratoryTests.test_offline_conversion_is_explicit_and_does_not_double_count_actions) ... /workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+ok
+test_virtual_input_mismatch_and_dividend_addition_are_rejected (tests.test_exploratory.ExploratoryTests.test_virtual_input_mismatch_and_dividend_addition_are_rejected) ... ok
+test_all_overlapping_signals_have_equal_notional_and_no_limits (tests.test_independent_backtest.IndependentTests.test_all_overlapping_signals_have_equal_notional_and_no_limits) ... ok
+test_empty_outputs_have_columns_and_open_marks_are_separate (tests.test_independent_backtest.IndependentTests.test_empty_outputs_have_columns_and_open_marks_are_separate) ... ok
+test_exit_rules_match_existing_engine_for_single_signal (tests.test_independent_backtest.IndependentTests.test_exit_rules_match_existing_engine_for_single_signal) ... /workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+/workspace/anti-venv314/lib/python3.14/site-packages/pandas/core/resample.py:2359: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+  + Timedelta(days=1, unit=edges_dti.unit).as_unit(edges_dti.unit)
+ok
+test_fourteen_conditions_save_readable_results_and_zip (tests.test_independent_backtest.IndependentTests.test_fourteen_conditions_save_readable_results_and_zip) ... 2026-11-06 07:11:58.118 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_future_changes_preserve_completed_trades (tests.test_independent_backtest.IndependentTests.test_future_changes_preserve_completed_trades) ... ok
+test_invalid_prices_and_separate_actions_are_rejected (tests.test_independent_backtest.IndependentTests.test_invalid_prices_and_separate_actions_are_rejected) ... ok
+test_net_return_includes_both_fees_and_slippage (tests.test_independent_backtest.IndependentTests.test_net_return_includes_both_fees_and_slippage) ... ok
+test_untradable_entry_and_deferred_exit_and_final_signal (tests.test_independent_backtest.IndependentTests.test_untradable_entry_and_deferred_exit_and_final_signal) ... ok
+test_future_rows_do_not_change_past_values (tests.test_indicators.Lbr310IndicatorTests.test_future_rows_do_not_change_past_values) ... ok
+test_manual_values_and_full_window_boundaries (tests.test_indicators.Lbr310IndicatorTests.test_manual_values_and_full_window_boundaries) ... ok
+test_uses_sma_not_ema_and_does_not_mutate_input (tests.test_indicators.Lbr310IndicatorTests.test_uses_sma_not_ema_and_does_not_mutate_input) ... ok
+test_manual_values_and_full_window_boundaries (tests.test_indicators.StochasticIndicatorTests.test_manual_values_and_full_window_boundaries) ... ok
+test_zero_range_remains_missing (tests.test_indicators.StochasticIndicatorTests.test_zero_range_remains_missing) ... ok
+test_rejects_invalid_high_low_range (tests.test_indicators.ValidationTests.test_rejects_invalid_high_low_range) ... ok
+test_rejects_missing_nonnumeric_duplicate_and_descending_data (tests.test_indicators.ValidationTests.test_rejects_missing_nonnumeric_duplicate_and_descending_data) ... ok
+test_each_page_renders_and_searches_without_real_network (tests.test_linda_versions.VersionPageTests.test_each_page_renders_and_searches_without_real_network) ... 2026-11-06 07:11:58.298 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-06 07:11:58.477 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-11-06 07:11:58.537 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-11-06 07:11:58.556 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-06 07:11:58.679 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-11-06 07:11:58.706 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-11-06 07:11:58.719 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-06 07:11:58.849 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-11-06 07:11:58.887 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-11-06 07:11:58.899 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-11-06 07:11:59.023 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-11-06 07:11:59.089 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+ok
+test_existing_anti_flags_unchanged_and_versions_isolated (tests.test_linda_versions.VersionTests.test_existing_anti_flags_unchanged_and_versions_isolated) ... ok
+test_legacy_matches_original_functions_at_every_prefix (tests.test_linda_versions.VersionTests.test_legacy_matches_original_functions_at_every_prefix) ... ok
+test_tv_default_formula_and_warmup (tests.test_linda_versions.VersionTests.test_tv_default_formula_and_warmup) ... ok
+test_tv_gap_restarts_and_future_is_causal (tests.test_linda_versions.VersionTests.test_tv_gap_restarts_and_future_is_causal) ... ok
+test_tv_hand_calculation_and_smoothing (tests.test_linda_versions.VersionTests.test_tv_hand_calculation_and_smoothing) ... ok
+test_tv_same_bar_combination_strict_turn_and_previous_equality (tests.test_linda_versions.VersionTests.test_tv_same_bar_combination_strict_turn_and_previous_equality) ... ok
+test_tv_warmup_zero_range_and_invalid_parameters (tests.test_linda_versions.VersionTests.test_tv_warmup_zero_range_and_invalid_parameters) ... ok
+test_a_holds_rising_trade_beyond_twenty_days (tests.test_no_time_exit.NoTimeExitTests.test_a_holds_rising_trade_beyond_twenty_days) ... ok
+test_all_entered_valuation_includes_open_gain_and_stale_mark (tests.test_no_time_exit.NoTimeExitTests.test_all_entered_valuation_includes_open_gain_and_stale_mark) ... ok
+test_b_opposite_signal_after_old_time_limit (tests.test_no_time_exit.NoTimeExitTests.test_b_opposite_signal_after_old_time_limit) ... ok
+test_empty_and_all_open_valuation (tests.test_no_time_exit.NoTimeExitTests.test_empty_and_all_open_valuation) ... ok
+test_gap_stop_is_retained_after_old_limit_and_config_is_boolean (tests.test_no_time_exit.NoTimeExitTests.test_gap_stop_is_retained_after_old_limit_and_config_is_boolean) ... ok
+test_rsi_recovery_after_five_days_and_minervini_after_forty (tests.test_no_time_exit.NoTimeExitTests.test_rsi_recovery_after_five_days_and_minervini_after_forty) ... ok
+test_close_update_only_affects_next_session (tests.test_ratchet_exits.RatchetTests.test_close_update_only_affects_next_session) ... ok
+test_exact_one_r_boundary_and_fractional_entry_price (tests.test_ratchet_exits.RatchetTests.test_exact_one_r_boundary_and_fractional_entry_price) ... ok
+test_fixed_profit_c_and_rising_profit_d (tests.test_ratchet_exits.RatchetTests.test_fixed_profit_c_and_rising_profit_d) ... ok
+test_fourteen_cd_conditions_and_benchmark_zip (tests.test_ratchet_exits.RatchetTests.test_fourteen_cd_conditions_and_benchmark_zip) ... Compared 1/14: tv_ema_stoch_v1__C
+Compared 2/14: tv_ema_stoch_v1__D
+Compared 3/14: lbr_anti_310_adaptation_v1__C
+Compared 4/14: lbr_anti_310_adaptation_v1__D
+Compared 5/14: lbr_anti_stochastic_v1__C
+Compared 6/14: lbr_anti_stochastic_v1__D
+Compared 7/14: legacy_ema_sma16_v1__C
+Compared 8/14: legacy_ema_sma16_v1__D
+Compared 9/14: minervini_screen_v1__C
+Compared 10/14: minervini_screen_v1__D
+Compared 11/14: rsi2_screen_v1__C
+Compared 12/14: rsi2_screen_v1__D
+Compared 13/14: rsi14_screen_v1__C
+Compared 14/14: rsi14_screen_v1__D
+2026-11-06 07:12:08.916 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_gap_profit_precedes_daily_low_and_same_bar_is_flagged (tests.test_ratchet_exits.RatchetTests.test_gap_profit_precedes_daily_low_and_same_bar_is_flagged) ... ok
+test_levels_and_multiple_steps_and_no_downward_update (tests.test_ratchet_exits.RatchetTests.test_levels_and_multiple_steps_and_no_downward_update) ... ok
+test_no_time_limit_and_future_changes (tests.test_ratchet_exits.RatchetTests.test_no_time_limit_and_future_changes) ... ok
+test_profit_fees_and_gap_stop_slippage (tests.test_ratchet_exits.RatchetTests.test_profit_fees_and_gap_stop_slippage) ... ok
+test_untradable_session_freezes_levels (tests.test_ratchet_exits.RatchetTests.test_untradable_session_freezes_levels) ... ok
+test_expanded_universe_selection_and_limit_without_network (tests.test_search.SearchTests.test_expanded_universe_selection_and_limit_without_network) ... 2026-11-06 07:12:09.087 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_flat_and_gap_reset (tests.test_search.SearchTests.test_flat_and_gap_reset) ... ok
+test_future_invariance (tests.test_search.SearchTests.test_future_invariance) ... ok
+test_page_initial_render (tests.test_search.SearchTests.test_page_initial_render) ... 2026-11-06 07:12:09.210 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_page_search_with_fixed_fixture (tests.test_search.SearchTests.test_page_search_with_fixed_fixture) ... 2026-11-06 07:12:09.287 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_rsi_filter_and_threshold (tests.test_search.SearchTests.test_rsi_filter_and_threshold) ... ok
+test_template_breakout_volume_and_missing_benchmark (tests.test_search.SearchTests.test_template_breakout_volume_and_missing_benchmark) ... ok
+test_wilder_seed_and_recursion (tests.test_search.SearchTests.test_wilder_seed_and_recursion) ... ok
+
+----------------------------------------------------------------------
+Ran 102 tests in 48.499s
+
+OK
+Unit tests and Python compilation passed.

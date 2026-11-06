@@ -1,0 +1,16 @@
+{
+  "status": "awaiting_data_quality_approval",
+  "requested_period": [
+    "2016-01-04",
+    "2020-12-30"
+  ],
+  "warmup_from": "2014-01-01",
+  "collected_tickers": 70,
+  "stock_rounding_rows": 197,
+  "etf_rounding_rows": 86,
+  "etf_nonpositive_rows": 245,
+  "affected_etf": "1321.T",
+  "market_backtest_executed": false,
+  "tests_passed": 102,
+  "syntax_check": "passed"
+}

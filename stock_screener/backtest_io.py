@@ -13,9 +13,10 @@ from .backtest_signals import STRATEGIES, screening_signals
 from .universe import STOCK_TICKERS, ETF_TICKERS
 from .exploratory_data import BASIS, PRICE_COLUMNS, WARNINGS
 from .ratchet import EXIT_SETS, PROFIT_R
+from .trading_calendar import calendar_metadata, validate_execution_calendar
 
 
-def load_dataset(directory, require_approved_universe=True, mode="strict"):
+def load_dataset(directory, require_approved_universe=True, mode="strict", for_execution=False):
     root=Path(directory)
     manifest=json.loads((root/'manifest.json').read_text(encoding='utf-8'))
     if mode == 'strict':
@@ -70,12 +71,43 @@ def load_dataset(directory, require_approved_universe=True, mode="strict"):
     path=root/'calendar.csv'
     hashes[path.name]=sha256(path.read_bytes()).hexdigest()
     calendar=pd.DatetimeIndex(pd.read_csv(path,parse_dates=['Date']).Date)
+    if for_execution:
+        validate_execution_calendar(execution, inputs, calendar)
+    if manifest.get('trading_calendar'):
+        recorded = manifest['trading_calendar']
+        expected = calendar_metadata() if for_execution else calendar_metadata(recorded.get('policy'))
+        if recorded != expected:
+            raise ValueError('取引日カレンダーの版または原本が一致しません。新規実行には新版の入力へ再準備してください')
+        if not for_execution:
+            validate_execution_calendar(execution, inputs, calendar, policy=recorded['policy'])
+        audit_hashes = [('excluded_nontrading_rows.csv', manifest['exclusions_hash'])]
+        if 'corrections_hash' in manifest or 'rounding_rows' in manifest:
+            audit_hashes.append(('corrections.csv', manifest.get('corrections_hash')))
+        for name, expected_hash in audit_hashes:
+            actual_hash = sha256((root/name).read_bytes()).hexdigest()
+            if actual_hash != expected_hash:
+                raise ValueError(f'補正・除外履歴のハッシュが一致しません: {name}')
+            hashes[name] = actual_hash
     if manifest.get('data_quality_policy'):
         correction_path = root / 'corrections.csv'
         actual_hash = sha256(correction_path.read_bytes()).hexdigest()
         if actual_hash != manifest.get('corrections_hash'):
             raise ValueError('Correction audit hash mismatch')
         hashes['corrections.csv'] = actual_hash
+    if manifest.get('rounding_approval'):
+        approval = manifest['rounding_approval']
+        if approval['source_collection_sha256'] != manifest['source_collection_hash']:
+            raise ValueError('補正承認と元データコレクションが一致しません')
+        if approval['applied_rows'] != manifest['rounding_rows']:
+            raise ValueError('補正承認と適用件数が一致しません')
+        for name, expected_hash in [
+                ('rounding_approval.json', approval['record_sha256']),
+                ('approved_corrections.csv', approval['approved_list_sha256']),
+                ('skipped_approved_corrections.csv', approval['skipped_rows_sha256'])]:
+            actual_hash = sha256((root/name).read_bytes()).hexdigest()
+            if actual_hash != expected_hash:
+                raise ValueError(f'補正承認履歴のハッシュが一致しません: {name}')
+            hashes[name] = actual_hash
     hashes['manifest.json']=sha256((root/'manifest.json').read_bytes()).hexdigest()
     return manifest,execution,inputs,classes,calendar,hashes
 
@@ -90,7 +122,7 @@ def run_suite(directory, output, config=None, mode="strict", progress=None, eval
         raise ValueError("Unknown evaluation method")
     if evaluation == "independent" and mode != "exploratory":
         raise ValueError("Independent evaluation requires exploratory adjusted prices")
-    manifest,execution,inputs,classes,calendar,hashes=load_dataset(directory, mode=mode)
+    manifest,execution,inputs,classes,calendar,hashes=load_dataset(directory, mode=mode, for_execution=True)
     cfg=config or Config()
     if '1306.T' not in inputs:
         raise ValueError('1306.T RS benchmark required')
@@ -114,7 +146,7 @@ def run_suite(directory, output, config=None, mode="strict", progress=None, eval
                         oco_same_bar='stop_first', limit_fill='at_target')
     status=dict(status='running',kind=manifest['kind'],execution_mode=mode,
                 exit_set=exit_set,exit_policies=list(policies),
-                evaluation_method=evaluation,
+                evaluation_method=evaluation,trading_calendar=calendar_metadata(),
                 execution_price_basis=manifest['execution_price_basis'],code_commit=revision,code_dirty=dirty,code_hashes=code_hashes,
                 settings=settings,input_hashes=hashes,provider=manifest['provider'],
                 retrieved_at=manifest['retrieved_at'],started_at=pd.Timestamp.now(tz='UTC').isoformat(),
@@ -139,6 +171,8 @@ def run_suite(directory, output, config=None, mode="strict", progress=None, eval
     status_path.write_text(json.dumps(status,ensure_ascii=False,indent=2),encoding='utf-8')
     summary=[]
     try:
+        if manifest.get('trading_calendar'):
+            (output/'excluded_nontrading_rows.csv').write_bytes((Path(directory)/'excluded_nontrading_rows.csv').read_bytes())
         if manifest.get('data_quality_policy'):
             for name in ('corrections.csv', 'correction.json'):
                 (output / name).write_bytes((Path(directory) / name).read_bytes())

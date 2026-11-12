@@ -2,3 +2,6 @@
 # JPX公式の旧Excel形式（data_j.xls）をローカルで読むため。
 xlrd>=2.0.1,<3
 requests>=2.32,<3
+
+# 現在のJPX公式上場一覧のExcel形式を読むため。
+openpyxl>=3.1,<4

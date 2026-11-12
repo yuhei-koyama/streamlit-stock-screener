@@ -1,4 +1,5 @@
 """保存済みの独立仮想取引とオルカンの同日付基準価額を比較する。"""
+import io
 import json
 from pathlib import Path
 import platform
@@ -19,12 +20,17 @@ FUND_URL = 'https://www.am.mufg.jp/fund_file/setteirai/253425.csv'
 
 def load_all_country_nav(path):
     """公式CSVのファンド名・列・日付・正値を確認して再投資系列を返す。"""
-    title = Path(path).read_text(encoding='cp932').splitlines()[0]
+    return load_all_country_nav_content(Path(path).read_bytes())
+
+
+def load_all_country_nav_content(content):
+    """検証した同一バイト列から公式CSVを読み取る。"""
+    title = content.decode('cp932').splitlines()[0]
     normalized = unicodedata.normalize('NFKC', title)
     if ('emaxis slim' not in normalized.lower() or '全世界株式' not in normalized
             or 'オール・カントリー' not in normalized):
         raise ValueError('Unexpected fund name')
-    frame = pd.read_csv(path, encoding='cp932', skiprows=1, float_precision='round_trip')
+    frame = pd.read_csv(io.BytesIO(content), encoding='cp932', skiprows=1, float_precision='round_trip')
     if not {'基準日', NAV_COLUMN}.issubset(frame) or frame.empty:
         raise ValueError('Official reinvested NAV columns required')
     dates = pd.DatetimeIndex(pd.to_datetime(frame['基準日'], format='%Y/%m/%d', errors='raise'))
@@ -34,6 +40,48 @@ def load_all_country_nav(path):
     if not np.isfinite(values).all() or (values <= 0).any():
         raise ValueError('NAV must be finite and positive')
     return pd.Series(values, index=dates, name='all_country_nav')
+
+
+def compare_portfolio_nav(daily, nav, initial_cash, valuation_status='current_prices'):
+    """同じ初期資金・日付で純資産、CAGR、ドローダウンを比較する。"""
+    if daily.empty or len(daily) < 2 or not np.isfinite(initial_cash) or initial_cash <= 0:
+        raise ValueError('純資産の期間または初期資金が不正です')
+    for index in (daily.index, nav.index):
+        if not isinstance(index, pd.DatetimeIndex) or index.hasnans or not index.is_unique or not index.is_monotonic_increasing:
+            raise ValueError('比較日付は昇順・一意のDatetimeIndexが必要です')
+    if nav.empty or not np.isfinite(nav.to_numpy(dtype=float)).all() or nav.le(0).any():
+        raise ValueError('基準価額は有限の正数が必要です')
+    if not np.isfinite(daily.nav.to_numpy(dtype=float)).all() or daily.nav.le(0).any():
+        raise ValueError('戦略純資産は有限の正数が必要です')
+    missing = daily.index.difference(nav.index)
+    unavailable = missing[missing >= nav.index[0]]
+    if len(unavailable):
+        raise ValueError('オルカンの同日付基準価額が欠損しています。' + str(unavailable.strftime('%Y-%m-%d').tolist()))
+    out = pd.DataFrame({'strategy_nav': daily.nav})
+    metrics = dict(benchmark_status='unavailable_before_fund_inception',
+                   benchmark_total_return=None, benchmark_cagr=None, benchmark_max_drawdown=None,
+                   excess_total_return=None, excess_cagr=None, excess_terminal_value=None,
+                   outperformed_on_total_return=None)
+    if len(missing):
+        return out, metrics
+    years = (daily.index[-1] - daily.index[0]).days / 365.2425
+    if years <= 0:
+        raise ValueError('比較期間は正の日数が必要です')
+    fund = nav.reindex(daily.index)
+    out['all_country_nav'] = initial_cash * fund / fund.iloc[0]
+    out['excess_nav'] = out.strategy_nav - out.all_country_nav
+    strategy_return = float(out.strategy_nav.iloc[-1] / initial_cash - 1)
+    fund_return = float(out.all_country_nav.iloc[-1] / initial_cash - 1)
+    strategy_cagr = float((1 + strategy_return) ** (1 / years) - 1)
+    fund_cagr = float((1 + fund_return) ** (1 / years) - 1)
+    current = valuation_status == 'current_prices'
+    metrics.update(benchmark_status='compared' if current else 'provisional_stale_prices',
+                   benchmark_total_return=fund_return, benchmark_cagr=fund_cagr,
+                   benchmark_max_drawdown=float((out.all_country_nav / out.all_country_nav.cummax() - 1).min()),
+                   excess_total_return=strategy_return - fund_return, excess_cagr=strategy_cagr - fund_cagr,
+                   excess_terminal_value=float(out.excess_nav.iloc[-1]),
+                   outperformed_on_total_return=bool(strategy_return > fund_return) if current else None)
+    return out, metrics
 
 
 def compare_trades(trades, nav):

@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """2016〜2020年を既存入口・診断条件のまま追加検証する。"""
 import argparse
+import io
+from hashlib import sha256
 from dataclasses import asdict
 import json
 from pathlib import Path
@@ -12,6 +14,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 
 import numpy as np
 import pandas as pd
+from stock_screener import correction_approval
 from stock_screener.backtest import Config, _validate_execution
 from stock_screener.backtest_io import load_dataset
 from stock_screener.backtest_signals import STRATEGIES, screening_signals
@@ -19,6 +22,7 @@ from stock_screener.entry_exit_diagnosis import HORIZONS,STOPS,fixed_horizon,ent
 from stock_screener.exploratory_data import BASIS,PRICE_COLUMNS,digest
 from stock_screener.independent_backtest import run_independent_backtest
 from stock_screener.universe import STOCK_TICKERS,ETF_TICKERS
+from stock_screener.trading_calendar import split_trading_rows, calendar_metadata, validate_execution_calendar
 
 
 def save(frame,path,index=False):
@@ -27,17 +31,43 @@ def save(frame,path,index=False):
 
 def prepare(source,output,approve_rounding=False):
     source,output=Path(source),Path(output)
-    meta=json.loads((source/'collection.json').read_text(encoding='utf-8'))
+    collection_content=(source/'collection.json').read_bytes()
+    meta=json.loads(collection_content)
     if meta.get('status')!='source_collected_requires_execution_validation':
         raise ValueError('Source collection is incomplete')
     if output.exists():
         raise ValueError('Use a new data directory')
-    audit=[]; frames={}
+    approved = {}
+    skipped_approved = []
+    found = set()
+    if approve_rounding:
+        approval, approved_rows, approval_content, approved_list_content = correction_approval.load_rounding_approval(source, collection_content)
+        approved = {(row.ticker, row.Date):row for row in approved_rows.itertuples(index=False)}
+    audit=[]; frames={}; excluded_frames=[]
     for ticker in STOCK_TICKERS:
         path=source/f'signals_{ticker}.csv'
-        if digest(path)!=meta['hashes'][path.name]:
+        content=path.read_bytes()
+        if sha256(content).hexdigest()!=meta['hashes'][path.name]:
             raise ValueError(f'Changed source: {ticker}')
-        frame=pd.read_csv(path,index_col='Date',parse_dates=['Date'],float_precision='round_trip')[PRICE_COLUMNS]
+        frame=pd.read_csv(io.BytesIO(content),index_col='Date',parse_dates=['Date'],float_precision='round_trip')[PRICE_COLUMNS]
+        if not frame.index.is_unique or not frame.index.is_monotonic_increasing:
+            raise ValueError(f'Unsorted or duplicate source dates: {ticker}')
+        for (approved_ticker, date), expected in approved.items():
+            if approved_ticker != ticker:
+                continue
+            if date not in frame.index:
+                raise ValueError(f'承認された行が元データにありません: {ticker} {date.date()}')
+            before = frame.loc[date]
+            actual_values = (before.Open, before.Close, before.High, before.Low)
+            expected_values = (expected.Open, expected.Close, expected.original_high, expected.original_low)
+            if actual_values != expected_values:
+                raise ValueError(f'承認済みの補正前価格と一致しません: {ticker} {date.date()}')
+
+        frame, excluded = split_trading_rows(frame)
+        excluded_frames.append(excluded.reset_index().assign(ticker=ticker))
+        for date in excluded.index:
+            if (ticker, date) in approved:
+                skipped_approved.append(dict(ticker=ticker,Date=date,reason='nontrading_day'))
         if not np.isfinite(frame.to_numpy()).all() or (frame[['Open','High','Low','Close']]<=0).any().any():
             raise ValueError(f'Invalid price data: {ticker}; no automatic correction')
         bad=(frame.High<frame.Low)|(frame.High<frame[['Open','Close']].max(axis=1))|(frame.Low>frame[['Open','Close']].min(axis=1))
@@ -45,14 +75,22 @@ def prepare(source,output,approve_rounding=False):
             high=float(row[['Open','High','Low','Close']].max())
             low=float(row[['Open','High','Low','Close']].min())
             difference=max(high-row.High,row.Low-low)
-            if not approve_rounding or difference>=1e-8:
+            key = (ticker, date)
+            if not approve_rounding or difference>=1e-8 or key not in approved:
                 raise ValueError(f'Unapproved price issue: {ticker} {date.date()} {difference}')
+            expected = approved[key]
+            if (high, low, difference) != (expected.proposed_high, expected.proposed_low, expected.difference):
+                raise ValueError(f'承認済みの補正後価格と一致しません: {ticker} {date.date()}')
+            found.add(key)
             audit.append(dict(ticker=ticker,Date=date,original_high=row.High,corrected_high=high,
                               original_low=row.Low,corrected_low=low,difference=difference))
             frame.loc[date,['High','Low']]=[high,low]
         execution=frame.assign(LotSize=1,Split=1.,Dividend=0.,DividendPayDate=None)
         _validate_execution(execution)
         frames[ticker]=frame
+    skipped_keys = {(row['ticker'], row['Date']) for row in skipped_approved}
+    if approve_rounding and found != set(approved)-skipped_keys:
+        raise ValueError('承認済み一覧と補正対象が一致しません')
     output.mkdir(parents=True)
     calendar=pd.DatetimeIndex([])
     for ticker,frame in frames.items():
@@ -61,14 +99,29 @@ def prepare(source,output,approve_rounding=False):
         save(frame.assign(LotSize=1,Split=1.,Dividend=0.,DividendPayDate=None),output/f'execution_{ticker}.csv',index=True)
     save(pd.DataFrame({'Date':calendar.sort_values()}),output/'calendar.csv')
     save(pd.DataFrame(audit),output/'corrections.csv')
+    save(pd.concat(excluded_frames,ignore_index=True),output/'excluded_nontrading_rows.csv')
     manifest=dict(kind=meta['kind'],provider=meta['provider'],retrieved_at=meta['retrieved_at'],
                   execution_price_basis=BASIS,dividend_mode='embedded_in_adjusted_prices',
                   lot_size_model='virtual_one_share',actions_verified=False,lot_sizes_verified=False,
                   csv_float_precision='round_trip',source_hashes=meta['hashes'],
-                  source_collection_hash=digest(source/'collection.json'),
+                  source_collection_hash=sha256(collection_content).hexdigest(),
                   corrections_hash=digest(output/'corrections.csv'),rounding_rows=len(audit),
+                  trading_calendar=calendar_metadata(),
+                  excluded_nontrading_rows=sum(len(frame) for frame in excluded_frames),
+                  exclusions_hash=digest(output/'excluded_nontrading_rows.csv'),
+                  data_readiness='stock_data_validated_with_trading_calendar',
                   scope='individual_stocks_only; ETFs deferred',
                   assets=[dict(ticker=t,asset_class='stock') for t in STOCK_TICKERS])
+    if approve_rounding:
+        (output/'rounding_approval.json').write_bytes(approval_content)
+        (output/'approved_corrections.csv').write_bytes(approved_list_content)
+        save(pd.DataFrame(skipped_approved,columns=['ticker','Date','reason']),output/'skipped_approved_corrections.csv')
+        manifest['rounding_approval'] = dict(
+            approval_id=approval['approval_id'], record_sha256=sha256(approval_content).hexdigest(),
+            approved_list_sha256=approval['approved_list_sha256'],
+            source_collection_sha256=approval['source_collection_sha256'],
+            applied_rows=len(audit), skipped_nontrading_rows=len(skipped_approved),
+            skipped_rows_sha256=digest(output/'skipped_approved_corrections.csv'))
     (output/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
     return manifest
 
@@ -92,17 +145,22 @@ def stats(frame):
 
 def run(data,output,previous):
     output=Path(output)
-    output.mkdir(parents=True,exist_ok=False)
     cfg=Config(start='2016-01-04',end='2020-12-30',time_exit_enabled=False)
-    manifest,execution,inputs,classes,calendar,hashes=load_dataset(data,require_approved_universe=False,mode='exploratory')
+    manifest,execution,inputs,classes,calendar,hashes=load_dataset(data,require_approved_universe=False,mode='exploratory',for_execution=True)
+    if not manifest.get('trading_calendar'):
+        raise ValueError('休場日を除外した入力をprepareで新規作成してください')
     if set(execution)!=set(STOCK_TICKERS):
         raise ValueError('Additional run requires the unchanged 50-stock universe')
     # RS benchmark is the separately cached 1306.T screener series, not a substituted fund.
     benchmark_path=Path(data).parent/'source'/'signals_1306.T.csv'
-    reference=pd.read_csv(benchmark_path,index_col='Date',parse_dates=['Date'],float_precision='round_trip').Close
+    reference_frame=pd.read_csv(benchmark_path,index_col='Date',parse_dates=['Date'],float_precision='round_trip')
+    reference_frame, _ = split_trading_rows(reference_frame)
+    reference=reference_frame.Close
     if digest(benchmark_path)!=manifest['source_hashes'][benchmark_path.name]:
         raise ValueError('RS benchmark hash differs')
-    status=dict(status='running',settings=asdict(cfg),source_hashes=hashes,
+    validate_execution_calendar(execution, inputs, calendar, reference)
+    output.mkdir(parents=True,exist_ok=False)
+    status=dict(status='running',settings=asdict(cfg),source_hashes=hashes,trading_calendar=calendar_metadata(),
                 benchmark_rs_hash=digest(benchmark_path),kind='market',execution_mode='exploratory',
                 horizons=list(HORIZONS),stops=list(STOPS),stock_count=50,etf_status='deferred_pending_data_quality',
                 all_country_comparison=False,all_country_reason='Fund did not exist for full period',
@@ -168,7 +226,7 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     sub=parser.add_subparsers(dest='command',required=True)
     prep=sub.add_parser('prepare');prep.add_argument('--source',required=True);prep.add_argument('--output',required=True)
-    prep.add_argument('--approve-rounding',action='store_true')
+    prep.add_argument('--approve-rounding',action='store_true',help='固定の承認レコードと一致する微小補正だけを適用')
     execute=sub.add_parser('run');execute.add_argument('--data',required=True);execute.add_argument('--output',required=True)
     execute.add_argument('--previous',required=True)
     args=parser.parse_args()

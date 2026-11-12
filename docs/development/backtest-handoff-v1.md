@@ -1,108 +1,194 @@
-# 別端末でのバックテスト検証の継続
+# 別端末での検証継続
 
-更新: 2026年11月6日。共有ブランチは`codex/search-python314`。
+## 5分足デイトレ試作の実装・限定検算完了
 
-## 最新の主検証方針を先に読む
+2026年11月12日。無料Yahooの21銘柄、2026年9月14日〜11月11日・38営業日・5分足62,241行を取得した。通常版140条件と朝9時30分までの140条件、計280条件を予定する。損切り・利確などの先行成立時に売却し、時間終了には残る保有を手仕舞う。資金・費用・出口幅・大引け近似と朝限定時間帯は承認済み。
 
-[有限資金・仮想端数株の主検証方針](../specs/finite-capital-primary-v1.md)を優先して読む。今回、会話で策定した方針を文書保存した。新方式の実装・実データ検証は未実施。以下の保存済み結果は従来の独立仮想取引であり、有限資金・重複購入なしの結果ではない。
+取得原本は`artifacts/intraday-5m-pilot-20261112-01/collection-02/`、最新監査は同フォルダ系列の`quality-audit-02/REPORT.md`、採用仕様は`docs/specs/intraday-5m-pilot-v1.md`。追加126要求の照合は`timestamp-audit-02/REPORT.md`。4,113足のOHLCは開始ラベルの1分足集約と一致し、出来高差38足、狭い期間の再取得による出来高差21足を記録した。空行は回復0足。初回5分足原本の固定採用、欠損時の再準備と成績注記、朝9時25分足終値による手仕舞い近似は承認済み。共通検索条件（確定日足20営業日平均売買代金10億円以上・最大100銘柄・ATR参考・任意予算・発注前チェック）も承認済みで、正本は`docs/specs/search-candidate-filters-v1.md`。分足エンジン実装・動作検算・計算時間実測はimplementation-approval.jsonで承認済み。実装と限定8条件の最終検算が完了した。280条件の本実行・集計・保存は開始承認を得て完了した。検索画面の日足・時間足・分足切替は今後の要求として記録した。
 
-初期1,000万円・購入枠10万円の整理、仮想端数株、保有中の追加購入なし、共有入口、既存出口A〜D、対象・期間、未決定の運用細部と実装差分を上記文書に記載した。ローカルの会話へ記憶が自動転送されるとは想定せず、取得後にAGENTS.mdと上記文書を読む。
+2026年11月12日。分足エンジンと保存CLIの実装、全212自動テスト、実データ限定8条件の独立検算が完了した。8条件は33営業日すべて当日中に手仕舞いし、会計が一致した。現行限定監査はimplementation-validation-04、独立検算はimplementation-verification-05。21銘柄の7入口の中央値合計は全履歴33.86秒、最新確定足3.30秒。50・100・4,000銘柄は比例推定。欠損再準備によりミネルヴィニの判定可能足は0、RSI系も少数で、手法比較の制約を報告した。全280条件の本実行・集計・保存が完了した。報告と実行計画はartifacts/intraday-5m-pilot-20261112-01/REPORT.mdとplanned-run.json。
 
-## 取得
+2026年11月12日。承認された固定20個別株・33営業日の分足参考試算280条件と集計・保存・独立照合を完了した。通常版140・朝9時30分手仕舞い版140の全条件で当日手仕舞いと資金会計が一致した。取引あり180条件はすべて費用控除後に資産が減少し、100条件は0取引。通常版の取引あり最高はRSI2・C/D・損切り1%の期末9,997,862円（3取引）、朝版はAnti 3/10・C/D・0.5%の9,999,501円（2取引）。初期資金各1,000万円、税引前。同期間のオルカンは9,761,967円、1306.Tは9,743,409円。欠損・指標準備不足と短期標本の制約を含む。成績正本はartifacts/intraday-5m-pilot-20261112-01/primary-analysis-01/REPORT.md、全条件はall_conditions.csv、計算原本はprimary-run-01/。
 
-初めて取得する端末で実行する。
+## 一覧v8の全560条件の検証完了
+
+2026年11月12日。承認済み入力の個別株3,641・ETF381、計4,022銘柄、価格9,678,942行で、既存7入口×出口A〜D×初期損切り5水準×2期間×2資産区分の560条件を実行・集計・保存した。全560条件で資金会計が一致し、期末評価は全条件で当日の有効価格だった。
+
+2021〜2025年の比較可能280条件のうち、個別株TradingView添付版・出口A・初期損切り8/10/12%の3条件がCAGRでオルカンを上回った。最大は損切り10%で年率22.29%、オルカン21.18%、差+1.10ポイント。出口Cの個別株最高はRSI2・損切り10%の年率14.99%だった。2016〜2020年は実ファンド設定前を含み、全期間のオルカン比較は欠損として保存した。
+
+生存者・選択バイアスと多数条件からの選択を含む探索結果。サービス間差異の保守的除外、参照先の独立性・価格単位の推定・未照合期間の制約を引き継ぐ。累積行除外16,375行と11ETFの2025-10-24の個別欠損は、承認済み規則で処理した。
+
+最新結果は`artifacts/finite-capital-universe-v8-20261112-01/primary-analysis-01/REPORT.md`。全条件は同フォルダの`summary.csv`、会計照合は`accounting_checks.csv`、計算原本は`primary-run-20261112-01/`、入力は`prepared-primary-01/`。開始承認は`primary-run-approval.json`、準備と参照元は一覧v8の`REPORT.md`に保存した。別端末へは一覧v4〜v8を引き継ぐ。
+
+推奨順序の第1段階を完了した。急落反発の条件確定と廃止銘柄を含めた検証は後続段階。各処理の開始前に内容を提示して承認を得る。以下の一覧v6以前は履歴として参照する。
+
+主順位の期末資産順とオルカン付き各ランキングは`artifacts/finite-capital-universe-v8-20261112-01/portfolio-comparison-20261112-01/REPORT.md`。2期間総合スコア詳細は`portfolio-ranking-20261112-01/REPORT.md`、除外候補全一覧は同フォルダの`EXCLUSIONS.md`。承認された総合スコアは2期間のCAGR÷最大DD絶対値の低い方。280設定中180設定（個別株108・ETF72）が両期間の年率と最大DDで別設定に厳密に劣った。候補は入口・出口・損切りの組合せ単位で、入口全20設定が該当するものは0件。採否は今回の検証範囲に基づく候補として参照する。
+
+## 一覧v6のRS本採用・28ETF試験時点の履歴
+
+2026年11月7日。承認された1306.Tの2014年244行OHLC÷10・出来高×10を、全市場の新入力へ本採用した。個別株3,643・ETF381、計4,024銘柄、価格9,700,477行。2014年12月29日の安値のサービス間1円差は記録し、承認どおりYahoo保存値を使用した。
+
+残る28ETFは、企業行動補正14銘柄と単位混在等の行除外14銘柄の候補を作成・検算した。OHLCV照合で差異765行が残り、うち232行は正出来高、533行は出来高0。誤価格の所在は未確定のため、この765行も除く保守的な試験案を保存した。保守案は補正17,803行・除外8,179行、除外量は全体の約0.084315%。基本OHLCと10倍以上の断絶の検査を全28ETFで通過し、分割同時の分配係数5銘柄も独立検算した。
+
+現行の全市場入力は価格品質の確認待ちで、28ETFの候補の本採用は判断待ち。通常監査候補282銘柄の分類と、28ETFに残る通常イベント1,069件の扱いが残る。OHLCV差異765行の除外は保守的試験の判断で、誤価格の確定件数とは扱わない。新しい成績と除外行の損益影響は次回本実行で確認する。
+
+最新報告は`artifacts/finite-capital-universe-v6-20261107-01/REPORT.md`、現行入力は同フォルダの`prepared-rs-adopted-01/`、28ETFの保守案は`etf-28-ohlcv-trial-01/`。採否は`approval-application.json`、同一性は`verification.json`で確認する。別端末へは参照元の一覧v4・v5・v6を併せて引き継ぐ。次の本実行は完成入力の条件を提示し、開始承認を受ける。以下の一覧v5・v4の状態は履歴として参照する。
+
+## 一覧v5の入力準備・RS試験時点の履歴
+
+2026年11月7日。承認済みの上場前74行、軽微な不正19行、個別株3銘柄の除外を新入力へ反映した。対象は個別株3,643・ETF381、計4,024銘柄、価格9,700,477行。現行の行除外台帳は旧362行を含む455行。追加19行は約971万行の約0.000196%で、ユーザーの軽微な不正値の除外許可に基づいて判断した。損益への影響は再実行で確認する。
+
+1306.Tは2014年244行をOHLC÷10・出来高×10とする試験で年境界の約90%断絶が解消した。別サービスとの安値差異1件を記録し、本採用は承認待ち。除外版の入力状態は`prepared_pending_price_continuity_review`。極端候補は1306.Tを含む29ETF、試験補正を採用すると残る極端候補は28ETFとなる。通常候補282銘柄も残る。次の実行は条件を提示して開始前に承認を受ける。
+
+現在の報告は`artifacts/finite-capital-universe-v5-20261107-01/REPORT.md`、採否は同フォルダの`approval-application.json`、入力は`prepared-exclusions-01/`、RS試験は`rs-1306-trial-01/`。一覧v4の本実行結果と下記の過去状態は修正前の履歴として参照する。原本の参照先は一覧v4に保持しているため、別端末には両フォルダを引き継ぐ。
+
+## 一覧v4の56銘柄照合時点の履歴
+
+2026年11月7日。優先56銘柄の公式企業行動・上場履歴と別価格の照合、銘柄別修正案の保存を完了した。公式上場日53ETF、別サービスの142年次ページから54銘柄・16,054行を抽出した。486A.T・487A.Tの数値履歴は未取得だが、候補日は公式上場日より前と確認した。
+
+修正案は上場初期23、分割・併合17、外国ETFの単位混在候補13、個別株3の主分類。上場前74行、非上場期間1,912行、1306.Tの2014年244行の単位接続候補を別保存した。価格精度・調整基準を確認する工程と、入力への適用・除外・再実行の承認が残る。
+
+最新報告は`artifacts/finite-capital-universe-v4-20261107-01/price-reconciliation-56-20261107-01/REPORT.md`。56銘柄以外の監査候補282銘柄も未照合で、既存成績は価格品質の確認を伴う参考値として保持する。承認は同フォルダのapproval.json。
+
+
+## 一覧v4の全銘柄追加監査時点の履歴
+
+保存済み4,027銘柄・9,708,831行と全560条件の追加監査を完了した。要確認候補は338銘柄・17,220イベント。極端候補56銘柄（個別株3・ETF53）と保有区間が重なるのは256条件だった。RS参照1306.Tの2015年初の不連続も検出した。候補には正常な相場変動や分割併合等を含み得るため、誤価格の確定件数としては扱わない。
+
+最新報告は`artifacts/finite-capital-universe-v4-20261107-01/continuity-audit-20261107-02/REPORT.md`。前回の6条件隔離後の274条件も、この追加監査を踏まえた参考集計として扱う。価格補正・除外・再実行は判断待ち。全185自動テスト成功。監査で採用した抽出値と入力・結果のハッシュは報告書に保存した。
+
+
+## 一覧v4の本実行完了時点の履歴
+
+2026年11月7日。承認された有限資金の全560条件について、計算・オルカン比較・集計・保存を完了した。個別株3,646銘柄、ETF381銘柄の計4,027銘柄を対象とし、全177自動テストと全560条件の資金会計照合が成功した。
+
+現行作業先は`artifacts/finite-capital-universe-v4-20261107-01/`。入力は`prepared-primary-01/`、条件別の全取引・純資産・コード保存物は`primary-run-20261107-01/`、日本語報告と全条件集計は`primary-analysis-01/`に保存した。
+
+2021〜2025年の比較可能280条件では、個別株のTradingView添付版・出口A・初期損切り8/10/12%の3条件がオルカンCAGRを上回った。最大差は10%設定で、戦略22.29%・オルカン21.18%、差約1.10ポイント。2016〜2020年は実ファンド設定前を含むため全期間比較を欠損とした。期末の古い評価価格による判定保留は今回は0条件。
+
+不整合362行は全9,709,193行の約0.00373%として、承認に基づき行単位で除外した。補正適用32,133行と原本ハッシュを保持し、除外日の保有・注文への影響を条件別に保存した。生存者・選択バイアス、仮想端数株・調整価格、期末含み損益を含む探索結果として参照する。
+
+処理開始前の承認指示を継続する。新しいバックテスト・取得・補正・集計を開始する際は、対象と条件を提示して承認を得る。今回の560条件の本実行・集計・保存は明示承認済み。再実行には新しい出力先を使用する。
+
+## 準備段階の記録
+
+以下は本実行前の状態を含む時系列記録。対象件数、未完了・停止・確認待ちの記載は各段階の履歴として参照し、現在の到達点は冒頭を優先する。
+
+## 107銘柄の除外承認後の現在状態
+
+現行対象一覧v3は個別株3,648・ETF382、計4,030銘柄。ユーザー承認に基づき、過去履歴取得不可107銘柄を両期間から除外した。公式原本と旧版は保持し、価格原本は照合して引き継いだ。現行作業先は`artifacts/finite-capital-universe-v3-20261107-01/`。残る判断は非正価格・微小な高安不整合・実質的な高安不整合の3分類。現行状態は本節と正本を参照する。
+
+
+## 全件取得・監査後の現在状態
+
+2026年11月7日。全4,137銘柄の取得試行が完了し、価格取得4,030・過去履歴取得不可107。全件監査と取得不能分の最大期間再照会を完了した。残る判断は取得不能107銘柄、非正価格3銘柄、微小差31,987行、実質差362行の4分類。現行状態は本節と正本を参照する。
+
+詳細・原本・対象一覧・最終監査は`artifacts/finite-capital-universe-v2-20261107-01/FINAL_REVIEW.md`に保存した。全174テスト成功。通常実行CLIと公式オルカン比較は実装済み。追加判断・準備済み入力の確定後に全市場の主検証を実行する。旧版25銘柄の部分監査は区分して保持する。
+
+
+## 2026年11月7日の実行準備更新
+
+基準日を2026年10月31日として普通株3,686・ETF452銘柄を固定した。種類株式7銘柄と1321.Tの除外を承認済み。取引不可注文、古い期末価格、ドローダウン回復期間、全市場共通欠損の扱いも個別承認して主仕様へ反映した。最新の固定一覧は`artifacts/finite-capital-universe-20261107-01/universe/universe.csv`。有限資金主エンジン・CLIを初期実装し全159自動テストが成功。25銘柄の部分資金会計監査を実施した。全市場価格は189銘柄取得後、1672.Tの過去履歴取得不可で停止中。以下の旧準備状況の未完了記述は、この更新と現行主仕様を優先して参照する。
+
+更新日2026年11月7日。作業ブランチは`codex/search-python314`。本書はdcf2bcfを基点とするローカルの準備・レビュー修正を含めて整理した記録。別端末では、関連する文書・コード・承認レコード・入力を含むコミットを取得して状態を確認する。
+
+## 最初に確認する文書
+
+[主検証仕様](../specs/finite-capital-primary-v1.md)、[要求の現在状態](../specs/requirements.md)、[仕様書索引](../specs/README.md)を参照する。旧AGENTSのルールは適用終了済みで、[履歴](../history/f05-20261107/agents-rules-before.md)に保存した。現在のAGENTS.mdは正本への作業案内。
+
+## 現在の到達点
+
+- 主仕様は個別株・ETFに各1,000万円、費用込み10万円固定、端数数量、同一銘柄重複なし。
+- この条件を満たす有限資金エンジンと共通資金会計を初期実装し、合成テストと部分入力の資金会計監査を実施した。全市場成績とオルカン比較は未完了。
+- 保存済み実市場成績は独立取引の補助診断。2021〜2025年の出口140条件と固定保有35条件を含む。
+- 2016〜2020年用の50個別株入力を準備済み。承認197行のうち営業日163行を補正、休場日34行を区分。カレンダーv2。
+- レビューF01〜F04を個別承認後に修正し、全140自動テストが成功。F05は現行状態と履歴の整理。
+- ETF負価格、ETF一覧の全件照合、全市場母集団の固定は確認事項として残る。
+
+## 取得と環境
+
+初回取得時。
 
 ```bash
 git clone --branch codex/search-python314 --single-branch https://github.com/yuhei-koyama/streamlit-stock-screener.git
 cd streamlit-stock-screener
 ```
 
-既存のチェックアウトでは、作業内容を確認してから対象ブランチへ移動し、取得する。
+既存の作業内容を確認してから取得する。
 
 ```bash
+git status --short
 git fetch origin
 git switch codex/search-python314
 git pull --ff-only origin codex/search-python314
+git log -1 --oneline
 ```
 
-## 保存済みの到達点
-
-- 主報告書は[入口・出口診断](../../artifacts/backtest/entry-exit-diagnosis-20261105-01/REPORT.md)。出口140条件・固定保有35条件を保存した。
-- 日本個別株50銘柄を主集計、東証ETF20銘柄を別集計。7入口、固定保有5/10/20/40/60営業日、初期損切り3/5/8/10/12%、A/B/C/D期限なし。C/Dの診断用値幅は8%固定。
-- 自動テスト99件成功。既存8%条件28件一致、固定保有窓1,050例、回復原票700ファイルと出口全条件の保存集計を監査済み。
-- 既に確認済み期間の探索。現行の固定銘柄一覧、重複取引、調整価格・仮想端株等の制約は報告書へ記録済み。
-- 米国株案は取り下げ済み。FXも対象外。今後の説明文書は日本語で作成する。
-
-## 引き継ぐデータ
-
-`artifacts/backtest/`に次を含める。取得済みのデータから再開できる。
-
-| ディレクトリ | 内容 |
-| --- | --- |
-| yahoo-20261105-01 | Yahoo取得原本、準備データ、補正前の不整合・実行記録 |
-| independent-20261105-01 | 初期の独立評価、合成検証、実市場データ検証の失敗記録 |
-| independent-yahoo-20261105-02 | 承認済み63行補正データ、期限ありA/B、補正監査 |
-| all-country-comparison-20261105-01 | 公式オルカンCSVと取得元メタデータ、期限あり比較 |
-| holding-period-comparison-20261105-01 | 期限なしA/B、期限有無の比較、監査 |
-| ratchet-exits-20261105-01 | C/Dの既存8%条件、注文履歴、比較、監査 |
-| entry-exit-diagnosis-20261105-01 | 最新175条件、原票、全集計、報告書、コードスナップショット、監査 |
-
-重複するZIPはGitの対象外とし、展開済みの原票を共有する。取得データと保存成果物は`.gitattributes`の`-text`指定で改行変換を防止し、既存SHA-256を保持する。Git LFSの設定・取得操作は不要。原票を含むため初回取得には時間と保存容量が必要になる。
-
-## 環境準備と自動テスト
-
-Python 3.14を推奨し、既存の3.11も対応対象とする。既存環境の導入済み版は各成果物の`environment.txt`等も参照する。
-
-Windows PowerShellで新しい仮想環境を用意する場合。
+Python 3.14を推奨し、3.11も対応対象とする。Windowsの新規環境。
 
 ```powershell
 py -3.14 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+.\.venv\Scripts\python.exe -m pip install -r requirements-research.txt
 .\.venv\Scripts\python.exe -m unittest discover -s tests -t . -q
 ```
 
-Linuxでは既存のセットアップを利用する。
+Linuxの新規環境では`bash scripts/setup.sh`後、`.venv/bin/python -m pip install -r requirements-research.txt`と`bash scripts/check.sh`を使用する。
 
-```bash
-bash scripts/setup.sh
-bash scripts/check.sh
-```
+## 引き継ぐ入力と記録
 
-## 最新結果の再監査
+| パス | 内容 |
+| --- | --- |
+| `artifacts/backtest/period-2016-2020-20261106-01/source/` | 2014〜2020年の70銘柄原本とコレクションハッシュ |
+| `artifacts/backtest/period-2016-2020-20261106-01/rounding-approval-20261107-01/approval.json` | F03の固定承認レコード |
+| 同じ場所の`approved_corrections.csv` | 承認済み197行。レコードと一緒に共有する |
+| `artifacts/backtest/period-2016-2020-20261106-01/data-stocks-approved-calendar-v2-20261107-01/` | 現在使用する50個別株の派生入力 |
+| `artifacts/backtest/independent-yahoo-20261105-02/data/` | 既存70銘柄の承認63行補正済み入力 |
+| `artifacts/backtest/all-country-comparison-20261105-01/` | 公式オルカンCSVと取得元メタデータ |
+| `artifacts/backtest/entry-exit-diagnosis-20261105-01/` | 保存済み175条件の独立診断・コード・原票 |
+| `artifacts/review-f01-20261107/`〜`artifacts/review-f04-20261107/` | 修正のテスト・実データ監査・コード記録 |
 
-リポジトリのルートから実行する。外部の価格取得は不要。
+入力原票は改行変換を避ける`.gitattributes`指定で共有する。既存のZIPの展開済み原票を使い、必要なZIPは再生成できる。価格等の原票を含むため、取得時間と保存容量を見込む。
 
-```powershell
-.\.venv\Scripts\python.exe scripts/verify_entry_exit_diagnosis.py artifacts/backtest/entry-exit-diagnosis-20261105-01
-```
+## 参照と再準備
 
-LinuxではPythonのパスを`.venv/bin/python`へ置き換える。この監査は報告書・監査JSON・コードスナップショットを再生成する。共有済みファイルへの変更は`git diff`で確認する。
+既存結果は[日本語報告書](../../artifacts/backtest/entry-exit-diagnosis-20261105-01/REPORT.md)、CSV、当時のverification.json・設定・コードを確認する。再監査コードには出力を更新するものがあるため、新規出力先または確認用の作業コピーを使用する。
 
-保存済み全ファイルのハッシュを、再監査の前に検証する場合。
-
-```powershell
-.\.venv\Scripts\python.exe -c "import json,hashlib; from pathlib import Path; r=Path('artifacts/backtest/entry-exit-diagnosis-20261105-01'); m=json.loads((r/'file_hashes.json').read_text(encoding='utf-8')); bad=[n for n,h in m.items() if hashlib.sha256((r/n).read_bytes()).hexdigest()!=h]; print('mismatches',len(bad)); assert not bad"
-```
-
-## 再実行
-
-既存成果物の上書きを避け、新しい出力先へ保存する。
+50銘柄入力を新しい場所へ再準備する例。
 
 ```powershell
-.\.venv\Scripts\python.exe scripts/diagnose_entry_exit.py --data artifacts/backtest/independent-yahoo-20261105-02/data --fund-csv artifacts/backtest/all-country-comparison-20261105-01/253425-original.csv --output artifacts/backtest/entry-exit-diagnosis-reproduction
-.\.venv\Scripts\python.exe scripts/verify_entry_exit_diagnosis.py artifacts/backtest/entry-exit-diagnosis-reproduction
+.\.venv\Scripts\python.exe scripts/validate_additional_period.py prepare --source artifacts/backtest/period-2016-2020-20261106-01/source --output artifacts/backtest/period-2016-2020-20261106-01/data-stocks-v2-reproduction --approve-rounding
 ```
 
-出力の追加共有は`.gitignore`の許可対象へ明示追加する。最新診断は175条件のため、既存14条件用の比較UIは対象に含めない。報告書とCSVから参照する。
+固定承認と一致する原本・一覧だけを適用する。v1と記録された入力は参照用として保持し、新規計算にはv2へ再準備する。全市場の旧フェーズ記録やコード・RS参照・入力の世代が異なる場合も新しい作業先へ分離する。
 
-## 次の検討
+## 続きの作業を区分する
 
-入口の計算式は固定のまま検証済み。ATRストップ、入口遅延、未使用期間・母集団の追加は候補として記録されており、具体条件の承認後に着手する。仕様の正本は[入口・出口診断](../specs/entry-exit-diagnosis-v1.md)と[要求記録](../specs/requirements.md)。
+| 作業 | 使用する仕様・実装 |
+| --- | --- |
+| 有限資金の主検証 | 主仕様に対応するエンジンと全銘柄資金会計の実装・合成検証が必要 |
+| 独立取引の追試 | `scripts/validate_additional_period.py run`、`scripts/diagnose_entry_exit.py`等。取引単位の補助診断 |
+| 全市場の分割取得・補助診断 | `scripts/full_market_backtest.py`。公式一覧の照合と固定後に使用 |
+| 既存ポートフォリオ | `scripts/backtest.py --evaluation portfolio`。従来の資産比率購入・売買単位・A/Bの実装 |
 
-## 共有前の検証
+残る判断は[確認事項](../specs/open-questions.md)へ整理した。承認確認はユーザー指定の1件ずつの選択肢形式で進める。[整理前の手順](../history/f05-20261107/backtest-handoff-before.md)も履歴として保持する。
 
-2026年11月5日に自動テスト99件が成功。共有する原票4,011ファイルをGitインデックスから読み戻し、ローカル原票とのSHA-256一致を確認した。最大の単一ファイルは24,207,374バイト。入力・原票の改行と空白は原本通りに保存する。共有対象の展開済みデータは合計約1.67GB。
+### 初回25銘柄の資金会計監査の再実行
 
-## 2016〜2020年の追加検証準備（2026年11月6日）
+新規出力先を指定する。対象は部分入力であるため`--audit`を使用する。
 
-`artifacts/backtest/period-2016-2020-20261106-01/REPORT.md`に取得原本と停止理由を保存。70銘柄の2014〜2020年を取得済みだが、個別株197行の微小差とETF1321の負調整価格245行を新たに検出したため、R-DQ05に従って補正/実市場検証の実行は承認待ち。結果が完了したとは扱わない。個別株50銘柄を先行する補正と実行の手順は当該報告書に記載している。
+```powershell
+.\.venv\Scripts\python.exe scripts/run_finite_capital_backtest.py --data artifacts/finite-capital-universe-20261107-01/prepared-first25-20261107-01 --universe-root artifacts/finite-capital-universe-20261107-01/universe --output artifacts/finite-capital-universe-20261107-01/cash-audit-new --audit
+```
+
+## 対象一覧v2の取得・監査
+
+1672.Tの両期間除外を個別承認し、普通株3,686・ETF451の計4,137銘柄を固定した。現行の取得先は`artifacts/finite-capital-universe-v2-20261107-01/universe/`。189銘柄はハッシュ照合して引き継ぎ、他の銘柄を一括取得中。個別のHTTP400・入力不正は除外せず要確認として保存し、他銘柄の取得を継続する。429・通信障害等は停止する。旧版の部分入力・監査は旧版母集団と組み合わせて保持する。
+
+```powershell
+.\.venv\Scripts\python.exe scripts/full_market_backtest.py collect --root artifacts/finite-capital-universe-v2-20261107-01/universe --limit 4137 --pause 1 --continue-on-data-error
+.\.venv\Scripts\python.exe scripts/audit_finite_capital_market.py --root artifacts/finite-capital-universe-v2-20261107-01/universe --output artifacts/finite-capital-universe-v2-20261107-01/audit-new
+```
+
+## 公式オルカン比較の実行準備
+
+有限資金CLIは通常実行時に`--benchmark-nav`で公式原本を要求する。保存済み原本は`artifacts/backtest/all-country-comparison-20261105-01/253425-original.csv`で、同フォルダの`source.json`の公式URLとハッシュを照合する。元CSVは同一バイト列から読み込み、実行先へ原本と取得記録を保存する。2016〜2020年は実ファンド設定前を含むため全期間比較を欠損とする。2021〜2025年は同額の初期資金による純資産・総リターン・CAGR差を保存する。古い期末価格がある場合と部分監査では優劣の最終判定を保留する。全171テストと、旧版25銘柄の公式オルカン付き8条件の部分監査が成功した。

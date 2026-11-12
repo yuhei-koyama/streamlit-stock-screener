@@ -1,5 +1,7 @@
 """公式一覧を固定し、既存検索関数で全市場を分割評価する。"""
+import io
 import json
+from hashlib import sha256
 from pathlib import Path
 import re
 import shutil
@@ -16,28 +18,34 @@ from .backtest_signals import STRATEGIES,screening_signals
 from .entry_exit_diagnosis import HORIZONS,STOPS,fixed_horizon,entry_statistics
 from .exploratory_data import PRICE_COLUMNS,digest
 from .independent_backtest import run_independent_backtest
+from .trading_calendar import split_trading_rows, calendar_metadata, validate_execution_calendar
 
 PERIODS={'2016_2020':('2014-01-01','2016-01-04','2020-12-30'),
          '2021_2025':('2019-01-01','2021-01-04','2025-12-30')}
 
 
 def write_json(path,data):
-    Path(path).write_text(json.dumps(data,ensure_ascii=False,indent=2),encoding='utf-8')
+    path=Path(path)
+    temporary=path.with_name(path.name+'.tmp')
+    temporary.write_text(json.dumps(data,ensure_ascii=False,indent=2),encoding='utf-8')
+    temporary.replace(path)
 
 
 def read_table(path):
     path=Path(path)
     if path.suffix.lower()=='.xls':
         return pd.read_excel(path,engine='xlrd',dtype=object)
+    if path.suffix.lower()=='.xlsx':
+        return pd.read_excel(path,engine='openpyxl',dtype=object)
     if path.suffix.lower()=='.csv':
         return pd.read_csv(path,encoding='utf-8-sig',dtype=object)
-    raise ValueError('公式一覧は.xlsまたはUTF-8 CSVを指定してください')
+    raise ValueError('公式一覧は.xls、.xlsxまたはUTF-8 CSVを指定してください')
 
 
 def code(value):
     text=str(value).strip().upper().removesuffix('.T')
     if text.endswith('.0') and text[:-2].isdigit():text=text[:-2]
-    if not re.fullmatch(r'[0-9][0-9A-Z]{3}',text):
+    if not re.fullmatch(r'(?:[0-9][0-9A-Z]{3}|[0-9]{5})',text):
         raise ValueError(f'不明な証券コード: {value}')
     return text+'.T'
 
@@ -61,8 +69,12 @@ def select_assets(listing,etfs):
         seen.add(ticker)
         market=str(row['市場・商品区分']).strip()
         group=None
+        reason='対象市場外、またはETF公式一覧で未確認'
         if '内国株式' in market and any(market.startswith(x) for x in ('プライム','スタンダード','グロース')):
-            group='stock'
+            if len(ticker.removesuffix('.T')) == 5:
+                reason='普通株に限定する承認により5桁コードの種類株式を除外'
+            else:
+                group='stock'
         elif 'ETF' in market:
             all_etf.add(ticker)
             if ticker in confirmed:group='etf'
@@ -70,18 +82,44 @@ def select_assets(listing,etfs):
             assets.append(dict(ticker=ticker,name=str(row['銘柄名']),asset_class=group,market=market))
         else:
             excluded.append(dict(ticker=ticker,name=str(row['銘柄名']),market=market,
-                                 reason='対象市場外、またはETF公式一覧で未確認'))
+                                 reason=reason))
     if confirmed-all_etf:
         raise ValueError('ETF一覧にJPX一覧と対応しないコードがあります。原本の日付・対象を確認してください')
-    return pd.DataFrame(assets,columns=['ticker','name','asset_class','market']).sort_values('ticker').reset_index(drop=True),pd.DataFrame(excluded)
+    return pd.DataFrame(assets,columns=['ticker','name','asset_class','market']).sort_values('ticker').reset_index(drop=True),pd.DataFrame(excluded,columns=['ticker','name','market','reason'])
 
 
-def freeze(jpx_file,etf_file,output,source_date=None):
+def freeze(jpx_file,etf_file,output,source_date=None,exclusions_file=None):
     root=Path(output)
     if root.exists():raise ValueError('新規の出力先を指定してください')
     listing=read_table(jpx_file);etfs=read_table(etf_file)
     assets,excluded=select_assets(listing,etfs)
     if assets.empty:raise ValueError('対象銘柄がありません')
+    exclusion_content=None
+    selection_exclusions=None
+    if exclusions_file is not None:
+        exclusion_content=Path(exclusions_file).read_bytes()
+        exclusions=pd.read_csv(io.BytesIO(exclusion_content),encoding='utf-8-sig',dtype=object)
+        if not {'ticker','reason'}.issubset(exclusions) or exclusions.empty:
+            raise ValueError('明示的な除外一覧にはticker・reasonと対象行が必要です')
+        exclusions['ticker']=exclusions.ticker.map(code)
+        if exclusions.ticker.duplicated().any():
+            raise ValueError('明示的な除外コードが重複しています')
+        if exclusions.reason.isna().any() or exclusions.reason.astype(str).str.strip().eq('').any():
+            raise ValueError('明示的な除外理由が空です')
+        known=set(assets.ticker)|set(excluded.ticker)
+        if set(exclusions.ticker)-known:
+            raise ValueError('明示的な除外対象に公式一覧にないコードがあります')
+        reasons=exclusions.set_index('ticker').reason
+        removed=assets[assets.ticker.isin(reasons.index)].drop(columns='asset_class').copy()
+        removed['reason']=removed.ticker.map(reasons)
+        assets=assets[~assets.ticker.isin(reasons.index)].reset_index(drop=True)
+        matched=excluded.ticker.isin(reasons.index)
+        excluded.loc[matched,'reason']=excluded.loc[matched,'ticker'].map(reasons)
+        excluded=pd.concat([excluded,removed],ignore_index=True)
+        selection_exclusions=dict(rows=len(exclusions),removed_selected_rows=len(removed),
+                                  already_excluded_rows=int(matched.sum()),file='selection_exclusions.csv',
+                                  sha256=sha256(exclusion_content).hexdigest())
+        if assets.empty:raise ValueError('明示的な除外後の対象銘柄がありません')
     if '日付' in listing:
         dates=listing['日付'].dropna().map(lambda x:str(x).removesuffix('.0')).unique()
         if len(dates)!=1:raise ValueError('JPX一覧の日付が一意ではありません')
@@ -96,11 +134,16 @@ def freeze(jpx_file,etf_file,output,source_date=None):
     master=root/'master';master.mkdir()
     for prefix,p in [('jpx',jpx_file),('etf',etf_file)]:
         shutil.copy2(p,master/f'{prefix}{Path(p).suffix.lower()}')
+    if exclusion_content is not None:
+        (master/'selection_exclusions.csv').write_bytes(exclusion_content)
     manifest=dict(status='frozen',source_date=source_date,frozen_at=pd.Timestamp.now(tz='UTC').isoformat(),
                   universe_hash=digest(root/'universe.csv'),source_hashes={p.name:digest(p) for p in master.iterdir()},
                   asset_count=len(assets),stock_count=int(assets.asset_class.eq('stock').sum()),
                   etf_count=int(assets.asset_class.eq('etf').sum()),periods=PERIODS,
                   caveat='現在の一覧による探索。過去の全上場銘柄を再現していない。')
+    manifest['excluded_master_hash']=digest(root/'excluded_master.csv')
+    if selection_exclusions is not None:
+        manifest['selection_exclusions']=selection_exclusions
     write_json(root/'universe.json',manifest)
     return manifest
 
@@ -110,6 +153,8 @@ def frozen_assets(root):
     if digest(root/'universe.csv')!=meta['universe_hash']:raise ValueError('固定一覧が変更されています')
     for name,expected in meta['source_hashes'].items():
         if digest(root/'master'/name)!=expected:raise ValueError('公式原本の保存ファイルが変更されています')
+    if meta.get('excluded_master_hash') and digest(root/'excluded_master.csv')!=meta['excluded_master_hash']:
+        raise ValueError('除外記録が変更されています')
     assets=pd.read_csv(root/'universe.csv',encoding='utf-8-sig')
     if len(assets)!=meta['asset_count'] or assets.ticker.duplicated().any():raise ValueError('一覧件数/重複不整合')
     for row in assets.itertuples():
@@ -117,7 +162,7 @@ def frozen_assets(root):
     return meta,assets
 
 
-def collect(root,limit=100,pause=1.):
+def collect(root,limit=100,pause=1.,continue_on_data_error=False):
     root=Path(root);meta,assets=frozen_assets(root)
     if limit<1 or pause<0:raise ValueError('limit/pauseが不正です')
     cache=root/'cache';cache.mkdir(exist_ok=True)
@@ -134,13 +179,23 @@ def collect(root,limit=100,pause=1.):
                     if digest(cache/name)!=hash_value:raise ValueError('取得済みファイルが変更されています')
                 continue
             if saved.get('status')=='unavailable':continue
+            if continue_on_data_error and saved.get('status')=='blocked_data':continue
             if attempted>=limit:break
             attempted+=1
+            response_hashes={}
             try:
                 response=session.get(f'https://query2.finance.yahoo.com/v8/finance/chart/{ticker}',
                     params=dict(period1=1388534400,period2=1767225600,interval='1d',events='div,splits'),timeout=30)
+                raw=cache/f'{ticker}.json'
+                raw.write_text(response.text,encoding='utf-8')
+                response_hashes={raw.name:digest(raw)}
                 if response.status_code==404:
-                    state['assets'][ticker]=dict(status='unavailable',reason='Yahooに履歴なし',checked_at=pd.Timestamp.now(tz='UTC').isoformat())
+                    state['assets'][ticker]=dict(status='unavailable',reason='Yahooに履歴なし',
+                        hashes=response_hashes,checked_at=pd.Timestamp.now(tz='UTC').isoformat())
+                    write_json(state_path,state);time.sleep(pause);continue
+                if response.status_code==400 and continue_on_data_error:
+                    state['assets'][ticker]=dict(status='blocked_data',reason='HTTP400。履歴・要求範囲の個別確認待ち',
+                        hashes=response_hashes,checked_at=pd.Timestamp.now(tz='UTC').isoformat())
                     write_json(state_path,state);time.sleep(pause);continue
                 response.raise_for_status()
                 payload=response.json()
@@ -160,6 +215,13 @@ def collect(root,limit=100,pause=1.):
                 state['assets'][ticker]=dict(status='ready',rows=len(source),hashes={p.name:digest(p) for p in (raw,csv)},
                                              retrieved_at=pd.Timestamp.now(tz='UTC').isoformat())
                 print(f'保存: {ticker}',flush=True)
+            except ValueError as exc:
+                if not continue_on_data_error:
+                    state['assets'][ticker]=dict(status='error',reason=f'{type(exc).__name__}: {exc}')
+                    write_json(state_path,state)
+                    raise
+                state['assets'][ticker]=dict(status='blocked_data',reason=f'{type(exc).__name__}: {exc}',
+                    hashes=response_hashes,checked_at=pd.Timestamp.now(tz='UTC').isoformat())
             except Exception as exc:
                 state['assets'][ticker]=dict(status='error',reason=f'{type(exc).__name__}: {exc}')
                 write_json(state_path,state)
@@ -175,6 +237,46 @@ def quality(frame):
     return frame.loc[bad].copy()
 
 
+def _evaluation_dependencies(root, universe, collection, ticker, code_hashes):
+    """実行・再開・集計で同じ依存入力を照合する。"""
+    if collection is None or collection.get('universe_hash') != universe['universe_hash']:
+        raise ValueError('取得対象一覧が不一致です')
+    input_hashes = {}
+    for dependency in sorted({ticker, '1306.T'}):
+        item = collection.get('assets', {}).get(dependency, {})
+        if item.get('status') != 'ready':
+            raise ValueError(f'依存する価格が未取得です: {dependency}')
+        name = f'{dependency}.csv'
+        path = root/'cache'/name
+        expected = item.get('hashes', {}).get(name)
+        if not path.is_file() or digest(path) != expected:
+            raise ValueError(f'価格キャッシュのハッシュが不一致です: {dependency}')
+        input_hashes[name] = expected
+    return dict(input_hashes=input_hashes, code_hashes=code_hashes,
+                trading_calendar=calendar_metadata(),
+                universe_hash=universe['universe_hash'], kind=collection.get('kind'))
+
+
+def _validate_phase_records(folder, status, dependencies):
+    phases = status.get('phases', [])
+    if not phases:
+        return
+    records = status.get('phase_records')
+    if not isinstance(records, dict) or set(records) != set(phases):
+        raise ValueError('旧結果にはフェーズ別の依存記録がありません。新規作業先で再計算してください')
+    for phase, record in records.items():
+        if record.get('dependencies') != dependencies:
+            raise ValueError('入力・RS参照・コード・カレンダー規則が前回と異なります。新規作業先を使ってください')
+        hashes = record.get('artifact_hashes')
+        required = {f'{phase}.zip', f'{phase}_summary.csv', 'excluded_nontrading_rows.csv'}
+        if not isinstance(hashes, dict) or not required.issubset(hashes):
+            raise ValueError('保存結果のフェーズ別ハッシュが不完全です')
+        for name, expected in hashes.items():
+            path = folder/name
+            if path.parent != folder or not path.is_file() or digest(path) != expected:
+                raise ValueError('保存結果のハッシュが不一致です')
+
+
 def run_batch(root,limit=25,phase="entry"):
     """銘柄単位で保存し、既存の入口/約定/出口関数を変更せず再利用する。"""
     if limit<1:raise ValueError('limitは正整数です')
@@ -187,25 +289,37 @@ def run_batch(root,limit=25,phase="entry"):
         item=collection['assets'].get(ticker,{})
         if item.get('status')!='ready':raise ValueError('価格が未取得です')
         path=root/'cache'/f'{ticker}.csv'
-        if digest(path)!=item['hashes'][path.name]:raise ValueError('価格ハッシュ不一致')
-        return pd.read_csv(path,index_col='Date',parse_dates=['Date'],float_precision='round_trip')
-    reference=cached('1306.T')
+        content = path.read_bytes()
+        if sha256(content).hexdigest()!=item['hashes'][path.name]:raise ValueError('価格ハッシュ不一致')
+        return pd.read_csv(io.BytesIO(content),index_col='Date',parse_dates=['Date'],float_precision='round_trip')
+    reference, reference_excluded = split_trading_rows(cached('1306.T'))
     if not np.isfinite(reference.Close).all() or reference.Close.le(0).any():raise ValueError('RS参照価格が不正です')
     if collection.get('kind') not in ('market','synthetic'):raise ValueError('価格データの区分が不明です')
     current_code={p.name:digest(p) for p in Path(__file__).parent.glob('*.py')}
-    results=root/'results';results.mkdir(exist_ok=True)
+    results = root/'results'
+    # 未変更の銘柄へ書き込む前に、既存の全フェーズを検証する。
+    for asset in assets.itertuples():
+        folder = results/asset.ticker
+        path = folder/'status.json'
+        if path.exists():
+            status = json.loads(path.read_text(encoding='utf-8'))
+            if status.get('phases'):
+                dependencies = _evaluation_dependencies(root, meta, collection, asset.ticker, current_code)
+                _validate_phase_records(folder, status, dependencies)
+    results.mkdir(exist_ok=True)
+    reference_excluded.to_csv(root/'reference_nontrading_rows.csv',index_label='Date',float_format='%.17g')
     performed=0
     for asset in assets.itertuples():
         folder=results/asset.ticker
         old=json.loads((folder/'status.json').read_text(encoding='utf-8')) if (folder/'status.json').exists() else {}
-        if old.get('phases') and old.get('code_hashes')!=current_code:
-            raise ValueError('前回とコードが異なります。条件を混在させず、新規作業先を使ってください')
         if phase in old.get('phases',[]) or old.get('status','').startswith('blocked'):
             continue
         if performed>=limit:break
         if collection['assets'].get(asset.ticker,{}).get('status')!='ready':continue
+        dependencies = _evaluation_dependencies(root, meta, collection, asset.ticker, current_code)
         performed+=1;folder.mkdir(exist_ok=True)
-        frame=cached(asset.ticker)
+        frame, excluded = split_trading_rows(cached(asset.ticker))
+        excluded.to_csv(folder/'excluded_nontrading_rows.csv',index_label='Date',float_format='%.17g')
         issues=quality(frame)
         if len(issues):
             issues.to_csv(folder/'data_issues.csv',index_label='Date',float_format='%.17g')
@@ -231,6 +345,7 @@ def run_batch(root,limit=25,phase="entry"):
                 execution=prices.assign(LotSize=1,Split=1.,Dividend=0.,DividendPayDate=None)
                 _validate_execution(execution)
                 calendar=reference.index.union(prices.index).sort_values()
+                validate_execution_calendar({asset.ticker:execution}, {asset.ticker:prices}, calendar, reference)
                 cfg=Config(start=start,end=end,time_exit_enabled=False)
                 for strategy in STRATEGIES:
                     flags=screening_signals(prices,strategy,reference.loc[warmup:end].Close)
@@ -258,11 +373,17 @@ def run_batch(root,limit=25,phase="entry"):
                             for name,table in [('trades',result.trades),('positions',result.positions),('rejections',result.rejections)]:
                                 saved(table,f'{target}/{name}.csv')
         pd.DataFrame(entries if phase=='entry' else exits).to_csv(folder/f'{phase}_summary.csv',index=False)
-        phases=sorted(set(old.get('phases',[]))|{phase})
-        write_json(folder/'status.json',dict(status='completed' if len(phases)==2 else 'partial',kind=collection['kind'],phases=phases,universe_hash=meta['universe_hash'],
-                   artifact_hashes={p.name:digest(p) for p in folder.iterdir() if p.suffix in ('.zip','.csv')},
-                   input_hash=collection['assets'][asset.ticker]['hashes'][f'{asset.ticker}.csv'],
-                   code_hashes=current_code))
+        phase_records = dict(old.get('phase_records', {}))
+        phase_records[phase] = dict(dependencies=dependencies, artifact_hashes={
+            name: digest(folder/name) for name in
+            (f'{phase}.zip', f'{phase}_summary.csv', 'excluded_nontrading_rows.csv')})
+        phases = sorted(phase_records)
+        write_json(folder/'status.json', dict(
+            status='completed' if len(phases)==2 else 'partial', kind=collection['kind'],
+            phases=phases, phase_records=phase_records, universe_hash=meta['universe_hash'],
+            artifact_hashes={p.name:digest(p) for p in folder.iterdir() if p.suffix in ('.zip','.csv')},
+            input_hash=dependencies['input_hashes'][f'{asset.ticker}.csv'],
+            code_hashes=current_code, trading_calendar=calendar_metadata()))
         print(f'検証保存: {asset.ticker}',flush=True)
     return performed
 
@@ -270,18 +391,23 @@ def run_batch(root,limit=25,phase="entry"):
 def aggregate(root,phase="entry"):
     if phase not in ("entry","exits"):raise ValueError("phaseはentry/exitsです")
     root=Path(root);meta,assets=frozen_assets(root)
+    collection_path = root/'collection.json'
+    collection = json.loads(collection_path.read_text(encoding='utf-8')) if collection_path.exists() else None
+    current_code = {p.name:digest(p) for p in Path(__file__).parent.glob('*.py')}
     entries=[];exits=[];coverage=[];versions=set();kinds=set()
     for asset in assets.itertuples():
         folder=root/'results'/asset.ticker
         status=json.loads((folder/'status.json').read_text(encoding='utf-8')) if (folder/'status.json').exists() else dict(status='pending')
+        if status.get('phases'):
+            dependencies = _evaluation_dependencies(root, meta, collection, asset.ticker, current_code)
+            _validate_phase_records(folder, status, dependencies)
         done=phase in status.get('phases',[])
         coverage.append(dict(ticker=asset.ticker,asset_class=asset.asset_class,status='completed' if done else status['status']))
         if done:
             if status['universe_hash']!=meta['universe_hash']:raise ValueError('結果の母集団不一致')
-            versions.add(json.dumps(status['code_hashes'],sort_keys=True));kinds.add(status['kind'])
-            if digest(root/'cache'/f'{asset.ticker}.csv')!=status['input_hash']:raise ValueError('計算後に価格キャッシュが変更されています')
-            for name,expected_hash in status['artifact_hashes'].items():
-                if digest(folder/name)!=expected_hash:raise ValueError('保存結果のハッシュが不一致')
+            recorded_dependencies = status['phase_records'][phase]['dependencies']
+            versions.add(json.dumps(recorded_dependencies['code_hashes'],sort_keys=True))
+            kinds.add(recorded_dependencies['kind'])
             (entries if phase=='entry' else exits).append(pd.read_csv(folder/f'{phase}_summary.csv'))
     if len(versions)>1 or len(kinds)>1:raise ValueError('異なるコード/データ区分の結果を混在させられません')
     out=root/f'summary_{phase}';out.mkdir(exist_ok=True)

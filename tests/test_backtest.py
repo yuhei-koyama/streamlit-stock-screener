@@ -261,6 +261,8 @@ class SuiteTests(unittest.TestCase):
             root=Path(temp)/'data';root.mkdir()
             frame=market(45)
             frame.index=pd.bdate_range('2020-12-01',periods=45)
+            from stock_screener.trading_calendar import trading_day_mask
+            frame=frame.loc[trading_day_mask(frame.index)]
             frame.to_csv(root/'calendar.csv',columns=[],index_label='Date')
             assets=[]
             for ticker in STOCK_TICKERS+ETF_TICKERS:

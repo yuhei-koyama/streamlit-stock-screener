@@ -70,6 +70,8 @@ def correct_exploratory_data(directory, output, approved_issues, reference_run):
     status_path = target / 'correction.json'
     try:
         pd.DataFrame(audit).to_csv(target / 'corrections.csv', index=False)
+        if manifest.get('trading_calendar'):
+            (target/'excluded_nontrading_rows.csv').write_bytes((root/'excluded_nontrading_rows.csv').read_bytes())
         for ticker, frame in execution.items():
             frame.to_csv(target / f'execution_{ticker}.csv', index_label='Date')
             inputs[ticker].to_csv(target / f'signals_{ticker}.csv', index_label='Date')

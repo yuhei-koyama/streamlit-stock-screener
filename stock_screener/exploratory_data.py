@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 
 from .universe import STOCK_TICKERS, ETF_TICKERS
+from .trading_calendar import split_trading_rows, calendar_metadata
 
 PRICE_COLUMNS = ['Open','High','Low','Close','Volume']
 BASIS = 'adjusted_virtual_shares'
@@ -38,6 +39,7 @@ def prepare_exploratory(source, output):
     if output.exists():
         raise ValueError('Use a new output directory; do not overwrite a dataset')
     frames={}
+    excluded_frames=[]
     source_hashes={}
     for ticker in tickers:
         path=source/f'signals_{ticker}.csv'
@@ -56,6 +58,8 @@ def prepare_exploratory(source, output):
         prices=frame[PRICE_COLUMNS].copy()
         if not all(pd.api.types.is_numeric_dtype(prices[c]) for c in PRICE_COLUMNS):
             raise ValueError(f'OHLCV must be numeric: {ticker}')
+        prices, excluded = split_trading_rows(prices)
+        excluded_frames.append(excluded.reset_index().assign(ticker=ticker))
         if np.isinf(prices.to_numpy()).any():
             raise ValueError(f'Infinite OHLCV: {ticker}')
         frames[ticker]=prices
@@ -66,7 +70,8 @@ def prepare_exploratory(source, output):
                   dividend_mode='embedded_in_adjusted_prices',lot_size_model='virtual_one_share',
                   source_hashes=source_hashes,
                   source_collection_hash=digest(source/'collection.json'),
-                  calendar_model='union_of_observed_sessions',warnings=WARNINGS,assets=[])
+                  calendar_model='union_of_observed_trading_sessions',
+                  trading_calendar=calendar_metadata(),warnings=WARNINGS,assets=[])
     calendar=pd.DatetimeIndex([])
     for ticker,prices in frames.items():
         calendar=calendar.union(prices.index)
@@ -75,5 +80,8 @@ def prepare_exploratory(source, output):
         execution.to_csv(output/f'execution_{ticker}.csv',index_label='Date')
         manifest['assets'].append(dict(ticker=ticker,asset_class='stock' if ticker in STOCK_TICKERS else 'etf'))
     pd.DataFrame({'Date':calendar.sort_values()}).to_csv(output/'calendar.csv',index=False)
+    pd.concat(excluded_frames,ignore_index=True).to_csv(output/'excluded_nontrading_rows.csv',index=False)
+    manifest['excluded_nontrading_rows']=sum(len(frame) for frame in excluded_frames)
+    manifest['exclusions_hash']=digest(output/'excluded_nontrading_rows.csv')
     (output/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
     return manifest

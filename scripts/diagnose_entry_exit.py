@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """保存済み日本株データで承認済み入口・出口診断を実行し保存する。"""
 import argparse
 from dataclasses import asdict
@@ -19,6 +19,7 @@ from stock_screener.benchmark_comparison import load_all_country_nav, compare_in
 from stock_screener.independent_backtest import run_independent_backtest
 from stock_screener.entry_exit_diagnosis import HORIZONS, STOPS, fixed_horizon, entry_statistics, recovery_diagnostics
 from stock_screener.universe import STOCK_TICKERS
+from stock_screener.trading_calendar import calendar_metadata
 
 
 def save(frame, path):
@@ -31,11 +32,11 @@ def scope(ticker):
 
 def main(args):
     output = Path(args.output)
-    output.mkdir(parents=True, exist_ok=False)
     cfg = Config(time_exit_enabled=False)
-    manifest, execution, inputs, classes, calendar, hashes = load_dataset(args.data, mode='exploratory')
+    manifest, execution, inputs, classes, calendar, hashes = load_dataset(args.data, mode='exploratory', for_execution=True)
     nav = load_all_country_nav(args.fund_csv)
-    status = dict(status='running', specification='entry-exit-diagnosis-v1/1.0-approved',
+    output.mkdir(parents=True, exist_ok=False)
+    status = dict(status='running', trading_calendar=calendar_metadata(), specification='entry-exit-diagnosis-v1/1.0-approved',
                   data=args.data, fund_csv=args.fund_csv, input_hashes=hashes,
                   fund_hash=sha256(Path(args.fund_csv).read_bytes()).hexdigest(),
                   settings=asdict(cfg), horizons=HORIZONS, stops=STOPS,

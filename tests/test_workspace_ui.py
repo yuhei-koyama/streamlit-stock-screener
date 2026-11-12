@@ -42,10 +42,12 @@ class WorkspaceUITests(unittest.TestCase):
                 screen.session_state['search_scope']='コード指定'
                 screen.session_state['search_codes']='7203,1306'
                 screen.session_state['search_turnover']=0.
+                screen.session_state['requested_date']=prices().index[-1].date()
                 screen.run()
                 next(b for b in screen.button if b.label=='この条件で検索').click().run()
                 self.assertEqual(len(screen.exception),0)
                 self.assertEqual(len(screen.session_state['search_output']['records']),2)
+
                 screen.multiselect(key='result_states').set_value(['成立','不成立','判定不可']).run()
                 next(b for b in screen.button if b.label=='選択した銘柄を開く').click().run()
                 self.assertEqual(len(screen.exception),0)
@@ -56,6 +58,13 @@ class WorkspaceUITests(unittest.TestCase):
                 self.assertEqual(screen.number_input(key='search_turnover').value,0.)
                 self.assertEqual(screen.session_state['search_scope'],'コード指定')
                 self.assertEqual(len(screen.session_state['search_output']['records']),2)
+                # 判定日の価格が失われた場合も検索条件を保って戻れる。
+                store.read.return_value = prices().iloc[:-1]
+                next(b for b in screen.button if b.label=='選択した銘柄を開く').click().run()
+                self.assertEqual(len(screen.exception),0)
+                self.assertTrue(any('判定日の価格が不足' in item.value for item in screen.warning))
+                next(b for b in screen.button if b.label=='検索結果へ戻る').click().run()
+                self.assertEqual(screen.title[0].value,'銘柄検索')
 
 
 if __name__=='__main__':

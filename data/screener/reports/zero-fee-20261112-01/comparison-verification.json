@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "conditions": 560,
+  "previous_run_sha256": "22fb8b6e35fb4b5e3febaffe3c6ac2244b45910c03ac72a6574b9c8d2f796476",
+  "current_run_sha256": "e00901b6aed07d32f12e3f8a30f07b3b2ad8a584bb38d07ec26d566c238c37a1",
+  "comparison_code_sha256": "eaf0b614adc5b94bd42e816b89a5652d5af024e5f743274ae25bba7f45fbe5c4",
+  "input_manifest_sha256": "b2f4a63e886c460ec9872c9b0c0c0f492f977cfb761552665223526b7fb93dcf",
+  "output_hashes": {
+    "all_fee_differences.csv": "c90131fa1e5a44d5571e04a56513b8d3fa92467308e5a98739662914058f3773",
+    "REPORT.md": "a0b418168e863421d5a6128f0b6ad4d0b5a6b63c3e7fdd3b7107d85a20cefda1"
+  }
+}

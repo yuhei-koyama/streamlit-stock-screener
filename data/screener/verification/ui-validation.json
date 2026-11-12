@@ -1,7 +1,7 @@
 {
   "status": "passed",
   "test_count": 234,
-  "test_log_sha256": "426110ca9a71f531de9f6c08e6a69818383a465c91b2967b0f00281a49e5fdeb",
+  "test_log_sha256": "890e2ab202dfb70f7a3d1ddef179d6be516c003a39cf56ee784363fc03db6d51",
   "browser_checks": [
     "流動性ON/OFF・予算独立",
     "固定データ検索・詳細・条件保持",
@@ -33,15 +33,23 @@
     "stock_screener/trading_calendar.py": "f609e2d2fef04bec1d318e638aff617fcee2df68dcf26ac5a334aa3baeec767e",
     "stock_screener/universe.py": "161eeff30658d38bd535d9d300f6d4fae2c86c248428450dc0566dded2172fd7",
     "stock_screener/validation.py": "07c7e0552e1fd6fd9b28187930b5813a1bc697d8bce1f8b8bcbb5ea7f0713ef6",
-    "stock_screener/workspace_ui.py": "e3025e51fadb3e9df54f599278112bb31f50a3d211b4a371ffac85cbcde6a2d1",
+    "stock_screener/workspace_ui.py": "0d458b8967697312d7d78a9bcd9edc9d5f3d64505e15b6e1f16d227537d4adfe",
     "stock_screener/__init__.py": "30318a33a6e93725434d0c3d8ac6c14fefc65230e5ab6008d4344e360f37e783",
     "app.py": "eaa781d401341cfb2fd58a021d2beb19d2880cd2512ba4bbc532c1bebadb3854",
     "start_app.bat": "30c2b5650b47c0d57c929e4bcb71f0f4a8eabed94e139d3f33699ac266650ea5",
-    "docs/specs/search-ui-redesign-v1.md": "5776add363ca1372f3fe16b9fbecd3c900f52696e7e10e37f4196d3c34817097",
+    "docs/specs/search-ui-redesign-v1.md": "c4b9df497daf7a2b85089004ed75f2130b6b7859dfb73885234ebc4224b1dd42",
     "docs/search-user-guide.md": "237835117a52e70d84b97025d0eb0cb3fd72882801e21909f57320305208f588"
   },
   "limitations": [
     "固定データによる画面検算。全市場の最新価格取得は利用時に明示ボタンで実行する。",
     "確認済み開始日以外の価格履歴品質には制約が残る。"
+  ],
+  "zero_fee_bundle": "3f927749656427f6049b",
+  "accounting_passed_cases": 560,
+  "test_log": "outputs/ui-redesign-tests-20261113-final.log",
+  "final_checks": [
+    "手数料0%・スリッページ0.05%を実画面で確認",
+    "560条件の会計照合成功",
+    "判定日の価格不足時も詳細から戻れることを検算"
   ]
 }

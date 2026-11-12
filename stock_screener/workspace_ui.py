@@ -364,10 +364,10 @@ def detail_page():
         return
     record = next(r for r in output['records'] if r['ticker']==ticker)
     settings = SearchSettings(**output['settings'])
+    if st.button('検索結果へ戻る'):
+        st.switch_page(st.session_state['search_page'])
     if output.get('screening_code_hash') != screening_code_hash():
         st.warning('計算処理の版が更新されています。検索結果へ戻り、再検索してください。')
-        if st.button('検索結果へ戻る'):
-            st.switch_page(st.session_state['search_page'])
         return
     asof = pd.Timestamp(output['date'])
     raw = DailyStore().read(ticker)
@@ -386,8 +386,6 @@ def detail_page():
             return
     st.subheader(ticker+'　'+record['name'])
     st.caption(f"判定日 {output['date']}　価格取得 {record.get('price_retrieved_at') or '確認待ち'}　売買単位の資料基準 {record.get('lot_known_from') or '確認待ち'}")
-    if st.button('検索結果へ戻る'):
-        st.switch_page(st.session_state['search_page'])
     adjusted = indicator_prices(raw, asof)
     chart = adjusted.tail(150)
     figure = go.Figure(go.Candlestick(x=chart.index,open=chart.Open,high=chart.High,low=chart.Low,close=chart.Close,name='調整日足',increasing_line_color='#12856c',decreasing_line_color='#cf5260'))

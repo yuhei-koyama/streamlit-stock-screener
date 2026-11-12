@@ -1,0 +1,21 @@
+{
+  "source_run_sha256": "e00901b6aed07d32f12e3f8a30f07b3b2ad8a584bb38d07ec26d566c238c37a1",
+  "source_summary_sha256": "2886941a55b7f48ddd2e2ac39540ca204450016da4e851f4d068b63a3fa0b3e5",
+  "commission": 0.0,
+  "slippage": 0.0005,
+  "initial_cash": 10000000,
+  "prepared_count": 4022,
+  "universe_hash": "c0cfef37288188a8f7849229d5c33dc43ff36541fa6ee7ec678ed0445afcdd3c",
+  "packaging_code_sha256": "d71535f2722fe5b07b8fd841f74615415994cbc1adc580db9deba572875cd2f4",
+  "purchase_budget": 100000,
+  "rows": 560,
+  "limitations": [
+    "固定された現在上場銘柄の生存者・選択バイアス",
+    "仮想端数株・費用込み10万円枠",
+    "初期の検索フィルター追加後は未検証"
+  ],
+  "output_hashes": {
+    "curves.csv.gz": "db4a1277c567f22cf1fc27a8f98702825da14be15a335f990a54c00d69000e98",
+    "summary.csv": "483b76c626213d6adfeb2319b737b40c769ec3a20450cdc2fa8a914fe869d4dd"
+  }
+}

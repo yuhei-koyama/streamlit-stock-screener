@@ -1,0 +1,18 @@
+{
+  "source_run_sha256": "22fb8b6e35fb4b5e3febaffe3c6ac2244b45910c03ac72a6574b9c8d2f796476",
+  "source_summary_sha256": "726fed2dd4d8f52304be5d68d87243dd1db732b8def3a2775f0dcecf8986c43f",
+  "commission": 0.001,
+  "slippage": 0.0005,
+  "initial_cash": 10000000,
+  "purchase_budget": 100000,
+  "rows": 560,
+  "limitations": [
+    "固定された現在上場銘柄の生存者・選択バイアス",
+    "仮想端数株・費用込み10万円枠",
+    "初期の検索フィルター追加後は未検証"
+  ],
+  "output_hashes": {
+    "curves.csv.gz": "ba687f257521f45d2c9dd4f54a97807f3642af117b8b92f3259ee73de611b3f0",
+    "summary.csv": "63f15c0fe9c19868841b6060df1d7f90c0419f186952eb9357086e2b4e737531"
+  }
+}

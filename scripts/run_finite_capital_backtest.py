@@ -25,7 +25,8 @@ def write_json(path, data):
     temporary.replace(path)
 
 
-def run(data, universe_root, output, audit=False, benchmark_nav=None):
+def run(data, universe_root, output, audit=False, benchmark_nav=None, commission=.001, slippage=.0005):
+    FiniteCapitalConfig(commission=commission, slippage=slippage)
     data, output = Path(data), Path(output)
     universe, assets = frozen_assets(universe_root)
     manifest_content = (data / 'manifest.json').read_bytes()
@@ -117,7 +118,8 @@ def run(data, universe_root, output, audit=False, benchmark_nav=None):
     status = dict(status='running', evaluation='finite_capital', audit_only=audit,
                   universe_hash=universe['universe_hash'], input_manifest_sha256=sha256(manifest_content).hexdigest(),
                   input_hashes=manifest['file_hashes'], code_hashes=code, trading_calendar=calendar_metadata(),
-                  benchmark_status='not_compared', prepared_count=len(prepared), total_universe_count=len(assets))
+                  benchmark_status='not_compared', prepared_count=len(prepared), total_universe_count=len(assets),
+                  commission=commission, slippage=slippage, started_at=pd.Timestamp.now(tz='UTC').isoformat())
     status.update(data_quality_policy=manifest.get('data_quality_policy'), excluded_invalid_price_rows=len(excluded_rows))
     if len(excluded_rows):
         excluded_rows.to_csv(output / 'input_excluded_price_rows.csv', index=False)
@@ -160,7 +162,8 @@ def run(data, universe_root, output, audit=False, benchmark_nav=None):
                     decisions = {t: flags[t] for t in tickers}
                     for policy in policies:
                         for stop in stops:
-                            cfg = FiniteCapitalConfig(start=start, end=end, initial_stop=stop)
+                            cfg = FiniteCapitalConfig(start=start, end=end, initial_stop=stop,
+                                                      commission=commission, slippage=slippage)
                             result = run_finite_capital_backtest(frames, decisions, strategy, policy,
                                                                 calendar, dict.fromkeys(tickers, group), cfg)
                             target = output / period / group / strategy / f'{policy}_stop_{stop:.2f}'
@@ -191,7 +194,7 @@ def run(data, universe_root, output, audit=False, benchmark_nav=None):
                             print(f'保存 {period} {group} {strategy} {policy} {stop:.0%}', flush=True)
         pd.DataFrame(summary).drop(columns=['max_drawdown_period', 'longest_drawdown_period']).to_csv(output / 'summary.csv', index=False)
         pd.DataFrame(coverage).to_csv(output / 'period_coverage.csv', index=False)
-        status.update(status='completed', completed_cases=len(summary))
+        status.update(status='completed', completed_cases=len(summary), completed_at=pd.Timestamp.now(tz='UTC').isoformat())
         if fund is not None:
             status['benchmark_status'] = 'per_condition_comparison_saved'
         title = '有限資金の部分入力・資金会計監査' if audit else '有限資金の固定条件比較'
@@ -216,5 +219,8 @@ if __name__ == '__main__':
     parser.add_argument('--output', required=True)
     parser.add_argument('--audit', action='store_true')
     parser.add_argument('--benchmark-nav')
+    parser.add_argument('--commission', type=float, default=.001)
+    parser.add_argument('--slippage', type=float, default=.0005)
     args = parser.parse_args()
-    run(args.data, args.universe_root, args.output, args.audit, args.benchmark_nav)
+    run(args.data, args.universe_root, args.output, args.audit, args.benchmark_nav,
+        commission=args.commission, slippage=args.slippage)

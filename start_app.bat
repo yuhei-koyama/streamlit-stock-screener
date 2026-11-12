@@ -20,7 +20,7 @@ python -m venv .venv
 if errorlevel 1 goto failed
 
 :dependencies
-".venv\Scripts\python.exe" -c "import streamlit, yfinance, pandas, numpy, plotly" >nul 2>&1
+".venv\Scripts\python.exe" -c "import streamlit, yfinance, pandas, numpy, plotly; from packaging.version import Version; assert Version(streamlit.__version__) >= Version('1.66')" >nul 2>&1
 if not errorlevel 1 goto launch
 echo 必要なライブラリをインストールしています。インターネット接続が必要です。
 ".venv\Scripts\python.exe" -m pip install -r requirements.txt

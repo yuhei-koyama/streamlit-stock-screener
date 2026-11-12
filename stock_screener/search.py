@@ -52,8 +52,12 @@ def search_rsi(frame, period=2, threshold=None, trend_filter=True):
     return out
 
 
-def search_minervini(frame, benchmark):
+def search_minervini(frame, benchmark, *, volume_multiplier=1.5, low_multiplier=1.3,
+                     high_ratio=.75, minimum_rs=1.):
     """Project-specific template + RS + volume breakout, not proprietary RS Rating."""
+    if (any(not np.isfinite(v) or v<=0 for v in (volume_multiplier,low_multiplier,high_ratio,minimum_rs))
+            or high_ratio>1):
+        raise ValueError('ミネルヴィニの比率は正数、高値比は1以下で指定してください')
     out = validate_market_data(frame, ('High', 'Low', 'Close', 'Volume'))
     for n in (50, 150, 200):
         out[f'sma{n}'] = out.Close.rolling(n).mean()
@@ -67,11 +71,11 @@ def search_minervini(frame, benchmark):
     out['ready'] = out[['Close', 'Volume', 'sma200', 'low252', 'high252', 'rs126', 'prior_high20', 'prior_volume20']].replace([np.inf, -np.inf], np.nan).notna().all(axis=1) & out.sma200.shift(20).notna()
     out['ma_pass'] = (out.Close > out.sma50) & (out.sma50 > out.sma150) & (out.sma150 > out.sma200)
     out['slope_pass'] = out.sma200 > out.sma200.shift(20)
-    out['range_pass'] = (out.Close >= out.low252 * 1.3) & (out.Close >= out.high252 * .75)
-    out['rs_pass'] = out.rs126 > 1
+    out['range_pass'] = (out.Close >= out.low252 * low_multiplier) & (out.Close >= out.high252 * high_ratio)
+    out['rs_pass'] = out.rs126 > minimum_rs
     out['template_pass'] = out.ready & out.ma_pass & out.slope_pass & out.range_pass & out.rs_pass
     out['breakout_pass'] = out.Close > out.prior_high20
-    out['volume_pass'] = out.Volume > out.prior_volume20 * 1.5
+    out['volume_pass'] = out.Volume > out.prior_volume20 * volume_multiplier
     out['match'] = out.template_pass & out.breakout_pass & out.volume_pass
     out['reason'] = np.where(~out.ready, 'insufficient_data', np.where(out.match, 'match', 'conditions_not_met'))
     return out

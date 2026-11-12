@@ -9,6 +9,7 @@ import pandas as pd
 from scripts.run_finite_capital_backtest import run
 from stock_screener.market_research import freeze, frozen_assets
 from stock_screener.trading_calendar import calendar_metadata
+from stock_screener.trading_calendar import trading_day_mask
 
 
 def prepared_fixture(root):
@@ -41,6 +42,31 @@ def prepared_fixture(root):
 
 
 class FiniteCapitalCliTests(unittest.TestCase):
+    def test_explicit_zero_fee_reaches_every_case(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp)
+            data,universe=prepared_fixture(root)
+            days=pd.date_range('2014-01-01','2025-12-31')
+            days=days[trading_day_mask(days)]
+            prices=pd.DataFrame(dict(Open=100.,High=101.,Low=99.,Close=100.,Volume=1000.),index=days)
+            execution=prices.assign(LotSize=1,Split=1.,Dividend=0.,DividendPayDate=pd.NaT)
+            for ticker in ['1111.T','1306.T']:
+                prices.to_csv(data/f'signals_{ticker}.csv',index_label='Date')
+                execution.to_csv(data/f'execution_{ticker}.csv',index_label='Date')
+            pd.DataFrame({'Date':days}).to_csv(data/'calendar.csv',index=False)
+            manifest=json.loads((data/'manifest.json').read_text(encoding='utf-8'))
+            manifest['file_hashes']={p.name:sha256(p.read_bytes()).hexdigest() for p in data.glob('*.csv')}
+            (data/'manifest.json').write_text(json.dumps(manifest),encoding='utf-8')
+            output=root/'output'
+            status=run(data,universe,output,audit=True,commission=0,slippage=.0005)
+            self.assertEqual(status['commission'],0)
+            configs=list(output.glob('*/*/*/*/config.json'))
+            self.assertEqual(len(configs),8)
+            for path in configs:
+                config=json.loads(path.read_text(encoding='utf-8'))
+                self.assertEqual(config['commission'],0)
+                self.assertEqual(config['slippage'],.0005)
+
     def test_partial_universe_cannot_run_as_primary_result(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

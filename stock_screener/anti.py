@@ -297,11 +297,11 @@ def evaluate_anti_310(
     )
 
 
-def evaluate_anti_stochastic(frame: pd.DataFrame) -> pd.DataFrame:
+def evaluate_anti_stochastic(frame: pd.DataFrame, *, k_len=7, fast_len=4, slow_len=10) -> pd.DataFrame:
     """Evaluate the comparison stochastic 7/4/10 Anti setup."""
 
-    indicators = calculate_stochastic_7410(frame)
-    return detect_anti_from_lines(
+    indicators = calculate_stochastic_7410(frame,k_len=k_len,fast_len=fast_len,slow_len=slow_len)
+    result = detect_anti_from_lines(
         indicators["fast"],
         indicators["slow"],
         strategy_id=STRATEGY_STOCHASTIC,
@@ -309,3 +309,7 @@ def evaluate_anti_stochastic(frame: pd.DataFrame) -> pd.DataFrame:
         allow_cross=True,
         histogram=indicators["histogram"],
     )
+    if (k_len,fast_len,slow_len)!=(7,4,10):
+        settings = dict(allow_cross=True,min_pullback_bars=3,k_len=k_len,fast_len=fast_len,slow_len=slow_len)
+        result['parameter_set'] = json.dumps(settings,sort_keys=True,separators=(',',':'))
+    return result

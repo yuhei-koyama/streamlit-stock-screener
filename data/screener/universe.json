@@ -1,0 +1,46 @@
+{
+  "status": "frozen",
+  "source_date": "2026-10-31",
+  "frozen_at": "2026-11-06T18:18:53.362018+00:00",
+  "universe_hash": "9c35d25b6d0a73d86aee77655b0dbd9bc9e5454b609c94cf95923517e340e1fd",
+  "source_hashes": {
+    "etf.csv": "464a10421f7beb0d0ea08bb4600ef586986de293145c09142b075750cde18bf2",
+    "jpx.xlsx": "97a28fdb7f605d5c84d20e5ce9354cf4f366c23f494a15f4578986f48e2a0023"
+  },
+  "asset_count": 4139,
+  "stock_count": 3686,
+  "etf_count": 453,
+  "periods": {
+    "2016_2020": [
+      "2014-01-01",
+      "2016-01-04",
+      "2020-12-30"
+    ],
+    "2021_2025": [
+      "2019-01-01",
+      "2021-01-04",
+      "2025-12-30"
+    ]
+  },
+  "caveat": "現在の一覧による探索。過去の全上場銘柄を再現していない。",
+  "note": "検索用の固定上場一覧。ETF売買単位は公式資料の基準日以降の参考値。過去日の売買単位は確認待ちとして扱う。",
+  "csv_sha256": "e88d9baaf5d40d00c18193203e283747a84aeb5308ae6055a62f58d15f7b8293",
+  "lot_sources": [
+    {
+      "source_url": "https://www.jpx.co.jp/equities/products/etfs/issues/tvdivq000001j45s-att/nlsgeu000003shfn.pdf",
+      "asof": "2026-11-11",
+      "sha256": "68256b250faca80258a0da5e8fc4f43ddae990c69e7c7338d98539025fa22339"
+    },
+    {
+      "source_url": "https://www.jpx.co.jp/equities/products/etfs/leveraged-inverse/nlsgeu0000060yh9-att/nlsgeu0000060yja.pdf",
+      "asof": "2026-07-10",
+      "sha256": "26340bf2fa8243f941ab18e331957d5375ee129013b70196691dfbb66c90270d"
+    }
+  ],
+  "market_start_note": "確認済みの東証一般市場開始日と8303.T・9204.Tの再上場日より前の指標履歴を除く。その他の銘柄の開始日は未確認。",
+  "market_start_sources": {
+    "general_market_start_sha256": "567ddf3e29ade921e4d97da6420f44f973b26a32c3907d94b65b885d1ee4c56f",
+    "8303.T": "https://www.sbigroup.co.jp/news/2025/1217_15970.html",
+    "9204.T": "保存済み公式上場資料 skymark_2022_listing.pdf"
+  }
+}

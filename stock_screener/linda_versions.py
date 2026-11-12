@@ -72,15 +72,18 @@ def evaluate_tv(frame, **parameters):
     return out, settings
 
 
-def evaluate_legacy(frame):
+def evaluate_legacy(frame, *, fast_len=3, slow_len=10, signal_sma=16, price_sma=16, min_rows=30):
     """Effective formulas from initial app.py, including its 30-row minimum."""
+    for value in (fast_len,slow_len,signal_sma,price_sma,min_rows):
+        if isinstance(value,bool) or not isinstance(value,int) or value < 1:
+            raise ValueError('初期試作版の期間は正の整数が必要です')
     out = validate_market_data(frame, ('Close',))
     close = out.Close
-    out['fast'] = close.ewm(span=3, adjust=False).mean() - close.ewm(span=10, adjust=False).mean()
-    out['slow'] = out.fast.rolling(16).mean()
+    out['fast'] = close.ewm(span=fast_len, adjust=False).mean() - close.ewm(span=slow_len, adjust=False).mean()
+    out['slow'] = out.fast.rolling(signal_sma).mean()
     out['histogram'] = out.fast - out.slow
-    out['sma16'] = close.rolling(16).mean()
-    out['ready'] = (pd.Series(np.arange(len(out)) >= 29, index=out.index)
+    out['sma16'] = close.rolling(price_sma).mean()
+    out['ready'] = (pd.Series(np.arange(len(out)) >= min_rows-1, index=out.index)
                     & out[['fast', 'slow', 'histogram', 'sma16']].notna().all(axis=1)
                     & out.histogram.shift(2).notna() & out.histogram.shift(1).notna())
     out['gc'], out['dc'] = _cross(out.fast, out.slow)
@@ -89,7 +92,7 @@ def evaluate_legacy(frame):
     hist = out.histogram
     out['buy_signal'] = out.ready & (hist.shift(2) > hist.shift(1)) & (hist > hist.shift(1)) & (close > out.sma16)
     out['sell_signal'] = out.ready & (hist.shift(2) < hist.shift(1)) & (hist < hist.shift(1)) & (close < out.sma16)
-    return out, dict(fast_len=3, slow_len=10, signal_sma=16, price_sma=16, min_rows=30)
+    return out, dict(fast_len=fast_len, slow_len=slow_len, signal_sma=signal_sma, price_sma=price_sma, min_rows=min_rows)
 
 
 def evaluate_version(frame, strategy_id, **parameters):
@@ -103,16 +106,16 @@ def evaluate_version(frame, strategy_id, **parameters):
     if strategy_id == TV:
         out, settings = evaluate_tv(frame, **parameters)
     elif strategy_id == LEGACY:
-        if parameters:
-            raise ValueError('Legacy parameters are fixed to the original implementation')
-        out, settings = evaluate_legacy(frame)
+        if parameters.keys()-{'fast_len','slow_len','signal_sma','price_sma','min_rows'}:
+            raise ValueError('初期試作版の未対応パラメーターです')
+        out, settings = evaluate_legacy(frame,**parameters)
     else:
         if strategy_id == ANTI_310:
             out = evaluate_anti_310(frame, **parameters)
         else:
-            if parameters:
-                raise ValueError('Stochastic Anti parameters are fixed')
-            out = evaluate_anti_stochastic(frame)
+            if parameters.keys()-{'k_len','fast_len','slow_len'}:
+                raise ValueError('ストキャスティクス版の未対応パラメーターです')
+            out = evaluate_anti_stochastic(frame,**parameters)
         settings = json.loads(out.parameter_set.iloc[0]) if len(out) else parameters
         out['buy_signal'] = out.hook_long
         out['sell_signal'] = out.hook_short

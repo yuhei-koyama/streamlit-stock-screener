@@ -1,6 +1,6 @@
 # Runtime dependencies. Bounds keep Python 3.11/3.14 installs compatible while
 # allowing security and bug-fix releases within the tested major versions.
-streamlit>=1.41,<2
+streamlit>=1.66,<2
 yfinance>=0.2.54,<1
 pandas>=2.2,<3
 numpy>=2.0,<3

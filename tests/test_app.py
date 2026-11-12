@@ -12,7 +12,7 @@ class AppContractTests(unittest.TestCase):
         app_path = Path(__file__).resolve().parents[1] / "app.py"
         rendered = AppTest.from_file(str(app_path), default_timeout=10).run()
 
-        self.assertEqual(rendered.title[0].value, "LBR Anti ロジック検証")
+        self.assertEqual(rendered.title[0].value, "銘柄検索")
         self.assertEqual(len(rendered.exception), 0)
 
     def test_ticker_normalization_is_tse_only_and_deduplicated(self):

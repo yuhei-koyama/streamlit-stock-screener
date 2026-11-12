@@ -42,6 +42,8 @@ def summarize(run, data, output):
         period, group, strategy, policy = folder.relative_to(run).parts
         metrics = json.loads(path.read_text(encoding='utf-8'))
         cfg = json.loads((folder / 'config.json').read_text(encoding='utf-8'))
+        if cfg['commission'] != metadata.get('commission',.001) or cfg['slippage'] != metadata.get('slippage',.0005):
+            raise ValueError('本実行と条件別の費用設定が不一致です')
         if cfg['initial_cash'] != 10_000_000 or cfg['purchase_budget'] != 100_000 or cfg['time_exit_enabled']:
             raise ValueError('資金または保有期限設定が不正です')
         frames = {}
@@ -123,7 +125,7 @@ def summarize(run, data, output):
     excluded_count = manifest['approved_invalid_price_rows_excluded']
     lines = ['# 有限資金バックテストの全560条件', '',
              f"対象は個別株{asset_counts.get('stock', 0):,}銘柄・ETF{asset_counts.get('etf', 0):,}銘柄、計{manifest['prepared_count']:,}銘柄。各条件で個別株・ETFにそれぞれ初期1,000万円、費用込み10万円の固定購入枠を設定した。", '',
-             '入口7設定、出口A〜D、初期ストップ3・5・8・10・12%、2016〜2020年と2021〜2025年を検証した。保有期限なし、仮想端数株、同一銘柄の重複購入抑止、片道手数料0.1%、成行スリッページ0.05%。', '',
+             f"入口7設定、出口A〜D、初期ストップ3・5・8・10・12%、2016〜2020年と2021〜2025年を検証した。保有期限なし、仮想端数株、同一銘柄の重複購入抑止、片道手数料{cfg['commission']:.2%}、成行スリッページ{cfg['slippage']:.2%}。", '',
              f"準備済み価格{manifest['price_rows_after_exclusion']:,}行を使用し、承認済み行除外{excluded_count:,}行を台帳で追跡した。除外には市場開始前の履歴や、誤データ所在が未確定のサービス間差異を含む。営業日カレンダーに沿って評価し、個別価格欠損の買い取消・売却繰越・最新価格評価を適用した。", '',
              '## 資金会計の照合', '',
              '560条件すべてで、日次純資産と現金・保有評価額、期末純資産と実現・含み損益、銘柄別寄与、購入原価固定を照合した。accounting_checks.csvに結果を保存した。', '',

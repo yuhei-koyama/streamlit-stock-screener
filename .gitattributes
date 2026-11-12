@@ -12,3 +12,4 @@ start_app.bat text eol=crlf
 
 # 取得元・保存原票のバイト列とSHA-256を維持する
 artifacts/backtest/** -text -whitespace
+data/screener/** -text -whitespace

@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "test_count": 234,
+  "test_log_sha256": "426110ca9a71f531de9f6c08e6a69818383a465c91b2967b0f00281a49e5fdeb",
+  "browser_checks": [
+    "流動性ON/OFF・予算独立",
+    "固定データ検索・詳細・条件保持",
+    "390pxカード・PC一覧",
+    "ブラウザー内設定保存と復元",
+    "起動バッチ"
+  ],
+  "code_and_spec_hashes": {
+    "stock_screener/anti.py": "6db5c8f47e70aad258247a4136e355f2ff4f717f05c947819f7cf25aafe4999a",
+    "stock_screener/backtest.py": "1d0dcd9e7cffe7791344f8912929319b223b0bf44f87e8a0605f309267fa4e77",
+    "stock_screener/backtest_io.py": "e81bfb81be184f3b6bb17c3200b02bc12e7cb1cd29cea9cefe4885af03153c97",
+    "stock_screener/backtest_signals.py": "f73bc3af30bb62dfc9532ebac8c38a2c27baacd5e84f7efb2c40e5772d311990",
+    "stock_screener/benchmark_comparison.py": "cbdbab2d4b20d16b26bba71e4a7ac43d4987880e82f2a6bda9f154be9f1c7487",
+    "stock_screener/browser_profiles.py": "3adc94b583406b33197b993c650e361cf1ae27d4bf81f00eaaf0e65c99614f21",
+    "stock_screener/correction_approval.py": "136491b6c3ab658161f030d0d106eb94145f7a22aefbc37d9dec7b8574f8b146",
+    "stock_screener/data_quality.py": "2c0598be034d085cce5bfaaa56f10c53c9ea2be32a634c432776620ab72579d9",
+    "stock_screener/entry_exit_diagnosis.py": "89cdc0b0d4dfe42b07ac2415d848189c4ce2cf972ab7e6c3c623fcda3554d7cc",
+    "stock_screener/exploratory_data.py": "ddab8bebed4c311329d7092b27648a593e3d3fa0addafda166b65c5b4fb45f8d",
+    "stock_screener/finite_capital.py": "7ba49bcd8d5239b02e84211e5d90bf1db65e3da47554fb99d98ccc544a989226",
+    "stock_screener/independent_backtest.py": "1bb683ee5770a350a9c7520c0b7032eb65a9b38dbc4697db69239d13906e106f",
+    "stock_screener/indicators.py": "c17389a2330decc63ae3ee67465bf2063cdf4e67dc41df0a49c65d1c459a718e",
+    "stock_screener/intraday.py": "f96861208f5c5eb125cde8f76921bbde5357a7a842776ad5cc761e0862858433",
+    "stock_screener/linda_ui.py": "440aa36cfd57e5c0cbd8e0db11eea0982636e9dd6984cd2dc2bdd27141b48b6e",
+    "stock_screener/linda_versions.py": "1a9ab0b1398b5d88a0c4b3997afaaefed92c4542d53a12740599fcfc2d3441aa",
+    "stock_screener/market_research.py": "7359ce55e913f06d08e9c0e51dee4734ef4288cc93d43b5efc3773476601da99",
+    "stock_screener/ratchet.py": "453fa146d05e8bf1a24db8a59999547293bbf3296095a989e6b67c13cee474bf",
+    "stock_screener/screening_workspace.py": "a700362943d187fd0efa7408c8ebf2ee549823020ed94d23c062e307d89b8823",
+    "stock_screener/search.py": "61dcb8d0c3f8d74d608312aea30aafc0e30fbbf2869e8127c16c55b0720e0032",
+    "stock_screener/trading_calendar.py": "f609e2d2fef04bec1d318e638aff617fcee2df68dcf26ac5a334aa3baeec767e",
+    "stock_screener/universe.py": "161eeff30658d38bd535d9d300f6d4fae2c86c248428450dc0566dded2172fd7",
+    "stock_screener/validation.py": "07c7e0552e1fd6fd9b28187930b5813a1bc697d8bce1f8b8bcbb5ea7f0713ef6",
+    "stock_screener/workspace_ui.py": "e3025e51fadb3e9df54f599278112bb31f50a3d211b4a371ffac85cbcde6a2d1",
+    "stock_screener/__init__.py": "30318a33a6e93725434d0c3d8ac6c14fefc65230e5ab6008d4344e360f37e783",
+    "app.py": "eaa781d401341cfb2fd58a021d2beb19d2880cd2512ba4bbc532c1bebadb3854",
+    "start_app.bat": "30c2b5650b47c0d57c929e4bcb71f0f4a8eabed94e139d3f33699ac266650ea5",
+    "docs/specs/search-ui-redesign-v1.md": "5776add363ca1372f3fe16b9fbecd3c900f52696e7e10e37f4196d3c34817097",
+    "docs/search-user-guide.md": "237835117a52e70d84b97025d0eb0cb3fd72882801e21909f57320305208f588"
+  },
+  "limitations": [
+    "固定データによる画面検算。全市場の最新価格取得は利用時に明示ボタンで実行する。",
+    "確認済み開始日以外の価格履歴品質には制約が残る。"
+  ]
+}

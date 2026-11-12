@@ -28,6 +28,8 @@ htmlcov/
 
 # Generated local results (source fixtures may live under tests/fixtures)
 outputs/
+data/screener/research/.staging-*/
+data/screener/research/active.*.tmp
 artifacts/
 
 # 承認済みの共有バックテスト記録
